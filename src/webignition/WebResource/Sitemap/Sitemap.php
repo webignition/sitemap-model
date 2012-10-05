@@ -30,9 +30,8 @@ class Sitemap extends WebResource
      * @return string
      */
     public function getType() {
-        if (is_null($this->type)) {            
-            $this->getSitemapIdentifier()->setContent(trim($this->getContent()));
-            $this->type = $this->getSitemapIdentifier()->getType();
+        if (is_null($this->type)) {
+            $this->type = $this->getSitemapIdentifier()->getType($this->getContent());
         }
         
         return $this->type;
@@ -52,8 +51,8 @@ class Sitemap extends WebResource
      * 
      * @return boolean
      */
-    public function isSitemap() {
-        return $this->getType() !== false;
+    public function isSitemap() {        
+        return !is_null($this->getType());
     }
     
     
