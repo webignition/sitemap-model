@@ -50,6 +50,15 @@ class Sitemap extends WebResource
     
     /**
      * 
+     * @return boolean
+     */
+    public function isSitemap() {
+        return $this->getType() !== false;
+    }
+    
+    
+    /**
+     * 
      * @return WebsiteSitemapIdentifier
      */
     private function getSitemapIdentifier() {
