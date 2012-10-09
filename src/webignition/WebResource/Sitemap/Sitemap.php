@@ -2,7 +2,7 @@
 namespace webignition\WebResource\Sitemap;
 
 use webignition\WebResource\WebResource;
-use webignition\WebsiteSitemapIdentifier\WebsiteSitemapIdentifier;
+use webignition\WebResource\Sitemap\Identifier\Identifier;
 use webignition\WebsiteSitemapUrlRetriever\WebsiteSitemapUrlRetriever;
 
 /**
@@ -23,7 +23,7 @@ class Sitemap extends WebResource
      *
      * @var WebsiteSitemapIdentifier
      */
-    private $sitemapIdentifier = null;
+    private $identifier = null;
     
     
     /**
@@ -39,7 +39,7 @@ class Sitemap extends WebResource
      */
     public function getType() {
         if (is_null($this->type)) {
-            $this->type = $this->getSitemapIdentifier()->getType($this->getContent());
+            $this->type = $this->getIdentifier()->getType($this->getContent());
         }
         
         return $this->type;
@@ -75,34 +75,34 @@ class Sitemap extends WebResource
     
     /**
      * 
-     * @return WebsiteSitemapIdentifier
+     * @return Identifier
      */
-    private function getSitemapIdentifier() {
-        if (is_null($this->sitemapIdentifier)) {
-            $this->sitemapIdentifier = new WebsiteSitemapIdentifier();    
+    private function getIdentifier() {
+        if (is_null($this->identifier)) {
+            $this->identifier = new Identifier();    
             
-            $sitemapsOrgXmlMatcher = new \webignition\WebsiteSitemapIdentifier\SitemapMatcher\SitemapsOrgXml();
+            $sitemapsOrgXmlMatcher = new \webignition\WebResource\Sitemap\Identifier\Matcher\SitemapsOrgXml();
             $sitemapsOrgXmlMatcher->setType('sitemaps.org.xml');            
-            $this->sitemapIdentifier->addMatcher($sitemapsOrgXmlMatcher);
+            $this->identifier->addMatcher($sitemapsOrgXmlMatcher);
             
-            $sitemapsOrgTxtMatcher = new \webignition\WebsiteSitemapIdentifier\SitemapMatcher\SitemapsOrgTxt();
+            $sitemapsOrgTxtMatcher = new \webignition\WebResource\Sitemap\Identifier\Matcher\SitemapsOrgTxt();
             $sitemapsOrgTxtMatcher->setType('sitemaps.org.txt');            
-            $this->sitemapIdentifier->addMatcher($sitemapsOrgTxtMatcher);            
+            $this->identifier->addMatcher($sitemapsOrgTxtMatcher);            
             
-            $rssFeedMatcher = new \webignition\WebsiteSitemapIdentifier\SitemapMatcher\RssFeed();
+            $rssFeedMatcher = new \webignition\WebResource\Sitemap\Identifier\Matcher\RssFeed();
             $rssFeedMatcher->setType('application/rss+xml');            
-            $this->sitemapIdentifier->addMatcher($rssFeedMatcher);   
+            $this->identifier->addMatcher($rssFeedMatcher);   
             
-            $atomFeedMatcher = new \webignition\WebsiteSitemapIdentifier\SitemapMatcher\AtomFeed();
+            $atomFeedMatcher = new \webignition\WebResource\Sitemap\Identifier\Matcher\AtomFeed();
             $atomFeedMatcher->setType('application/atom+xml');                        
-            $this->sitemapIdentifier->addMatcher($atomFeedMatcher);
+            $this->identifier->addMatcher($atomFeedMatcher);
             
-            $sitemapsOrgXmlIndexMatcher = new \webignition\WebsiteSitemapIdentifier\SitemapMatcher\SitemapsOrgXmlIndex();
+            $sitemapsOrgXmlIndexMatcher = new \webignition\WebResource\Sitemap\Identifier\Matcher\SitemapsOrgXmlIndex();
             $sitemapsOrgXmlIndexMatcher->setType('sitemaps.org.xml.index');                        
-            $this->sitemapIdentifier->addMatcher($sitemapsOrgXmlIndexMatcher);            
+            $this->identifier->addMatcher($sitemapsOrgXmlIndexMatcher);            
         }
         
-        return $this->sitemapIdentifier;
+        return $this->identifier;
     }
     
     

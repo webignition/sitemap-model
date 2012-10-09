@@ -1,5 +1,5 @@
 {
-    "hash": "c1657eefd58956a9e79ccab5062c503c",
+    "hash": "cc5a3c2fc79c120ff2a2d8ed2be894a4",
     "packages": [
         {
             "name": "querypath/QueryPath",
@@ -91,92 +91,6 @@
                 "atom",
                 "rss",
                 "feeds"
-            ]
-        },
-        {
-            "name": "webignition/absolute-url-deriver",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webignition/absolute-url-deriver",
-                "reference": "d84d6f74fe55429d4e19f7ede4d81fd3090738cc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/webignition/absolute-url-deriver/zipball/d84d6f74fe55429d4e19f7ede4d81fd3090738cc",
-                "reference": "d84d6f74fe55429d4e19f7ede4d81fd3090738cc",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0",
-                "webignition/url": ">=1.1"
-            },
-            "time": "1343344065",
-            "type": "library",
-            "installation-source": "source",
-            "autoload": {
-                "psr-0": {
-                    "": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jon Cram",
-                    "email": "jon@webignition.net"
-                }
-            ],
-            "description": "Derives an absolute URL from relative and source URLs",
-            "homepage": "https://github.com/webignition/absolute-url-deriver",
-            "keywords": [
-                "url",
-                "absolute"
-            ]
-        },
-        {
-            "name": "webignition/http-client",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webignition/http-client",
-                "reference": "c99807e0e74559c9ddf77e526ae1f28a7301baf6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/webignition/http-client/zipball/c99807e0e74559c9ddf77e526ae1f28a7301baf6",
-                "reference": "c99807e0e74559c9ddf77e526ae1f28a7301baf6",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0",
-                "ext-http": "*",
-                "webignition/absolute-url-deriver": ">=1.1",
-                "webignition/url": ">1.0"
-            },
-            "time": "1348147907",
-            "type": "library",
-            "installation-source": "source",
-            "autoload": {
-                "psr-0": {
-                    "": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jon Cram",
-                    "email": "jon@webignition.net"
-                }
-            ],
-            "description": "HTTP Client with additional reliability over regular HTTP request sending to compensate for timeouts and redirects",
-            "homepage": "https://github.com/webignition/http-client",
-            "keywords": [
-                "http",
-                "client"
             ]
         },
         {
@@ -391,73 +305,26 @@
             ]
         },
         {
-            "name": "webignition/website-sitemap-identifier",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webignition/website-sitemap-identifier.git",
-                "reference": "6b2910478f68b712e8c13d966abe9d42fd0c00e2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/webignition/website-sitemap-identifier/zipball/6b2910478f68b712e8c13d966abe9d42fd0c00e2",
-                "reference": "6b2910478f68b712e8c13d966abe9d42fd0c00e2",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0",
-                "webignition/internet-media-type": ">=0.1,<2.0",
-                "webignition/url": ">=1.0,<2.0"
-            },
-            "time": "1349447406",
-            "type": "library",
-            "installation-source": "source",
-            "autoload": {
-                "psr-0": {
-                    "": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jon Cram",
-                    "email": "jon@webignition.net"
-                }
-            ],
-            "description": "Identify the type of website sitemap given the content",
-            "homepage": "https://github.com/webignition/website-sitemap-identifier",
-            "keywords": [
-                "Sitemap"
-            ]
-        },
-        {
             "name": "webignition/website-sitemap-url-retriever",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/website-sitemap-url-retriever.git",
-                "reference": "ae3a7b10ac6ab98cac73305b743043670a2757b2"
+                "reference": "4ba4972e3caeba9884fb7c2dd40b0c535bcb00fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/webignition/website-sitemap-url-retriever/zipball/ae3a7b10ac6ab98cac73305b743043670a2757b2",
-                "reference": "ae3a7b10ac6ab98cac73305b743043670a2757b2",
+                "url": "https://github.com/webignition/website-sitemap-url-retriever/zipball/4ba4972e3caeba9884fb7c2dd40b0c535bcb00fc",
+                "reference": "4ba4972e3caeba9884fb7c2dd40b0c535bcb00fc",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0",
-                "webignition/http-client": "dev-master",
                 "querypath/querypath": ">=3.0.0",
-                "webignition/internet-media-type": ">=0.1,<2.0",
-                "webignition/url": "*",
-                "webignition/website-sitemap-identifier": "dev-master",
-                "webignition/web-resource-model": ">=0.1,<=1.0",
                 "simplepie/simplepie": "*",
                 "webignition/sitemap-model": "dev-master"
             },
-            "time": "1349775620",
+            "time": "1349777374",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -487,7 +354,6 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "webignition/website-sitemap-identifier": 20,
         "webignition/website-sitemap-url-retriever": 20
     }
 }
