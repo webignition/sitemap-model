@@ -129,6 +129,15 @@ class Sitemap extends WebResource
     
     /**
      * 
+     * @return array
+     */
+    public function getChildren() {
+        return $this->children;
+    }
+    
+    
+    /**
+     * 
      * @return Identifier
      */
     private function getIdentifier() {

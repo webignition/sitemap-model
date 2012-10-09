@@ -25,5 +25,22 @@ class AddChildTest extends BaseTest {
         $childSitemap->setUrl('http://www.example.com/sitemap1.xml');
         
         $this->assertTrue($sitemap->addChild($childSitemap));        
+    } 
+    
+    public function testAddingChildIsIdempotent() {        
+        $sitemap = $this->createSitemap();
+        $sitemap->setUrl('http://webignition.net/sitemap_index.xml');
+        $sitemap->setContent($this->getFixture('SitemapsOrgSitemapIndexContent'));
+        
+        $childSitemap = $this->createSitemap();
+        $childSitemap->setUrl('http://www.example.com/sitemap1.xml');
+        
+        $this->assertTrue($sitemap->addChild($childSitemap));
+        $this->assertEquals(1, count($sitemap->getChildren()));
+        
+        $this->assertTrue($sitemap->addChild($childSitemap));
+        $this->assertTrue($sitemap->addChild($childSitemap));
+        $this->assertTrue($sitemap->addChild($childSitemap));
+        $this->assertEquals(1, count($sitemap->getChildren()));        
     }     
 }
