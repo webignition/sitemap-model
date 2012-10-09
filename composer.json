@@ -17,7 +17,8 @@
     "require": {
         "php": ">=5.3.0",
         "webignition/web-resource-model":">=0.1,<2.0",
-        "webignition/website-sitemap-identifier":"dev-master"
+        "webignition/website-sitemap-identifier":"dev-master",
+        "webignition/website-sitemap-url-retriever":"dev-master"
     },
     "minimum-stability":"dev"
 }

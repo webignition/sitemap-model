@@ -3,6 +3,7 @@ namespace webignition\WebResource\Sitemap;
 
 use webignition\WebResource\WebResource;
 use webignition\WebsiteSitemapIdentifier\WebsiteSitemapIdentifier;
+use webignition\WebsiteSitemapUrlRetriever\WebsiteSitemapUrlRetriever;
 
 /**
  * 
@@ -23,6 +24,13 @@ class Sitemap extends WebResource
      * @var WebsiteSitemapIdentifier
      */
     private $sitemapIdentifier = null;
+    
+    
+    /**
+     *
+     * @var WebsiteSitemapUrlRetriever
+     */
+    private $urlRetriever = null;
     
        
     /**
@@ -58,6 +66,15 @@ class Sitemap extends WebResource
     
     /**
      * 
+     * @return array
+     */
+    public function getUrls() {
+        return $this->getUrlRetiever()->getUrls($this);
+    }    
+    
+    
+    /**
+     * 
      * @return WebsiteSitemapIdentifier
      */
     private function getSitemapIdentifier() {
@@ -88,5 +105,23 @@ class Sitemap extends WebResource
         return $this->sitemapIdentifier;
     }
     
+    
+    private function getUrlRetiever() {
+        if (is_null($this->urlRetriever)) {
+            $this->urlRetriever = new WebsiteSitemapUrlRetriever();
+            $configuration = new \webignition\WebsiteSitemapUrlRetriever\Configuration();
+            $configuration->setSitemapTypeToUrlExtractorClassMap(array(
+                'sitemaps.org.xml' => 'webignition\WebsiteSitemapUrlRetriever\UrlExtractor\SitemapsOrgXmlUrlExtractor',
+                'sitemaps.org.txt' => 'webignition\WebsiteSitemapUrlRetriever\UrlExtractor\SitemapsOrgTxtUrlExtractor',
+                'application/atom+xml' => 'webignition\WebsiteSitemapUrlRetriever\UrlExtractor\NewsFeedUrlExtractor',
+                'application/rss+xml' => 'webignition\WebsiteSitemapUrlRetriever\UrlExtractor\NewsFeedUrlExtractor'
+            ));
+            
+            $this->urlRetriever->setConfiguration($configuration);         
+            
+        }
+        
+        return $this->urlRetriever;
+    }
     
 }

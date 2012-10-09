@@ -1,6 +1,184 @@
 {
-    "hash": "7f896df03ee0cfbde58e7a0fd2c3d24d",
+    "hash": "c1657eefd58956a9e79ccab5062c503c",
     "packages": [
+        {
+            "name": "querypath/QueryPath",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/technosophos/querypath.git",
+                "reference": "0341dc09427928115022b3553b7117ddcbc0ec08"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/technosophos/querypath/zipball/0341dc09427928115022b3553b7117ddcbc0ec08",
+                "reference": "0341dc09427928115022b3553b7117ddcbc0ec08",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "time": "1347937314",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "QueryPath": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "HTML/XML querying (CSS 4 or XPath) and processing (like jQuery)",
+            "homepage": "https://github.com/technosophos/querypath",
+            "keywords": [
+                "xml",
+                "jquery",
+                "css",
+                "html",
+                "xslt"
+            ]
+        },
+        {
+            "name": "simplepie/simplepie",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/simplepie/simplepie.git",
+                "reference": "09288e5bc2f630310c8f875fe8f81e8c24b5765b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/simplepie/simplepie/zipball/09288e5bc2f630310c8f875fe8f81e8c24b5765b",
+                "reference": "09288e5bc2f630310c8f875fe8f81e8c24b5765b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "time": "1341729612",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "SimplePie": "library"
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Ryan Parman",
+                    "homepage": "http://ryanparman.com/",
+                    "role": "Creator, alumnus developer"
+                },
+                {
+                    "name": "Geoffrey Sneddon",
+                    "homepage": "http://gsnedders.com/",
+                    "role": "Alumnus developer"
+                },
+                {
+                    "name": "Ryan McCue",
+                    "email": "me@ryanmccue.info",
+                    "homepage": "http://ryanmccue.info/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple Atom/RSS parsing library for PHP",
+            "homepage": "http://simplepie.org/",
+            "keywords": [
+                "atom",
+                "rss",
+                "feeds"
+            ]
+        },
+        {
+            "name": "webignition/absolute-url-deriver",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webignition/absolute-url-deriver",
+                "reference": "d84d6f74fe55429d4e19f7ede4d81fd3090738cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/webignition/absolute-url-deriver/zipball/d84d6f74fe55429d4e19f7ede4d81fd3090738cc",
+                "reference": "d84d6f74fe55429d4e19f7ede4d81fd3090738cc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "webignition/url": ">=1.1"
+            },
+            "time": "1343344065",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Cram",
+                    "email": "jon@webignition.net"
+                }
+            ],
+            "description": "Derives an absolute URL from relative and source URLs",
+            "homepage": "https://github.com/webignition/absolute-url-deriver",
+            "keywords": [
+                "url",
+                "absolute"
+            ]
+        },
+        {
+            "name": "webignition/http-client",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webignition/http-client",
+                "reference": "c99807e0e74559c9ddf77e526ae1f28a7301baf6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/webignition/http-client/zipball/c99807e0e74559c9ddf77e526ae1f28a7301baf6",
+                "reference": "c99807e0e74559c9ddf77e526ae1f28a7301baf6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "ext-http": "*",
+                "webignition/absolute-url-deriver": ">=1.1",
+                "webignition/url": ">1.0"
+            },
+            "time": "1348147907",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Cram",
+                    "email": "jon@webignition.net"
+                }
+            ],
+            "description": "HTTP Client with additional reliability over regular HTTP request sending to compensate for timeouts and redirects",
+            "homepage": "https://github.com/webignition/http-client",
+            "keywords": [
+                "http",
+                "client"
+            ]
+        },
         {
             "name": "webignition/internet-media-type",
             "version": "0.4",
@@ -253,6 +431,54 @@
             "keywords": [
                 "Sitemap"
             ]
+        },
+        {
+            "name": "webignition/website-sitemap-url-retriever",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webignition/website-sitemap-url-retriever.git",
+                "reference": "ae3a7b10ac6ab98cac73305b743043670a2757b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/webignition/website-sitemap-url-retriever/zipball/ae3a7b10ac6ab98cac73305b743043670a2757b2",
+                "reference": "ae3a7b10ac6ab98cac73305b743043670a2757b2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "webignition/http-client": "dev-master",
+                "querypath/querypath": ">=3.0.0",
+                "webignition/internet-media-type": ">=0.1,<2.0",
+                "webignition/url": "*",
+                "webignition/website-sitemap-identifier": "dev-master",
+                "webignition/web-resource-model": ">=0.1,<=1.0",
+                "simplepie/simplepie": "*",
+                "webignition/sitemap-model": "dev-master"
+            },
+            "time": "1349775620",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Cram",
+                    "email": "jon@webignition.net"
+                }
+            ],
+            "description": "Get a list of URLs from the URL of a given sitemap.(xml|txt)",
+            "homepage": "https://github.com/webignition/website-sitemap-url-retriever",
+            "keywords": [
+                "Sitemap"
+            ]
         }
     ],
     "packages-dev": null,
@@ -261,6 +487,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "webignition/website-sitemap-identifier": 20
+        "webignition/website-sitemap-identifier": 20,
+        "webignition/website-sitemap-url-retriever": 20
     }
 }
