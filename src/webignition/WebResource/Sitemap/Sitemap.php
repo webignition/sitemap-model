@@ -49,7 +49,16 @@ class Sitemap extends WebResource
      */
     public function setConfiguration(SitemapConfiguration $configuration) {
         $this->configuration = $configuration;
-    }    
+    } 
+    
+    
+    /**
+     * 
+     * @return SitemapConfiguration
+     */
+    public function getConfiguration() {
+        return $this->configuration;
+    }
     
        
     /**
