@@ -43,4 +43,25 @@ class AddChildTest extends BaseTest {
         $this->assertTrue($sitemap->addChild($childSitemap));
         $this->assertEquals(1, count($sitemap->getChildren()));        
     }     
+    
+    
+    public function testAddingMultipleChildren() {        
+        $sitemap = $this->createSitemap();
+        $sitemap->setUrl('http://webignition.net/sitemap_index.xml');
+        $sitemap->setContent($this->getFixture('SitemapsOrgSitemapIndexContent'));
+        
+        $childSitemap1 = $this->createSitemap();
+        $childSitemap1->setUrl('http://www.example.com/sitemap1.xml');
+        
+        $childSitemap2 = $this->createSitemap();
+        $childSitemap2->setUrl('http://www.example.com/sitemap2.xml');
+        
+        $childSitemap3 = $this->createSitemap();
+        $childSitemap3->setUrl('http://www.example.com/sitemap3.xml');        
+        
+        $this->assertTrue($sitemap->addChild($childSitemap1));
+        $this->assertTrue($sitemap->addChild($childSitemap2));
+        $this->assertTrue($sitemap->addChild($childSitemap3));
+        $this->assertEquals(3, count($sitemap->getChildren()));
+    }      
 }
