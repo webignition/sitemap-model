@@ -36,5 +36,13 @@ class GetUrlsTest extends BaseTest {
         $sitemap->setContent($this->getFixture('RssContent'));
         
         $this->assertEquals(1, count($sitemap->getUrls()));        
-    }     
+    }
+    
+    public function testGetSitemapsOrgXmlIndexUrls() {        
+        $sitemap = $this->createSitemap();
+        $sitemap->setUrl('http://webignition.net/sitemap_index.xml');
+        $sitemap->setContent($this->getFixture('SitemapsOrgSitemapIndexContent'));
+        
+        $this->assertEquals(3, count($sitemap->getUrls()));        
+    }   
 }

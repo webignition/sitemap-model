@@ -78,16 +78,7 @@ class Sitemap extends WebResource
      * 
      * @return array
      */
-    public function getUrls() {         
-        if (!$this->isIndex()) {
-            return $this->getDirectUrls();
-        }
-        
-        return array();
-    }
-    
-    
-    private function getDirectUrls() {
+    public function getUrls() {
         $extractorClass = $this->configuration->getExtractorClassForType($this->getType());
         if (is_null($extractorClass)) {            
             return array();
@@ -106,22 +97,6 @@ class Sitemap extends WebResource
         }        
         
         return $uniqueUrls;        
-    }
-    
-    
-    /**
-     * Get collection of URLs to sitemaps referenced within
-     * Relevant only to sitemap indexes, non-index sitemaps will always
-     * return an empty collection
-     * 
-     * @return array
-     */
-    public function getSitemapUrls() {
-        if (!$this->isIndex()) {
-            return array();
-        }
-        
-        return $this->getDirectUrls();
     }
     
     
