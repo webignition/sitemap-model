@@ -1,7 +1,7 @@
 <?php
 
-use webignition\WebsiteSitemapIdentifier\WebsiteSitemapIdentifier;
-use webignition\InternetMediaType\InternetMediaType;
+use webignition\WebResource\Sitemap\Sitemap;
+use webignition\WebResource\Sitemap\Configuration as SitemapConfiguration;
 
 abstract class BaseTest extends PHPUnit_Framework_TestCase {  
     
@@ -43,6 +43,21 @@ abstract class BaseTest extends PHPUnit_Framework_TestCase {
         }
         
         return file_get_contents(__DIR__ . self::FIXTURES_BASE_PATH . '/Common/' . $fixtureName);        
+    }
+    
+    
+    protected function createSitemap() {
+        $configuration = new SitemapConfiguration;
+        $configuration->setTypeToUrlExtractorClassMap(array(
+            'sitemaps.org.xml' => 'webignition\WebResource\Sitemap\UrlExtractor\SitemapsOrgXmlUrlExtractor',
+            'sitemaps.org.txt' => 'webignition\WebResource\Sitemap\UrlExtractor\SitemapsOrgTxtUrlExtractor',
+            'application/atom+xml' => 'webignition\WebResource\Sitemap\UrlExtractor\NewsFeedUrlExtractor',
+            'application/rss+xml' => 'webignition\WebResource\Sitemap\UrlExtractor\NewsFeedUrlExtractor'
+        ));
+
+        $sitemap = new Sitemap();
+        $sitemap->setConfiguration($configuration);
+        return $sitemap;
     }
     
     

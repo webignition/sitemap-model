@@ -3,7 +3,8 @@ namespace webignition\WebResource\Sitemap;
 
 use webignition\WebResource\WebResource;
 use webignition\WebResource\Sitemap\Identifier\Identifier;
-use webignition\WebsiteSitemapUrlRetriever\WebsiteSitemapUrlRetriever;
+use webignition\WebResource\Sitemap\Configuration as SitemapConfiguration;
+use webignition\NormalisedUrl\NormalisedUrl;
 
 /**
  * 
@@ -28,9 +29,18 @@ class Sitemap extends WebResource
     
     /**
      *
-     * @var WebsiteSitemapUrlRetriever
+     * @var Configuration
      */
-    private $urlRetriever = null;
+    private $configuration = null;
+    
+    
+    /**
+     * 
+     * @param SitemapConfiguration $configuration
+     */
+    public function setConfiguration(SitemapConfiguration $configuration) {
+        $this->configuration = $configuration;
+    }    
     
        
     /**
@@ -68,8 +78,25 @@ class Sitemap extends WebResource
      * 
      * @return array
      */
-    public function getUrls() {
-        return $this->getUrlRetiever()->getUrls($this);
+    public function getUrls() {         
+        $extractorClass = $this->configuration->getExtractorClassForType($this->getType());
+        if (is_null($extractorClass)) {            
+            return array();
+        }        
+        
+        $extractor = new $extractorClass;
+        $urls = $extractor->extract($this->getContent());
+        
+        $uniqueUrls = array();
+        
+        foreach ($urls as $url) {
+            $normalisedUrl = new NormalisedUrl($url);
+            if (!in_array((string)$normalisedUrl, $uniqueUrls)) {
+                $uniqueUrls[] = (string)$normalisedUrl;
+            }
+        }        
+        
+        return $uniqueUrls;
     }    
     
     
@@ -103,25 +130,6 @@ class Sitemap extends WebResource
         }
         
         return $this->identifier;
-    }
-    
-    
-    private function getUrlRetiever() {
-        if (is_null($this->urlRetriever)) {
-            $this->urlRetriever = new WebsiteSitemapUrlRetriever();
-            $configuration = new \webignition\WebsiteSitemapUrlRetriever\Configuration();
-            $configuration->setSitemapTypeToUrlExtractorClassMap(array(
-                'sitemaps.org.xml' => 'webignition\WebsiteSitemapUrlRetriever\UrlExtractor\SitemapsOrgXmlUrlExtractor',
-                'sitemaps.org.txt' => 'webignition\WebsiteSitemapUrlRetriever\UrlExtractor\SitemapsOrgTxtUrlExtractor',
-                'application/atom+xml' => 'webignition\WebsiteSitemapUrlRetriever\UrlExtractor\NewsFeedUrlExtractor',
-                'application/rss+xml' => 'webignition\WebsiteSitemapUrlRetriever\UrlExtractor\NewsFeedUrlExtractor'
-            ));
-            
-            $this->urlRetriever->setConfiguration($configuration);         
-            
-        }
-        
-        return $this->urlRetriever;
     }
     
 }

@@ -1,7 +1,5 @@
 <?php
 
-use webignition\WebResource\Sitemap\Sitemap;
-
 class GetUrlsTest extends BaseTest {
     
     public function setUp() {
@@ -9,7 +7,7 @@ class GetUrlsTest extends BaseTest {
     }
     
     public function testGetSitemapsOrgXmlUrls() {        
-        $sitemap = new Sitemap();
+        $sitemap = $this->createSitemap();
         $sitemap->setUrl('http://webignition.net/sitemap.xml');
         $sitemap->setContent($this->getFixture('SitemapsOrgXmlContent'));
         
@@ -17,7 +15,7 @@ class GetUrlsTest extends BaseTest {
     }    
     
     public function testGetSitemapsOrgTxtUrls() {        
-        $sitemap = new Sitemap();
+        $sitemap = $this->createSitemap();
         $sitemap->setUrl('http://webignition.net/sitemap.xml');
         $sitemap->setContent($this->getFixture('SitemapsOrgTxtContent'));
         
@@ -25,7 +23,7 @@ class GetUrlsTest extends BaseTest {
     }      
     
     public function testAtomUrls() {        
-        $sitemap = new Sitemap();
+        $sitemap = $this->createSitemap();
         $sitemap->setUrl('http://webignition.net/sitemap.xml');
         $sitemap->setContent($this->getFixture('AtomContent'));
         
@@ -33,7 +31,7 @@ class GetUrlsTest extends BaseTest {
     }     
     
     public function testRssUrls() {        
-        $sitemap = new Sitemap();
+        $sitemap = $this->createSitemap();
         $sitemap->setUrl('http://webignition.net/sitemap.xml');
         $sitemap->setContent($this->getFixture('RssContent'));
         

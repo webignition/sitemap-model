@@ -1,5 +1,5 @@
 {
-    "hash": "cc5a3c2fc79c120ff2a2d8ed2be894a4",
+    "hash": "529eea441d0c3b9c5f5f9956ef5d686f",
     "packages": [
         {
             "name": "querypath/QueryPath",
@@ -303,49 +303,6 @@
                 "web",
                 "modem"
             ]
-        },
-        {
-            "name": "webignition/website-sitemap-url-retriever",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webignition/website-sitemap-url-retriever.git",
-                "reference": "4ba4972e3caeba9884fb7c2dd40b0c535bcb00fc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/webignition/website-sitemap-url-retriever/zipball/4ba4972e3caeba9884fb7c2dd40b0c535bcb00fc",
-                "reference": "4ba4972e3caeba9884fb7c2dd40b0c535bcb00fc",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0",
-                "querypath/querypath": ">=3.0.0",
-                "simplepie/simplepie": "*",
-                "webignition/sitemap-model": "dev-master"
-            },
-            "time": "1349777374",
-            "type": "library",
-            "installation-source": "source",
-            "autoload": {
-                "psr-0": {
-                    "": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jon Cram",
-                    "email": "jon@webignition.net"
-                }
-            ],
-            "description": "Get a list of URLs from the URL of a given sitemap.(xml|txt)",
-            "homepage": "https://github.com/webignition/website-sitemap-url-retriever",
-            "keywords": [
-                "Sitemap"
-            ]
         }
     ],
     "packages-dev": null,
@@ -353,7 +310,7 @@
 
     ],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "webignition/website-sitemap-url-retriever": 20
-    }
+    "stability-flags": [
+
+    ]
 }
