@@ -35,6 +35,15 @@ class Sitemap extends WebResource
     
     
     /**
+     * Child sitemaps; a collection of Sitemap objects for index sitemaps, an
+     * empty collection for non-index sitemaps
+     * 
+     * @var array
+     */
+    private $children = array();
+    
+    
+    /**
      * 
      * @param SitemapConfiguration $configuration
      */
@@ -97,6 +106,24 @@ class Sitemap extends WebResource
         }        
         
         return $uniqueUrls;        
+    }
+    
+    
+    /**
+     * 
+     * @param \webignition\WebResource\Sitemap\Sitemap $sitemap
+     * @return boolean
+     */
+    public function addChild(Sitemap $sitemap) {
+        if (!$this->isIndex()) {
+            return false;
+        }
+        
+        $childUrl = new \webignition\NormalisedUrl\NormalisedUrl($sitemap->getUrl());
+        $childIndex = md5((string)$childUrl);
+        
+        $this->children[$childIndex] = $sitemap;
+        return true;
     }
     
     
