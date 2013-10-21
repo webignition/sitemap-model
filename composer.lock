@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "eed9b2e636e86103b1cbece7bd8b7dd5",
+    "hash": "c48ebeb3de427049976c4c215c6722f4",
     "packages": [
         {
             "name": "hobnob/xml-stream-reader",
@@ -48,43 +48,6 @@
                 "xml"
             ],
             "time": "2013-07-04 08:07:40"
-        },
-        {
-            "name": "querypath/QueryPath",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/technosophos/querypath.git",
-                "reference": "0341dc09427928115022b3553b7117ddcbc0ec08"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/technosophos/querypath/zipball/0341dc09427928115022b3553b7117ddcbc0ec08",
-                "reference": "0341dc09427928115022b3553b7117ddcbc0ec08",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "QueryPath": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "HTML/XML querying (CSS 4 or XPath) and processing (like jQuery)",
-            "homepage": "https://github.com/technosophos/querypath",
-            "keywords": [
-                "css",
-                "html",
-                "jquery",
-                "xml",
-                "xslt"
-            ],
-            "time": "2012-09-18 03:01:54"
         },
         {
             "name": "simplepie/simplepie",
