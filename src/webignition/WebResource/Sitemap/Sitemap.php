@@ -44,6 +44,13 @@ class Sitemap extends WebResource
     
     
     /**
+     *
+     * @var array Collection of URLs found in this sitemap
+     */
+    private $urls = null;
+    
+    
+    /**
      * 
      * @param SitemapConfiguration $configuration
      */
@@ -97,24 +104,26 @@ class Sitemap extends WebResource
      * @return array
      */
     public function getUrls() {
-        $extractorClass = $this->configuration->getExtractorClassForType($this->getType());
-        if (is_null($extractorClass)) {            
-            return array();
-        }        
+        if (is_null($this->urls)) {
+            $this->urls = array();
+            
+            $extractorClass = $this->configuration->getExtractorClassForType($this->getType());
+            if (is_null($extractorClass)) {            
+                return array();
+            }        
+
+            $extractor = new $extractorClass;
+            $urls = $extractor->extract($this->getContent());
+
+            foreach ($urls as $url) {
+                $normalisedUrl = (string)new NormalisedUrl($url);            
+                if (!array_key_exists($normalisedUrl, $this->urls)) {
+                    $this->urls[$normalisedUrl] = true;
+                }
+            }           
+        }
         
-        $extractor = new $extractorClass;
-        $urls = $extractor->extract($this->getContent());
-        
-        $uniqueUrls = array();
-        
-        foreach ($urls as $url) {
-            $normalisedUrl = new NormalisedUrl($url);
-            if (!in_array((string)$normalisedUrl, $uniqueUrls)) {
-                $uniqueUrls[] = (string)$normalisedUrl;
-            }
-        }        
-        
-        return $uniqueUrls;        
+        return array_keys($this->urls);
     }
     
     

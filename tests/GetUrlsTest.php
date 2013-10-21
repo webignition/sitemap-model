@@ -44,5 +44,14 @@ class GetUrlsTest extends BaseTest {
         $sitemap->setContent($this->getFixture('SitemapsOrgSitemapIndexContent'));
         
         $this->assertEquals(3, count($sitemap->getUrls()));        
-    }   
+    }  
+    
+    
+    public function testGetParentLocationUrlsOnly() {
+        $sitemap = $this->createSitemap();
+        $sitemap->setUrl('http://webignition.net/sitemap_index.xml');
+        $sitemap->setContent($this->getFixture('SitemapsOrgXmlWithImages.xml'));
+        
+        $this->assertEquals(18, count($sitemap->getUrls()));           
+    }
 }

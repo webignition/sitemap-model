@@ -19,7 +19,8 @@
         "webignition/web-resource-model":">=0.1,<2.0",
         "webignition/url":">=0.1,<2.0",
         "querypath/QueryPath": ">=3.0.0",
-        "simplepie/simplepie":"*"        
+        "simplepie/simplepie":"*",
+        "hobnob/xml-stream-reader":"1.0.3"
     },
     "minimum-stability":"dev"
 }

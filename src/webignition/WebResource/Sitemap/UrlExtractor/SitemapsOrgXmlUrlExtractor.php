@@ -4,21 +4,19 @@ namespace webignition\WebResource\Sitemap\UrlExtractor;
 
 class SitemapsOrgXmlUrlExtractor extends UrlExtractor {
 
-    public function extract($content) {
+    public function extract($content) {        
         $urls = array();
-        $queryPath = new \QueryPath();
         
-        try {
-            $queryPath->withXML($content, 'url loc')->each(function ($index, \DOMElement $domElement) use (&$urls) {
-                if ($domElement->nodeName == 'loc') {
-                    $urls[] = \trim($domElement->nodeValue);
-                }                
-            });            
-        } catch (QueryPath\ParseException $parseException) {
-            // Invalid XML
-        }
+        $xmlParser = new \Hobnob\XmlStreamReader\Parser();        
+        $xmlParser->registerCallback(
+            '/urlset/url',
+            function( \Hobnob\XmlStreamReader\Parser $parser, \SimpleXMLElement $node) use (&$urls) {
+                $urls[] = (string)$node;
+            }
+        );
+        $xmlParser->parse($content);       
         
         return $urls;
     }
-    
+
 }
