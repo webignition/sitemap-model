@@ -9,20 +9,20 @@ class GetUrlsFromChildrenTest extends BaseTest {
     
     public function testGettingUrlsFromChildren() {        
         $sitemap = $this->createSitemap();
-        $sitemap->setUrl('http://webignition.net/sitemap_index.xml');
-        $sitemap->setContent($this->getFixture('SitemapsOrgSitemapIndexContent'));
+        $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgSitemapIndexContent'));
+        $sitemap->setUrl('http://webignition.net/sitemap_index.xml');        
         
         $childSitemap1 = $this->createSitemap();
-        $childSitemap1->setUrl('http://www.example.com/sitemap1.xml');
-        $childSitemap1->setContent($this->getFixture('example.com.sitemap.01.xml'));
+        $childSitemap1->setHttpResponse($this->getHttpFixture('example.com.sitemap.01.xml'));
+        $childSitemap1->setUrl('http://www.example.com/sitemap1.xml');        
         
         $childSitemap2 = $this->createSitemap();
-        $childSitemap2->setUrl('http://www.example.com/sitemap2.xml');
-        $childSitemap2->setContent($this->getFixture('example.com.sitemap.02.xml'));
+        $childSitemap2->setHttpResponse($this->getHttpFixture('example.com.sitemap.02.xml'));
+        $childSitemap2->setUrl('http://www.example.com/sitemap2.xml');        
         
         $childSitemap3 = $this->createSitemap();
+        $childSitemap3->setHttpResponse($this->getHttpFixture('example.com.sitemap.03.xml'));
         $childSitemap3->setUrl('http://www.example.com/sitemap3.xml');        
-        $childSitemap3->setContent($this->getFixture('example.com.sitemap.03.xml'));
         
         $this->assertTrue($sitemap->addChild($childSitemap1));
         $this->assertTrue($sitemap->addChild($childSitemap2));

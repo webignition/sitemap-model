@@ -37,13 +37,37 @@ abstract class BaseTest extends PHPUnit_Framework_TestCase {
      * @param string $fixtureName
      * @return string
      */
-    protected function getFixture($fixtureName) {
+    private function getFixture($fixtureName) {
         if (file_exists($this->getTestFixturePath() . '/' . $fixtureName)) {
             return file_get_contents($this->getTestFixturePath() . '/' . $fixtureName);
         }
         
         return file_get_contents(__DIR__ . self::FIXTURES_BASE_PATH . '/Common/' . $fixtureName);        
     }
+    
+    
+    /**
+     * 
+     * @param string $fixtureName
+     * @return \Guzzle\Http\Message\Response
+     */
+    protected function getHttpFixture($fixtureName = '', $contentType = 'application/xml') {
+        $message = "HTTP/1.0 200 OK\nContent-Type:" . $contentType . "\n\n";
+        
+        if ($fixtureName != '') {
+            $message .= $this->getFixture($fixtureName);
+        }        
+        
+        return \Guzzle\Http\Message\Response::fromMessage($message);
+    }    
+//    
+//    /**
+//     * 
+//     * @return \Guzzle\Http\Message\Response
+//     */
+//    protected function getEmptyHttpFixture() {
+//        return \Guzzle\Http\Message\Response::fromMessage("HTTP/1.0 200 OK\nContent-Type:application/xml");        
+//    }
     
     
     protected function createSitemap() {

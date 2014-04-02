@@ -10,18 +10,19 @@ class AddChildTest extends BaseTest {
     
     public function testAddChildToNonIndexSitemap() {        
         $sitemap = $this->createSitemap();
+        $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgXmlContent'));
         $sitemap->setUrl('http://webignition.net/sitemap.xml');
-        $sitemap->setContent($this->getFixture('SitemapsOrgXmlContent'));
         
         $this->assertFalse($sitemap->addChild(new Sitemap()));
     }  
     
     public function testAddChildToIndexSitemap() {        
         $sitemap = $this->createSitemap();
-        $sitemap->setUrl('http://webignition.net/sitemap_index.xml');
-        $sitemap->setContent($this->getFixture('SitemapsOrgSitemapIndexContent'));
+        $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgSitemapIndexContent'));
+        $sitemap->setUrl('http://webignition.net/sitemap_index.xml');        
         
         $childSitemap = $this->createSitemap();
+        $childSitemap->setHttpResponse($this->getHttpFixture());
         $childSitemap->setUrl('http://www.example.com/sitemap1.xml');
         
         $this->assertTrue($sitemap->addChild($childSitemap));        
@@ -29,10 +30,11 @@ class AddChildTest extends BaseTest {
     
     public function testAddingChildIsIdempotent() {        
         $sitemap = $this->createSitemap();
-        $sitemap->setUrl('http://webignition.net/sitemap_index.xml');
-        $sitemap->setContent($this->getFixture('SitemapsOrgSitemapIndexContent'));
+        $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgSitemapIndexContent'));
+        $sitemap->setUrl('http://webignition.net/sitemap_index.xml');        
         
         $childSitemap = $this->createSitemap();
+        $childSitemap->setHttpResponse($this->getHttpFixture());
         $childSitemap->setUrl('http://www.example.com/sitemap1.xml');
         
         $this->assertTrue($sitemap->addChild($childSitemap));
@@ -47,16 +49,19 @@ class AddChildTest extends BaseTest {
     
     public function testAddingMultipleChildren() {        
         $sitemap = $this->createSitemap();
-        $sitemap->setUrl('http://webignition.net/sitemap_index.xml');
-        $sitemap->setContent($this->getFixture('SitemapsOrgSitemapIndexContent'));
+        $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgSitemapIndexContent'));
+        $sitemap->setUrl('http://webignition.net/sitemap_index.xml');        
         
         $childSitemap1 = $this->createSitemap();
+        $childSitemap1->setHttpResponse($this->getHttpFixture());
         $childSitemap1->setUrl('http://www.example.com/sitemap1.xml');
         
         $childSitemap2 = $this->createSitemap();
+        $childSitemap2->setHttpResponse($this->getHttpFixture());
         $childSitemap2->setUrl('http://www.example.com/sitemap2.xml');
         
         $childSitemap3 = $this->createSitemap();
+        $childSitemap3->setHttpResponse($this->getHttpFixture());
         $childSitemap3->setUrl('http://www.example.com/sitemap3.xml');        
         
         $this->assertTrue($sitemap->addChild($childSitemap1));
