@@ -29,7 +29,6 @@
         "hobnob/xml-stream-reader":"1.0.3"
     },
     "require-dev": {
-        "symfony/class-loader": "*",
         "phpunit/phpunit": "~4",
         "guzzle/guzzle":">=3.8.1,<4"
     },
