@@ -4,13 +4,15 @@ namespace webignition\Tests\WebResource\Sitemap;
 
 use webignition\WebResource\Sitemap\Sitemap;
 
-class GetTypeTest extends BaseTest {
-
-    public function setUp() {
+class GetTypeTest extends BaseTest
+{
+    protected function setUp()
+    {
         $this->setTestFixturePath(__CLASS__, $this->getName());
     }
 
-    public function testGetAtomFeedType() {
+    public function testGetAtomFeedType()
+    {
         $sitemap = new Sitemap();
         $sitemap->setHttpResponse($this->getHttpFixture('AtomContent', 'application/atom+xml'));
         $sitemap->setUrl('http://webignition.net/sitemap.atom.xml');
@@ -18,8 +20,8 @@ class GetTypeTest extends BaseTest {
         $this->assertEquals('application/atom+xml', $sitemap->getType());
     }
 
-
-    public function testGetRssFeedType() {
+    public function testGetRssFeedType()
+    {
         $sitemap = new Sitemap();
         $sitemap->setHttpResponse($this->getHttpFixture('RssContent'), 'application/rss+xml');
         $sitemap->setUrl('http://webignition.net/sitemap.rss.xml');
@@ -27,7 +29,8 @@ class GetTypeTest extends BaseTest {
         $this->assertEquals('application/rss+xml', $sitemap->getType());
     }
 
-    public function testGetSitemapIndexType() {
+    public function testGetSitemapIndexType()
+    {
         $sitemap = new Sitemap();
         $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgSitemapIndexContent', 'application/xml'));
         $sitemap->setUrl('http://webignition.net/sitemap_index.xml');
@@ -35,7 +38,8 @@ class GetTypeTest extends BaseTest {
         $this->assertEquals('sitemaps.org.xml.index', $sitemap->getType());
     }
 
-    public function testGetSitemapsOrgTxtSitemapType() {
+    public function testGetSitemapsOrgTxtSitemapType()
+    {
         $sitemap = new Sitemap();
         $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgTxtContent', 'text/plain'));
         $sitemap->setUrl('http://webignition.net/sitemap.txt');
@@ -43,7 +47,8 @@ class GetTypeTest extends BaseTest {
         $this->assertEquals('sitemaps.org.txt', $sitemap->getType());
     }
 
-    public function testGetSitemapsOrgXmlSitemapType() {
+    public function testGetSitemapsOrgXmlSitemapType()
+    {
         $sitemap = new Sitemap();
         $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgXmlContent', 'application/xml'));
         $sitemap->setUrl('http://webignition.net/sitemap.xml');

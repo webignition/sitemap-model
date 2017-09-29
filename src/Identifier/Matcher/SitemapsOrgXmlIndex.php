@@ -1,36 +1,34 @@
 <?php
+
 namespace webignition\WebResource\Sitemap\Identifier\Matcher;
 
-/**
- *  
- */
-class SitemapsOrgXmlIndex extends SpecificRootNodeAndNamespaceXmlMatcher {   
-     
+class SitemapsOrgXmlIndex extends SpecificRootNodeAndNamespaceXmlMatcher
+{
+    const ROOT_NODE_NAME = 'sitemapindex';
+    const ROOT_NAMESPACE_PATTERN =
+        '/http:\/\/www\.(sitemaps\.org)|(google\.com)\/schemas\/sitemap\/((\d+)|(\d+\.\d+))$/';
+
     /**
-     * 
-     * @param string $content
-     * @return boolean
+     * {@inheritdoc}
      */
-    public function matches($content = null) {        
+    public function matches($content = null)
+    {
         return parent::matches($content);
     }
-    
-    
+
     /**
-     * 
-     * @return string
+     * {@inheritdoc}
      */
-    protected function getRootNodeName() {
-        return 'sitemapindex';
+    protected function getRootNodeName()
+    {
+        return self::ROOT_NODE_NAME;
     }
-    
-    
+
     /**
-     * 
-     * @return string
+     * {@inheritdoc}
      */
-    protected function getRootNamespacePattern() {
-        return '/http:\/\/www\.(sitemaps\.org)|(google\.com)\/schemas\/sitemap\/((\d+)|(\d+\.\d+))$/';
+    protected function getRootNamespacePattern()
+    {
+        return self::ROOT_NAMESPACE_PATTERN;
     }
-    
 }

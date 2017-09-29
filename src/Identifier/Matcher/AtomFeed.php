@@ -1,36 +1,33 @@
 <?php
+
 namespace webignition\WebResource\Sitemap\Identifier\Matcher;
 
+class AtomFeed extends SpecificRootNodeAndNamespaceXmlMatcher
+{
+    const ROOT_NODE_NAME = 'feed';
+    const ROOT_NAMESPACE_PATTERN = '/http:\/\/www\.w3.org\/2005\/Atom/';
 
-
-/**
- *  
- */
-class AtomFeed extends SpecificRootNodeAndNamespaceXmlMatcher {   
-   
     /**
-     * 
-     * @param string content
-     * @return boolean
+     * {@inheritdoc}
      */
-    public function matches($content = null) {        
+    public function matches($content = null)
+    {
         return parent::matches($content);
     }
-    
+
     /**
-     * 
-     * @return string
+     * {@inheritdoc}
      */
-    protected function getRootNodeName() {
-        return 'feed';
+    protected function getRootNodeName()
+    {
+        return self::ROOT_NODE_NAME;
     }
-    
-    
+
     /**
-     * 
-     * @return string
+     * {@inheritdoc}
      */
-    protected function getRootNamespacePattern() {
-        return '/http:\/\/www\.w3.org\/2005\/Atom/';
+    protected function getRootNamespacePattern()
+    {
+        return self::ROOT_NAMESPACE_PATTERN;
     }
 }

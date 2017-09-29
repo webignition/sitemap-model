@@ -2,14 +2,15 @@
 
 namespace webignition\Tests\WebResource\Sitemap;
 
-class GetUrlsFromChildrenTest extends BaseTest {
-
-    public function setUp() {
+class GetUrlsFromChildrenTest extends BaseTest
+{
+    protected function setUp()
+    {
         $this->setTestFixturePath(__CLASS__, $this->getName());
     }
 
-
-    public function testGettingUrlsFromChildren() {
+    public function testGettingUrlsFromChildren()
+    {
         $sitemap = $this->createSitemap();
         $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgSitemapIndexContent'));
         $sitemap->setUrl('http://webignition.net/sitemap_index.xml');

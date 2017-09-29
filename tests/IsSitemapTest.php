@@ -4,13 +4,15 @@ namespace webignition\Tests\WebResource\Sitemap;
 
 use webignition\WebResource\Sitemap\Sitemap;
 
-class IsSitemapTest extends BaseTest {
-
-    public function setUp() {
+class IsSitemapTest extends BaseTest
+{
+    protected function setUp()
+    {
         $this->setTestFixturePath(__CLASS__, $this->getName());
     }
 
-    public function testIsSitemapForAtomFeed() {
+    public function testIsSitemapForAtomFeed()
+    {
         $sitemap = new Sitemap();
         $sitemap->setHttpResponse($this->getHttpFixture('AtomContent', 'application/atom+xml'));
         $sitemap->setUrl('http://webignition.net/sitemap.atom.xml');
@@ -18,7 +20,8 @@ class IsSitemapTest extends BaseTest {
         $this->assertTrue($sitemap->isSitemap());
     }
 
-    public function testisIndexForRssFeed() {
+    public function testisIndexForRssFeed()
+    {
         $sitemap = new Sitemap();
         $sitemap->setHttpResponse($this->getHttpFixture('RssContent', 'application/rss+xml'));
         $sitemap->setUrl('http://webignition.net/sitemap.rss.xml');
@@ -26,7 +29,8 @@ class IsSitemapTest extends BaseTest {
         $this->assertTrue($sitemap->isSitemap());
     }
 
-    public function testIsSitemapForSitemapIndexType() {
+    public function testIsSitemapForSitemapIndexType()
+    {
         $sitemap = new Sitemap();
         $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgSitemapIndexContent', 'application/xml'));
         $sitemap->setUrl('http://webignition.net/sitemap_index.xml');
@@ -34,7 +38,8 @@ class IsSitemapTest extends BaseTest {
         $this->assertTrue($sitemap->isSitemap());
     }
 
-    public function testIsSitemapForSitemapsOrgTxtSitemapType() {
+    public function testIsSitemapForSitemapsOrgTxtSitemapType()
+    {
         $sitemap = new Sitemap();
         $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgTxtContent', 'text/plain'));
         $sitemap->setUrl('http://webignition.net/sitemap.txt');
@@ -42,7 +47,8 @@ class IsSitemapTest extends BaseTest {
         $this->assertTrue($sitemap->isSitemap());
     }
 
-    public function testIsSitemapForSitemapsOrgXmlSitemapType() {
+    public function testIsSitemapForSitemapsOrgXmlSitemapType()
+    {
         $sitemap = new Sitemap();
         $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgXmlContent', 'application/xml'));
         $sitemap->setUrl('http://webignition.net/sitemap.xml');
@@ -50,7 +56,8 @@ class IsSitemapTest extends BaseTest {
         $this->assertTrue($sitemap->isSitemap());
     }
 
-    public function testIsSitemapForNonSitemapContent() {
+    public function testIsSitemapForNonSitemapContent()
+    {
         $sitemap = new Sitemap();
         $sitemap->setHttpResponse($this->getHttpFixture());
         $sitemap->setUrl('http://webignition.net/sitemap.xml');
@@ -71,5 +78,4 @@ class IsSitemapTest extends BaseTest {
 </html>");
         $this->assertFalse($sitemap->isSitemap());
     }
-
 }

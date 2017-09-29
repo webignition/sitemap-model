@@ -2,21 +2,26 @@
 
 namespace webignition\WebResource\Sitemap\UrlExtractor;
 
-class SitemapsOrgXmlUrlExtractor extends UrlExtractor {
+use Hobnob\XmlStreamReader\Parser;
 
-    public function extract($content) {        
-        $urls = array();
-        
-        $xmlParser = new \Hobnob\XmlStreamReader\Parser();        
+class SitemapsOrgXmlUrlExtractor implements UrlExtractorInterface
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function extract($content)
+    {
+        $urls = [];
+
+        $xmlParser = new Parser();
         $xmlParser->registerCallback(
             '/urlset/url',
-            function( \Hobnob\XmlStreamReader\Parser $parser, \SimpleXMLElement $node) use (&$urls) {
+            function (Parser $parser, \SimpleXMLElement $node) use (&$urls) {
                 $urls[] = (string)$node;
             }
         );
-        $xmlParser->parse($content);       
-        
+        $xmlParser->parse($content);
+
         return $urls;
     }
-
 }

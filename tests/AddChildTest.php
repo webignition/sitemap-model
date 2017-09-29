@@ -4,13 +4,15 @@ namespace webignition\Tests\WebResource\Sitemap;
 
 use webignition\WebResource\Sitemap\Sitemap;
 
-class AddChildTest extends BaseTest {
-
-    public function setUp() {
+class AddChildTest extends BaseTest
+{
+    protected function setUp()
+    {
         $this->setTestFixturePath(__CLASS__, $this->getName());
     }
 
-    public function testAddChildToNonIndexSitemap() {
+    public function testAddChildToNonIndexSitemap()
+    {
         $sitemap = $this->createSitemap();
         $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgXmlContent'));
         $sitemap->setUrl('http://webignition.net/sitemap.xml');
@@ -18,7 +20,8 @@ class AddChildTest extends BaseTest {
         $this->assertFalse($sitemap->addChild(new Sitemap()));
     }
 
-    public function testAddChildToIndexSitemap() {
+    public function testAddChildToIndexSitemap()
+    {
         $sitemap = $this->createSitemap();
         $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgSitemapIndexContent'));
         $sitemap->setUrl('http://webignition.net/sitemap_index.xml');
@@ -30,7 +33,8 @@ class AddChildTest extends BaseTest {
         $this->assertTrue($sitemap->addChild($childSitemap));
     }
 
-    public function testAddingChildIsIdempotent() {
+    public function testAddingChildIsIdempotent()
+    {
         $sitemap = $this->createSitemap();
         $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgSitemapIndexContent'));
         $sitemap->setUrl('http://webignition.net/sitemap_index.xml');
@@ -48,8 +52,8 @@ class AddChildTest extends BaseTest {
         $this->assertEquals(1, count($sitemap->getChildren()));
     }
 
-
-    public function testAddingMultipleChildren() {
+    public function testAddingMultipleChildren()
+    {
         $sitemap = $this->createSitemap();
         $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgSitemapIndexContent'));
         $sitemap->setUrl('http://webignition.net/sitemap_index.xml');

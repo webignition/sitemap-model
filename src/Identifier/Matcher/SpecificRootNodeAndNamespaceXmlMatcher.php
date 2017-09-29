@@ -1,27 +1,26 @@
 <?php
+
 namespace webignition\WebResource\Sitemap\Identifier\Matcher;
 
-/**
- *  
- */
-abstract class SpecificRootNodeAndNamespaceXmlMatcher extends SpecificRootNodeXmlMatcher {         
-    
-
-   
+abstract class SpecificRootNodeAndNamespaceXmlMatcher extends SpecificRootNodeXmlMatcher
+{
     /**
-     * 
-     * @param string content
-     * @return boolean
+     * {@inheritdoc}
      */
-    public function matches($content = null) {        
+    public function matches($content = null)
+    {
         if (!parent::matches($content)) {
             return false;
-        }  
-        
-        return preg_match($this->getRootNamespacePattern(), $this->getDomDocument()->documentElement->getAttribute('xmlns')) > 0;
+        }
+
+        $matchCount = preg_match(
+            $this->getRootNamespacePattern(),
+            $this->getDomDocument()->documentElement->getAttribute('xmlns')
+        );
+
+        return $matchCount > 0;
     }
-    
-    
+
     /**
      * @return string
      */

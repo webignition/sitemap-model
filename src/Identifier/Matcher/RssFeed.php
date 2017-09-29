@@ -1,26 +1,24 @@
 <?php
+
 namespace webignition\WebResource\Sitemap\Identifier\Matcher;
 
-/**
- *  
- */
-class RssFeed extends SpecificRootNodeXmlMatcher {         
-  
+class RssFeed extends SpecificRootNodeXmlMatcher
+{
+    const ROOT_NODE_NAME = 'rss';
+
     /**
-     * 
-     * @param string content
-     * @return boolean
+     * {@inheritdoc}
      */
-    public function matches($content = null) {        
+    public function matches($content = null)
+    {
         return parent::matches($content);
     }
-    
-    
+
     /**
-     * 
-     * @return string
+     * {@inheritdoc}
      */
-    protected function getRootNodeName() {
-        return 'rss';
+    protected function getRootNodeName()
+    {
+        return self::ROOT_NODE_NAME;
     }
 }
