@@ -1,36 +1,34 @@
 <?php
+
 namespace webignition\WebResource\Sitemap\Identifier\Matcher;
 
-/**
- *  
- */
-abstract class Matcher {
-    
+abstract class Matcher implements MatcherInterface
+{
     /**
      * Unique string identifying the type of sitemap this tries to match
-     * 
+     *
      * @var string
      */
     private $type = null;
 
-
     /**
-     * 
-     * @param string $type
+     * {@inheritdoc}
      */
-    public function setType($type) {
+    public function setType($type)
+    {
         $this->type = $type;
     }
-    
-    
+
     /**
-     * 
-     * @return string
+     * {@inheritdoc}
      */
-    public function getType() {
+    public function getType()
+    {
         return $this->type;
     }
-    
-   
-    abstract public function matches($content = null);    
+
+    /**
+     * {@inheritdoc}
+     */
+    abstract public function matches($content = null);
 }
