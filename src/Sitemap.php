@@ -1,11 +1,6 @@
 <?php
 namespace webignition\WebResource\Sitemap;
 
-use webignition\WebResource\Sitemap\Identifier\Matcher\AtomFeed;
-use webignition\WebResource\Sitemap\Identifier\Matcher\RssFeed;
-use webignition\WebResource\Sitemap\Identifier\Matcher\SitemapsOrgTxt;
-use webignition\WebResource\Sitemap\Identifier\Matcher\SitemapsOrgXml;
-use webignition\WebResource\Sitemap\Identifier\Matcher\SitemapsOrgXmlIndex;
 use webignition\WebResource\Sitemap\UrlExtractor\UrlExtractorInterface;
 use webignition\WebResource\WebResource;
 use webignition\WebResource\Sitemap\Identifier\Identifier;
@@ -44,6 +39,11 @@ class Sitemap extends WebResource
      */
     private $urls = null;
 
+    public function __construct()
+    {
+        $this->identifier = new Identifier();
+    }
+
     /**
      * @param SitemapConfiguration $configuration
      */
@@ -66,7 +66,7 @@ class Sitemap extends WebResource
     public function getType()
     {
         if (is_null($this->type)) {
-            $this->type = $this->createIdentifier()->getType($this->getContent());
+            $this->type = $this->identifier->getType($this->getContent());
         }
 
         return $this->type;
@@ -139,37 +139,5 @@ class Sitemap extends WebResource
     public function getChildren()
     {
         return $this->children;
-    }
-
-    /**
-     * @return Identifier
-     */
-    private function createIdentifier()
-    {
-        if (is_null($this->identifier)) {
-            $this->identifier = new Identifier();
-
-            $sitemapsOrgXmlMatcher = new SitemapsOrgXml();
-            $sitemapsOrgXmlMatcher->setType('sitemaps.org.xml');
-            $this->identifier->addMatcher($sitemapsOrgXmlMatcher);
-
-            $sitemapsOrgTxtMatcher = new SitemapsOrgTxt();
-            $sitemapsOrgTxtMatcher->setType('sitemaps.org.txt');
-            $this->identifier->addMatcher($sitemapsOrgTxtMatcher);
-
-            $rssFeedMatcher = new RssFeed();
-            $rssFeedMatcher->setType('application/rss+xml');
-            $this->identifier->addMatcher($rssFeedMatcher);
-
-            $atomFeedMatcher = new AtomFeed();
-            $atomFeedMatcher->setType('application/atom+xml');
-            $this->identifier->addMatcher($atomFeedMatcher);
-
-            $sitemapsOrgXmlIndexMatcher = new SitemapsOrgXmlIndex();
-            $sitemapsOrgXmlIndexMatcher->setType('sitemaps.org.xml.index');
-            $this->identifier->addMatcher($sitemapsOrgXmlIndexMatcher);
-        }
-
-        return $this->identifier;
     }
 }
