@@ -12,22 +12,26 @@
         }
     ],
     "autoload": {
-        "psr-0": {
-            "webignition\\Tests": "tests/",
-            "": "src/"
+        "psr-4": {
+            "webignition\\WebResource\\Sitemap\\": "src/"
         }
-    },     
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "webignition\\Tests\\WebResource\\Sitemap\\": "tests/"
+        }
+    },
     "require": {
         "php": ">=5.4.0",
-        "webignition/web-resource-model":">=1.1.7,<2.0",
-        "webignition/url":">=0.1,<2.0",        
+        "webignition/web-resource-model":"1.1.9",
+        "webignition/url":">=0.1,<2.0",
         "simplepie/simplepie":"*",
         "hobnob/xml-stream-reader":"1.0.3"
     },
     "require-dev": {
         "symfony/class-loader": "*",
-        "phpunit/phpunit": "3.7.*",
+        "phpunit/phpunit": "~4",
         "guzzle/guzzle":">=3.8.1,<4"
-    },    
+    },
     "minimum-stability":"dev"
 }

@@ -1,39 +1,41 @@
 <?php
 
+namespace webignition\Tests\WebResource\Sitemap;
+
 use webignition\WebResource\Sitemap\Sitemap;
 use webignition\WebResource\Sitemap\Configuration as SitemapConfiguration;
 
-abstract class BaseTest extends PHPUnit_Framework_TestCase {  
-    
+abstract class BaseTest extends \PHPUnit_Framework_TestCase {
+
     const FIXTURES_BASE_PATH = '/fixtures';
-    
+
     /**
      *
      * @var string
      */
-    private $fixturePath = null;    
+    private $fixturePath = null;
 
     /**
-     * 
+     *
      * @param string $testClass
      * @param string $testMethod
      */
     protected function setTestFixturePath($testClass, $testMethod) {
-        $this->fixturePath = __DIR__ . self::FIXTURES_BASE_PATH . '/' . $testClass . '/' . $testMethod;       
-    }    
-    
-    
+        $this->fixturePath = __DIR__ . self::FIXTURES_BASE_PATH . '/' . $testClass . '/' . $testMethod;
+    }
+
+
     /**
-     * 
+     *
      * @return string
      */
     protected function getTestFixturePath() {
-        return $this->fixturePath;     
+        return $this->fixturePath;
     }
-    
-    
+
+
     /**
-     * 
+     *
      * @param string $fixtureName
      * @return string
      */
@@ -41,35 +43,35 @@ abstract class BaseTest extends PHPUnit_Framework_TestCase {
         if (file_exists($this->getTestFixturePath() . '/' . $fixtureName)) {
             return file_get_contents($this->getTestFixturePath() . '/' . $fixtureName);
         }
-        
-        return file_get_contents(__DIR__ . self::FIXTURES_BASE_PATH . '/Common/' . $fixtureName);        
+
+        return file_get_contents(__DIR__ . self::FIXTURES_BASE_PATH . '/Common/' . $fixtureName);
     }
-    
-    
+
+
     /**
-     * 
+     *
      * @param string $fixtureName
      * @return \Guzzle\Http\Message\Response
      */
     protected function getHttpFixture($fixtureName = '', $contentType = 'application/xml') {
         $message = "HTTP/1.0 200 OK\nContent-Type:" . $contentType . "\n\n";
-        
+
         if ($fixtureName != '') {
             $message .= $this->getFixture($fixtureName);
-        }        
-        
+        }
+
         return \Guzzle\Http\Message\Response::fromMessage($message);
-    }    
-//    
+    }
+//
 //    /**
-//     * 
+//     *
 //     * @return \Guzzle\Http\Message\Response
 //     */
 //    protected function getEmptyHttpFixture() {
-//        return \Guzzle\Http\Message\Response::fromMessage("HTTP/1.0 200 OK\nContent-Type:application/xml");        
+//        return \Guzzle\Http\Message\Response::fromMessage("HTTP/1.0 200 OK\nContent-Type:application/xml");
 //    }
-    
-    
+
+
     protected function createSitemap() {
         $configuration = new SitemapConfiguration;
         $configuration->setTypeToUrlExtractorClassMap(array(
@@ -84,6 +86,6 @@ abstract class BaseTest extends PHPUnit_Framework_TestCase {
         $sitemap->setConfiguration($configuration);
         return $sitemap;
     }
-    
-    
+
+
 }
