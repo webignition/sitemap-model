@@ -9,7 +9,7 @@ class SitemapsOrgTxtUrlExtractor implements UrlExtractorInterface
      */
     public function extract($content)
     {
-        $rawUrls = explode("\n", $content);
+        $rawUrls = explode("\n", trim($content));
         $urls = [];
 
         foreach ($rawUrls as $rawUrl) {

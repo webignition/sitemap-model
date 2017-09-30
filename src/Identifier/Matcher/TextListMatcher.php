@@ -10,7 +10,9 @@ class TextListMatcher extends Matcher
      */
     public function matches($content = null)
     {
-        if (trim($content) == '') {
+        $content = trim($content);
+
+        if (empty($content)) {
             return false;
         }
 
