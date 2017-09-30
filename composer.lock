@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "142a0a234323282282a52518e65d008a",
+    "content-hash": "a2903df11b4b40995c00e5e2238d0e20",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -225,23 +225,23 @@
         },
         {
             "name": "hobnob/xml-stream-reader",
-            "version": "1.0.3",
+            "version": "v1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hobnob/xmlStreamReader.git",
-                "reference": "3f130f937c94accb6b7c6e30de3d736ff7d1b0ce"
+                "reference": "fc26cbc5d5802fa5db7d46277ae6cc9bf4c4ee3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hobnob/xmlStreamReader/zipball/3f130f937c94accb6b7c6e30de3d736ff7d1b0ce",
-                "reference": "3f130f937c94accb6b7c6e30de3d736ff7d1b0ce",
+                "url": "https://api.github.com/repos/hobnob/xmlStreamReader/zipball/fc26cbc5d5802fa5db7d46277ae6cc9bf4c4ee3e",
+                "reference": "fc26cbc5d5802fa5db7d46277ae6cc9bf4c4ee3e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "4.*"
             },
             "type": "library",
             "autoload": {
@@ -265,20 +265,20 @@
                 "stream",
                 "xml"
             ],
-            "time": "2013-07-04T08:07:40+00:00"
+            "time": "2015-03-10T15:52:44+00:00"
         },
         {
             "name": "simplepie/simplepie",
-            "version": "dev-master",
+            "version": "1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplepie/simplepie.git",
-                "reference": "d5c7b4dffa8811fd21471108126100b6389184ca"
+                "reference": "5de5551953f95feef12cf355a7a26a70f94aa3ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplepie/simplepie/zipball/d5c7b4dffa8811fd21471108126100b6389184ca",
-                "reference": "d5c7b4dffa8811fd21471108126100b6389184ca",
+                "url": "https://api.github.com/repos/simplepie/simplepie/zipball/5de5551953f95feef12cf355a7a26a70f94aa3ab",
+                "reference": "5de5551953f95feef12cf355a7a26a70f94aa3ab",
                 "shasum": ""
             },
             "require": {
@@ -325,7 +325,7 @@
                 "feeds",
                 "rss"
             ],
-            "time": "2017-09-09T06:56:54+00:00"
+            "time": "2017-04-17T07:29:31+00:00"
         },
         {
             "name": "symfony/event-dispatcher",

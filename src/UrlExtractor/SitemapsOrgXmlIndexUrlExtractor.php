@@ -15,7 +15,7 @@ class SitemapsOrgXmlIndexUrlExtractor implements UrlExtractorInterface
 
         $xmlParser = new Parser();
         $xmlParser->registerCallback(
-            '/sitemapindex/sitemap',
+            '/sitemapindex/sitemap/loc',
             function (Parser $parser, \SimpleXMLElement $node) use (&$urls) {
                 $urls[] = (string)$node;
             }
