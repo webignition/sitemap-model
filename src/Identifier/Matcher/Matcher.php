@@ -12,9 +12,9 @@ abstract class Matcher implements MatcherInterface
     private $type = null;
 
     /**
-     * {@inheritdoc}
+     * @param string $type
      */
-    public function setType($type)
+    public function __construct($type)
     {
         $this->type = $type;
     }
@@ -27,8 +27,8 @@ abstract class Matcher implements MatcherInterface
         return $this->type;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    abstract public function matches($content = null);
+//    /**
+//     * {@inheritdoc}
+//     */
+//    abstract public function matches($content = null);
 }

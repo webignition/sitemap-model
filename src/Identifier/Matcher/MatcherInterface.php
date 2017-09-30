@@ -5,11 +5,6 @@ namespace webignition\WebResource\Sitemap\Identifier\Matcher;
 interface MatcherInterface
 {
     /**
-     * @param string $type
-     */
-    public function setType($type);
-
-    /**
      * @return string
      */
     public function getType();

@@ -3,7 +3,7 @@ namespace webignition\WebResource\Sitemap\Identifier\Matcher;
 
 use webignition\NormalisedUrl\NormalisedUrl;
 
-class SitemapsOrgTxt extends Matcher
+class TextListMatcher extends Matcher
 {
     /**
      * {@inheritdoc}
