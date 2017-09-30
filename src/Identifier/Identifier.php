@@ -39,27 +39,28 @@ class Identifier
     {
         $sitemapsOrgXmlMatcher = new Matcher\RootNodeAndNamespaceXmlMatcher(
             self::SITEMAPS_ORG_XML_ROOT_NAMESPACE_PATTERN,
-            self::SITEMAPS_ORG_XML_ROOT_NODE_NAME
+            self::SITEMAPS_ORG_XML_ROOT_NODE_NAME,
+            self::TYPE_SITEMAPS_ORG_XML
         );
-        $sitemapsOrgXmlMatcher->setType(self::TYPE_SITEMAPS_ORG_XML);
 
-        $sitemapsOrgTxtMatcher = new Matcher\TextListMatcher();
-        $sitemapsOrgTxtMatcher->setType(self::TYPE_SITEMAPS_ORG_TXT);
+        $sitemapsOrgTxtMatcher = new Matcher\TextListMatcher(self::TYPE_SITEMAPS_ORG_TXT);
 
-        $rssFeedMatcher = new Matcher\RootNodeXmlMatcher(self::RSS_ROOT_NODE_NAME);
-        $rssFeedMatcher->setType(self::TYPE_RSS);
+        $rssFeedMatcher = new Matcher\RootNodeXmlMatcher(
+            self::RSS_ROOT_NODE_NAME,
+            self::TYPE_RSS
+        );
 
         $atomFeedMatcher = new Matcher\RootNodeAndNamespaceXmlMatcher(
             self::ATOM_ROOT_NAMESPACE_PATTERN,
-            self::ATOM_ROOT_NODE_NAME
+            self::ATOM_ROOT_NODE_NAME,
+            self::TYPE_ATOM
         );
-        $atomFeedMatcher->setType(self::TYPE_ATOM);
 
         $sitemapsOrgXmlIndexMatcher = new Matcher\RootNodeAndNamespaceXmlMatcher(
             self::SITEMAPS_ORG_XML_INDEX_ROOT_NAMESPACE_PATTERN,
-            self::SITEMAPS_ORG_XML_INDEX_ROOT_NODE_NAME
+            self::SITEMAPS_ORG_XML_INDEX_ROOT_NODE_NAME,
+            self::TYPE_SITEMAPS_ORG_XML_INDEX
         );
-        $sitemapsOrgXmlIndexMatcher->setType(self::TYPE_SITEMAPS_ORG_XML_INDEX);
 
         $this->matchers[] = $sitemapsOrgXmlMatcher;
         $this->matchers[] = $sitemapsOrgTxtMatcher;

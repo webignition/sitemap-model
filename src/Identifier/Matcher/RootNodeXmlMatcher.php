@@ -11,9 +11,11 @@ class RootNodeXmlMatcher extends XmlMatcher
 
     /**
      * @param string $rootNodeName
+     * @param string $type
      */
-    public function __construct($rootNodeName)
+    public function __construct($rootNodeName, $type)
     {
+        parent::__construct($type);
         $this->rootNodeName = $rootNodeName;
     }
 

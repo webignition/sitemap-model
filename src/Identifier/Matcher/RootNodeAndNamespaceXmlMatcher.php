@@ -12,10 +12,11 @@ class RootNodeAndNamespaceXmlMatcher extends RootNodeXmlMatcher
     /**
      * @param string $rootNamespacePattern
      * @param string $rootNodeName
+     * @param string $type
      */
-    public function __construct($rootNamespacePattern, $rootNodeName)
+    public function __construct($rootNamespacePattern, $rootNodeName, $type)
     {
-        parent::__construct($rootNodeName);
+        parent::__construct($rootNodeName, $type);
         $this->rootNamespacePattern = $rootNamespacePattern;
     }
 
