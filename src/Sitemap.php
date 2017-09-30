@@ -3,8 +3,6 @@ namespace webignition\WebResource\Sitemap;
 
 use webignition\WebResource\Sitemap\UrlExtractor\UrlExtractorInterface;
 use webignition\WebResource\WebResource;
-use webignition\WebResource\Sitemap\Identifier\Identifier;
-use webignition\WebResource\Sitemap\Configuration as SitemapConfiguration;
 use webignition\NormalisedUrl\NormalisedUrl;
 
 class Sitemap extends WebResource
@@ -17,14 +15,9 @@ class Sitemap extends WebResource
     private $type = null;
 
     /**
-     * @var Identifier
+     * @var UrlExtractorInterface
      */
-    private $identifier = null;
-
-    /**
-     * @var Configuration
-     */
-    private $configuration = null;
+    private $urlExtractor;
 
     /**
      * Child sitemaps; a collection of Sitemap objects for index sitemaps, an
@@ -39,36 +32,11 @@ class Sitemap extends WebResource
      */
     private $urls = null;
 
-    public function __construct()
-    {
-        $this->identifier = new Identifier();
-    }
-
-    /**
-     * @param SitemapConfiguration $configuration
-     */
-    public function setConfiguration(SitemapConfiguration $configuration)
-    {
-        $this->configuration = $configuration;
-    }
-
-    /**
-     * @return SitemapConfiguration
-     */
-    public function getConfiguration()
-    {
-        return $this->configuration;
-    }
-
     /**
      * @return string
      */
     public function getType()
     {
-        if (is_null($this->type)) {
-            $this->type = $this->identifier->getType($this->getContent());
-        }
-
         return $this->type;
     }
 
@@ -96,14 +64,7 @@ class Sitemap extends WebResource
         if (is_null($this->urls)) {
             $this->urls = [];
 
-            $extractorClass = $this->configuration->getExtractorClassForType($this->getType());
-            if (is_null($extractorClass)) {
-                return [];
-            }
-
-            /* @var UrlExtractorInterface $extractor */
-            $extractor = new $extractorClass;
-            $urls = $extractor->extract($this->getContent());
+            $urls = $this->urlExtractor->extract($this->getContent());
 
             foreach ($urls as $url) {
                 $normalisedUrl = (string)new NormalisedUrl($url);
@@ -118,6 +79,7 @@ class Sitemap extends WebResource
 
     /**
      * @param Sitemap $sitemap
+     *
      * @return bool
      */
     public function addChild(Sitemap $sitemap)
@@ -139,5 +101,21 @@ class Sitemap extends WebResource
     public function getChildren()
     {
         return $this->children;
+    }
+
+    /**
+     * @param UrlExtractorInterface $urlExtractor
+     */
+    public function setUrlExtractor(UrlExtractorInterface $urlExtractor)
+    {
+        $this->urlExtractor = $urlExtractor;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
     }
 }

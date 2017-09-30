@@ -2,57 +2,62 @@
 
 namespace webignition\Tests\WebResource\Sitemap;
 
-use webignition\WebResource\Sitemap\Sitemap;
+use webignition\Tests\WebResource\Sitemap\Factory\FixtureLoader;
+use webignition\Tests\WebResource\Sitemap\Factory\HttpResponseFactory;
+use webignition\WebResource\Sitemap\Factory;
 
-class IsIndexTest extends BaseTest
+class IsIndexTest extends \PHPUnit_Framework_TestCase
 {
-    protected function setUp()
+    /**
+     * @dataProvider isIndexDataProvider
+     *
+     * @param string $fixtureName
+     * @param string $contentType
+     * @param bool $expectedIsIndex
+     */
+    public function testIsIndex($fixtureName, $contentType, $expectedIsIndex)
     {
-        $this->setTestFixturePath(__CLASS__, $this->getName());
+        $factory = new Factory();
+
+        $fixture = FixtureLoader::load($fixtureName);
+        $httpResponse = HttpResponseFactory::create($fixture, $contentType);
+
+        $sitemap = $factory->create($httpResponse);
+
+        $this->assertEquals($expectedIsIndex, $sitemap->isIndex());
     }
 
-    public function testIsIndexForAtomFeed()
+    /**
+     * @return array
+     */
+    public function isIndexDataProvider()
     {
-        $sitemap = new Sitemap();
-        $sitemap->setHttpResponse($this->getHttpFixture('AtomContent', 'application/atom+xml'));
-        $sitemap->setUrl('http://webignition.net/sitemap.atom.xml');
-
-        $this->assertFalse($sitemap->isIndex());
-    }
-
-    public function testisIndexForRssFeed()
-    {
-        $sitemap = new Sitemap();
-        $sitemap->setHttpResponse($this->getHttpFixture('RssContent', 'application/rss+xml'));
-        $sitemap->setUrl('http://webignition.net/sitemap.rss.xml');
-
-        $this->assertFalse($sitemap->isIndex());
-    }
-
-    public function testIsIndexForSitemapIndexType()
-    {
-        $sitemap = new Sitemap();
-        $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgSitemapIndexContent', 'application/xml'));
-        $sitemap->setUrl('http://webignition.net/sitemap_index.xml');
-
-        $this->assertTrue($sitemap->isIndex());
-    }
-
-    public function testIsIndexForSitemapsOrgTxtSitemapType()
-    {
-        $sitemap = new Sitemap();
-        $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgTxtContent', 'text/plain'));
-        $sitemap->setUrl('http://webignition.net/sitemap.txt');
-
-        $this->assertFalse($sitemap->isIndex());
-    }
-
-    public function testIsIndexForSitemapsOrgXmlSitemapType()
-    {
-        $sitemap = new Sitemap();
-        $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgXmlContent', 'application/xml'));
-        $sitemap->setUrl('http://webignition.net/sitemap.xml');
-
-        $this->assertFalse($sitemap->isIndex());
+        return [
+            'atom' => [
+                'fixtureName' => FixtureLoader::ATOM_CONTENT,
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_ATOM,
+                'expectedIsIndex' => false,
+            ],
+            'rss' => [
+                'fixtureName' => FixtureLoader::RSS_CONTENT,
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_RSS,
+                'expectedIsIndex' => false,
+            ],
+            'sitemaps org xml' => [
+                'fixtureName' => FixtureLoader::SITEMAP_XML_CONTENT,
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_XML,
+                'expectedIsIndex' => false,
+            ],
+            'sitemaps org txt' => [
+                'fixtureName' => FixtureLoader::SITEMAP_TXT_CONTENT,
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_TXT,
+                'expectedIsIndex' => false,
+            ],
+            'sitemaps org xml index' => [
+                'fixtureName' => FixtureLoader::SITEMAP_XML_INDEX_CONTENT,
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_XML,
+                'expectedIsIndex' => true,
+            ],
+        ];
     }
 }

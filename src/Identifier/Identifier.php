@@ -4,18 +4,13 @@ namespace webignition\WebResource\Sitemap\Identifier;
 
 use webignition\WebResource\Sitemap\Identifier\Matcher\MatcherInterface;
 use webignition\WebResource\Sitemap\Identifier\Matcher;
+use webignition\WebResource\Sitemap\TypeInterface;
 
 /**
  * Identify the type of sitemap by the content of the sitemap
  */
 class Identifier
 {
-    const TYPE_ATOM = 'application/atom+xml';
-    const TYPE_RSS = 'application/rss+xml';
-    const TYPE_SITEMAPS_ORG_XML = 'sitemaps.org.xml';
-    const TYPE_SITEMAPS_ORG_TXT = 'sitemaps.org.txt';
-    const TYPE_SITEMAPS_ORG_XML_INDEX = 'sitemaps.org.xml.index';
-
     const ATOM_ROOT_NODE_NAME = 'feed';
     const ATOM_ROOT_NAMESPACE_PATTERN = '/http:\/\/www\.w3.org\/2005\/Atom/';
 
@@ -40,26 +35,26 @@ class Identifier
         $sitemapsOrgXmlMatcher = new Matcher\RootNodeAndNamespaceXmlMatcher(
             self::SITEMAPS_ORG_XML_ROOT_NAMESPACE_PATTERN,
             self::SITEMAPS_ORG_XML_ROOT_NODE_NAME,
-            self::TYPE_SITEMAPS_ORG_XML
+            TypeInterface::TYPE_SITEMAPS_ORG_XML
         );
 
-        $sitemapsOrgTxtMatcher = new Matcher\TextListMatcher(self::TYPE_SITEMAPS_ORG_TXT);
+        $sitemapsOrgTxtMatcher = new Matcher\TextListMatcher(TypeInterface::TYPE_SITEMAPS_ORG_TXT);
 
         $rssFeedMatcher = new Matcher\RootNodeXmlMatcher(
             self::RSS_ROOT_NODE_NAME,
-            self::TYPE_RSS
+            TypeInterface::TYPE_RSS
         );
 
         $atomFeedMatcher = new Matcher\RootNodeAndNamespaceXmlMatcher(
             self::ATOM_ROOT_NAMESPACE_PATTERN,
             self::ATOM_ROOT_NODE_NAME,
-            self::TYPE_ATOM
+            TypeInterface::TYPE_ATOM
         );
 
         $sitemapsOrgXmlIndexMatcher = new Matcher\RootNodeAndNamespaceXmlMatcher(
             self::SITEMAPS_ORG_XML_INDEX_ROOT_NAMESPACE_PATTERN,
             self::SITEMAPS_ORG_XML_INDEX_ROOT_NODE_NAME,
-            self::TYPE_SITEMAPS_ORG_XML_INDEX
+            TypeInterface::TYPE_SITEMAPS_ORG_XML_INDEX
         );
 
         $this->matchers[] = $sitemapsOrgXmlMatcher;

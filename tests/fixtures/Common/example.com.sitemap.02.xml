@@ -1,39 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
-<url>
-  <loc>http://example.com/11/</loc>
-</url>
-<url>
-  <loc>http://example.com/12/</loc>
-</url>
-<url>
-  <loc>http://example.com/13/</loc>
-</url>
-<url>
-  <loc>http://example.com/14/</loc>
-</url>
-<url>
-  <loc>http://example.com/15/</loc>
-</url>
-<url>
-  <loc>http://example.com/16/</loc>
-</url>
-<url>
-  <loc>http://example.com/17/</loc>
-</url>
-<url>
-  <loc>http://example.com/18/</loc>
-</url>
-<url>
-  <loc>http://example.com/19/</loc>
-</url>
-<url>
-  <loc>http://example.com/20/</loc>
-</url>
+    <url>
+        <loc>http://example.com/04/</loc>
+    </url>
+    <url>
+        <loc>http://example.com/05/</loc>
+    </url>
+    <url>
+        <loc>http://example.com/06/</loc>
+    </url>
 </urlset>

@@ -2,64 +2,87 @@
 
 namespace webignition\Tests\WebResource\Sitemap;
 
-class GetUrlsTest extends BaseTest
+use webignition\Tests\WebResource\Sitemap\Factory\FixtureLoader;
+use webignition\Tests\WebResource\Sitemap\Factory\HttpResponseFactory;
+use webignition\WebResource\Sitemap\Factory;
+
+class GetUrlsTest extends \PHPUnit_Framework_TestCase
 {
-    protected function setUp()
+    /**
+     * @dataProvider getUrlsDataProvider
+     *
+     * @param string $fixtureName
+     * @param string $contentType
+     * @param string[] $expectedUrls
+     */
+    public function testGetUrls($fixtureName, $contentType, $expectedUrls)
     {
-        $this->setTestFixturePath(__CLASS__, $this->getName());
+        $factory = new Factory();
+
+        $fixture = FixtureLoader::load($fixtureName);
+        $httpResponse = HttpResponseFactory::create($fixture, $contentType);
+
+        $sitemap = $factory->create($httpResponse);
+
+        $this->assertEquals($expectedUrls, $sitemap->getUrls());
     }
 
-    public function testGetSitemapsOrgXmlUrls()
+    /**
+     * @return array
+     */
+    public function getUrlsDataProvider()
     {
-        $sitemap = $this->createSitemap();
-        $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgXmlContent'));
-        $sitemap->setUrl('http://webignition.net/sitemap.xml');
-
-        $this->assertEquals(10, count($sitemap->getUrls()));
-    }
-
-    public function testGetSitemapsOrgTxtUrls()
-    {
-        $sitemap = $this->createSitemap();
-        $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgTxtContent'));
-        $sitemap->setUrl('http://webignition.net/sitemap.xml');
-
-        $this->assertEquals(3, count($sitemap->getUrls()));
-    }
-
-    public function testAtomUrls()
-    {
-        $sitemap = $this->createSitemap();
-        $sitemap->setHttpResponse($this->getHttpFixture('AtomContent'));
-        $sitemap->setUrl('http://webignition.net/sitemap.xml');
-
-        $this->assertEquals(1, count($sitemap->getUrls()));
-    }
-
-    public function testRssUrls()
-    {
-        $sitemap = $this->createSitemap();
-        $sitemap->setHttpResponse($this->getHttpFixture('RssContent'));
-        $sitemap->setUrl('http://webignition.net/sitemap.xml');
-
-        $this->assertEquals(1, count($sitemap->getUrls()));
-    }
-
-    public function testGetSitemapsOrgXmlIndexUrls()
-    {
-        $sitemap = $this->createSitemap();
-        $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgSitemapIndexContent'));
-        $sitemap->setUrl('http://webignition.net/sitemap_index.xml');
-
-        $this->assertEquals(3, count($sitemap->getUrls()));
-    }
-
-    public function testGetParentLocationUrlsOnly()
-    {
-        $sitemap = $this->createSitemap();
-        $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgXmlWithImages.xml'));
-        $sitemap->setUrl('http://webignition.net/sitemap_index.xml');
-
-        $this->assertEquals(18, count($sitemap->getUrls()));
+        return [
+            'atom' => [
+                'fixtureName' => FixtureLoader::ATOM_CONTENT,
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_ATOM,
+                'expectedUrls' => [
+                    'http://example.com/from-atom',
+                ],
+            ],
+            'rss' => [
+                'fixtureName' => FixtureLoader::RSS_CONTENT,
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_RSS,
+                'expectedUrls' => [
+                    'http://example.com/from-rss',
+                ],
+            ],
+            'sitemaps org xml' => [
+                'fixtureName' => FixtureLoader::SITEMAP_XML_CONTENT,
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_XML,
+                'expectedUrls' => [
+                    'http://example.com/xml/1',
+                    'http://example.com/xml/2',
+                    'http://example.com/xml/3',
+                ],
+            ],
+            'sitemaps org txt' => [
+                'fixtureName' => FixtureLoader::SITEMAP_TXT_CONTENT,
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_TXT,
+                'expectedUrls' => [
+                    'http://example.com/txt/1',
+                    'http://example.com/txt/2',
+                    'http://example.com/txt/3',
+                ],
+            ],
+            'sitemaps org xml index' => [
+                'fixtureName' => FixtureLoader::SITEMAP_XML_INDEX_CONTENT,
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_XML,
+                'expectedUrls' => [
+                    'http://www.example.com/sitemap1.xml',
+                    'http://www.example.com/sitemap2.xml',
+                    'http://www.example.com/sitemap3.xml',
+                ],
+            ],
+            'parent location urls only' => [
+                'fixtureName' => FixtureLoader::SITEMAP_XML_WITH_IMAGES_CONTENT,
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_XML,
+                'expectedUrls' => [
+                    'http://example.com/xml-with-images/1',
+                    'http://example.com/xml-with-images/2',
+                    'http://example.com/xml-with-images/3',
+                ],
+            ],
+        ];
     }
 }
