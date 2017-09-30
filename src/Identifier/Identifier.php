@@ -10,6 +10,26 @@ use webignition\WebResource\Sitemap\Identifier\Matcher;
  */
 class Identifier
 {
+    const TYPE_ATOM = 'application/atom+xml';
+    const TYPE_RSS = 'application/rss+xml';
+    const TYPE_SITEMAPS_ORG_XML = 'sitemaps.org.xml';
+    const TYPE_SITEMAPS_ORG_TXT = 'sitemaps.org.txt';
+    const TYPE_SITEMAPS_ORG_XML_INDEX = 'sitemaps.org.xml.index';
+
+    const ATOM_ROOT_NODE_NAME = 'feed';
+    const ATOM_ROOT_NAMESPACE_PATTERN = '/http:\/\/www\.w3.org\/2005\/Atom/';
+
+    const RSS_ROOT_NODE_NAME = 'rss';
+
+    const SITEMAPS_ORG_XML_ROOT_NODE_NAME = 'urlset';
+    const SITEMAPS_ORG_XML_ROOT_NAMESPACE_PATTERN =
+        '/http:\/\/www\.(sitemaps\.org)|(google\.com)\/schemas\/sitemap\/((\d+)|(\d+\.\d+))$/';
+
+    const SITEMAPS_ORG_XML_INDEX_ROOT_NODE_NAME = 'sitemapindex';
+    const SITEMAPS_ORG_XML_INDEX_ROOT_NAMESPACE_PATTERN =
+        '/http:\/\/www\.(sitemaps\.org)|(google\.com)\/schemas\/sitemap\/((\d+)|(\d+\.\d+))$/';
+
+
     /**
      * @var MatcherInterface[]
      */
@@ -17,20 +37,35 @@ class Identifier
 
     public function __construct()
     {
-        $foo = [
-            'sitemaps.org.xml' => Matcher\SitemapsOrgXml::class,
-            'sitemaps.org.txt' => Matcher\SitemapsOrgTxt::class,
-            'application/rss+xml' => Matcher\RssFeed::class,
-            'application/atom+xml' => Matcher\AtomFeed::class,
-            'sitemaps.org.xml.index' => Matcher\SitemapsOrgXmlIndex::class,
-        ];
+        $sitemapsOrgXmlMatcher = new Matcher\RootNodeAndNamespaceXmlMatcher(
+            self::SITEMAPS_ORG_XML_ROOT_NAMESPACE_PATTERN,
+            self::SITEMAPS_ORG_XML_ROOT_NODE_NAME
+        );
+        $sitemapsOrgXmlMatcher->setType(self::TYPE_SITEMAPS_ORG_XML);
 
-        foreach ($foo as $type => $class) {
-            /* @var MatcherInterface $matcher */
-            $matcher = new $class;
-            $matcher->setType($type);
-            $this->matchers[$type] = $matcher;
-        }
+        $sitemapsOrgTxtMatcher = new Matcher\TextListMatcher();
+        $sitemapsOrgTxtMatcher->setType(self::TYPE_SITEMAPS_ORG_TXT);
+
+        $rssFeedMatcher = new Matcher\RootNodeXmlMatcher(self::RSS_ROOT_NODE_NAME);
+        $rssFeedMatcher->setType(self::TYPE_RSS);
+
+        $atomFeedMatcher = new Matcher\RootNodeAndNamespaceXmlMatcher(
+            self::ATOM_ROOT_NAMESPACE_PATTERN,
+            self::ATOM_ROOT_NODE_NAME
+        );
+        $atomFeedMatcher->setType(self::TYPE_ATOM);
+
+        $sitemapsOrgXmlIndexMatcher = new Matcher\RootNodeAndNamespaceXmlMatcher(
+            self::SITEMAPS_ORG_XML_INDEX_ROOT_NAMESPACE_PATTERN,
+            self::SITEMAPS_ORG_XML_INDEX_ROOT_NODE_NAME
+        );
+        $sitemapsOrgXmlIndexMatcher->setType(self::TYPE_SITEMAPS_ORG_XML_INDEX);
+
+        $this->matchers[] = $sitemapsOrgXmlMatcher;
+        $this->matchers[] = $sitemapsOrgTxtMatcher;
+        $this->matchers[] = $rssFeedMatcher;
+        $this->matchers[] = $atomFeedMatcher;
+        $this->matchers[] = $sitemapsOrgXmlIndexMatcher;
     }
 
     /**
