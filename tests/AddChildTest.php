@@ -2,77 +2,68 @@
 
 namespace webignition\Tests\WebResource\Sitemap;
 
+use webignition\Tests\WebResource\Sitemap\Factory\FixtureLoader;
+use webignition\Tests\WebResource\Sitemap\Factory\SitemapHelper;
+use webignition\WebResource\Sitemap\Factory;
 use webignition\WebResource\Sitemap\Sitemap;
 
-class AddChildTest extends BaseTest
+class AddChildTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Factory
+     */
+    private $factory;
+
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp()
     {
-        $this->setTestFixturePath(__CLASS__, $this->getName());
+        $this->factory = new Factory();
     }
 
     public function testAddChildToNonIndexSitemap()
     {
-        $sitemap = $this->createSitemap();
-        $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgXmlContent'));
-        $sitemap->setUrl('http://webignition.net/sitemap.xml');
+        $sitemap = SitemapHelper::createXmlSitemap(FixtureLoader::SITEMAP_XML_CONTENT);
 
         $this->assertFalse($sitemap->addChild(new Sitemap()));
     }
 
     public function testAddChildToIndexSitemap()
     {
-        $sitemap = $this->createSitemap();
-        $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgSitemapIndexContent'));
-        $sitemap->setUrl('http://webignition.net/sitemap_index.xml');
+        $sitemap = SitemapHelper::createXmlIndexSitemap();
 
-        $childSitemap = $this->createSitemap();
-        $childSitemap->setHttpResponse($this->getHttpFixture());
-        $childSitemap->setUrl('http://www.example.com/sitemap1.xml');
-
-        $this->assertTrue($sitemap->addChild($childSitemap));
+        $this->assertTrue($sitemap->addChild(new Sitemap()));
     }
 
     public function testAddingChildIsIdempotent()
     {
-        $sitemap = $this->createSitemap();
-        $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgSitemapIndexContent'));
-        $sitemap->setUrl('http://webignition.net/sitemap_index.xml');
-
-        $childSitemap = $this->createSitemap();
-        $childSitemap->setHttpResponse($this->getHttpFixture());
-        $childSitemap->setUrl('http://www.example.com/sitemap1.xml');
+        $sitemap = SitemapHelper::createXmlIndexSitemap();
+        $childSitemap = SitemapHelper::createXmlSitemap(FixtureLoader::SITEMAP_XML_INDEX_CONTENT);
 
         $this->assertTrue($sitemap->addChild($childSitemap));
-        $this->assertEquals(1, count($sitemap->getChildren()));
+        $this->assertCount(1, $sitemap->getChildren());
 
         $this->assertTrue($sitemap->addChild($childSitemap));
-        $this->assertTrue($sitemap->addChild($childSitemap));
-        $this->assertTrue($sitemap->addChild($childSitemap));
-        $this->assertEquals(1, count($sitemap->getChildren()));
+        $this->assertCount(1, $sitemap->getChildren());
     }
 
     public function testAddingMultipleChildren()
     {
-        $sitemap = $this->createSitemap();
-        $sitemap->setHttpResponse($this->getHttpFixture('SitemapsOrgSitemapIndexContent'));
-        $sitemap->setUrl('http://webignition.net/sitemap_index.xml');
+        $sitemap = SitemapHelper::createXmlIndexSitemap();
 
-        $childSitemap1 = $this->createSitemap();
-        $childSitemap1->setHttpResponse($this->getHttpFixture());
-        $childSitemap1->setUrl('http://www.example.com/sitemap1.xml');
+        $childSitemap1 = SitemapHelper::createXmlSitemap(FixtureLoader::SITEMAP_XML_EXAMPLE_1);
+        $childSitemap2 = SitemapHelper::createXmlSitemap(FixtureLoader::SITEMAP_XML_EXAMPLE_2);
+        $childSitemap3 = SitemapHelper::createXmlSitemap(FixtureLoader::SITEMAP_XML_EXAMPLE_3);
 
-        $childSitemap2 = $this->createSitemap();
-        $childSitemap2->setHttpResponse($this->getHttpFixture());
-        $childSitemap2->setUrl('http://www.example.com/sitemap2.xml');
-
-        $childSitemap3 = $this->createSitemap();
-        $childSitemap3->setHttpResponse($this->getHttpFixture());
-        $childSitemap3->setUrl('http://www.example.com/sitemap3.xml');
+        $childSitemap1->setUrl('http://example.com/sitemap1.xml');
+        $childSitemap2->setUrl('http://example.com/sitemap2.xml');
+        $childSitemap3->setUrl('http://example.com/sitemap3.xml');
 
         $this->assertTrue($sitemap->addChild($childSitemap1));
         $this->assertTrue($sitemap->addChild($childSitemap2));
         $this->assertTrue($sitemap->addChild($childSitemap3));
-        $this->assertEquals(3, count($sitemap->getChildren()));
+
+        $this->assertCount(3, $sitemap->getChildren());
     }
 }

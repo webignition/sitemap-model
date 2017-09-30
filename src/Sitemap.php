@@ -3,8 +3,6 @@ namespace webignition\WebResource\Sitemap;
 
 use webignition\WebResource\Sitemap\UrlExtractor\UrlExtractorInterface;
 use webignition\WebResource\WebResource;
-use webignition\WebResource\Sitemap\Identifier\Identifier;
-use webignition\WebResource\Sitemap\Configuration as SitemapConfiguration;
 use webignition\NormalisedUrl\NormalisedUrl;
 
 class Sitemap extends WebResource
@@ -17,19 +15,9 @@ class Sitemap extends WebResource
     private $type = null;
 
     /**
-     * @var Identifier
-     */
-    private $identifier = null;
-
-    /**
      * @var UrlExtractorInterface
      */
     private $urlExtractor;
-
-    /**
-     * @var Configuration
-     */
-    private $configuration = null;
 
     /**
      * Child sitemaps; a collection of Sitemap objects for index sitemaps, an
@@ -45,30 +33,10 @@ class Sitemap extends WebResource
     private $urls = null;
 
     /**
-     * @param SitemapConfiguration $configuration
-     */
-    public function setConfiguration(SitemapConfiguration $configuration)
-    {
-        $this->configuration = $configuration;
-    }
-
-    /**
-     * @return SitemapConfiguration
-     */
-    public function getConfiguration()
-    {
-        return $this->configuration;
-    }
-
-    /**
      * @return string
      */
     public function getType()
     {
-        if (is_null($this->type)) {
-            $this->type = $this->identifier->getType($this->getContent());
-        }
-
         return $this->type;
     }
 

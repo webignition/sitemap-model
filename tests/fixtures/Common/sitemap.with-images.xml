@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://www.xml-sitemaps.com/gen/pages/mods/sitemap.xsl"?>
+<urlset
+        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xsi:schemaLocation="
+            http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    <url>
+        <loc>http://example.com/xml-with-images/1</loc>
+        <lastmod>2013-10-21T03:35:35+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0000</priority>
+        <image:image>
+            <image:loc>http://example.com/images/logo.gif</image:loc>
+            <image:caption>logo</image:caption>
+        </image:image>
+    </url>
+    <url>
+        <loc>http://example.com/xml-with-images/2</loc>
+    </url>
+    <url>
+        <loc>http://example.com/xml-with-images/3</loc>
+        <lastmod>2013-10-21T03:35:35+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0000</priority>
+        <image:image>
+            <image:loc>http://example.com/images/home-colour.jpg</image:loc>
+            <image:caption>home</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>http://example.com/images/help.png</image:loc>
+            <image:caption>help</image:caption>
+        </image:image>
+    </url>
+</urlset>

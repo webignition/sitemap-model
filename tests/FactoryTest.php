@@ -6,6 +6,7 @@ use webignition\Tests\WebResource\Sitemap\Factory\FixtureLoader;
 use webignition\Tests\WebResource\Sitemap\Factory\HttpResponseFactory;
 use webignition\WebResource\Sitemap\Factory;
 use webignition\WebResource\Sitemap\Sitemap;
+use webignition\WebResource\Sitemap\TypeInterface;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,12 +25,50 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider createDataProvider
+     * @dataProvider createUnknownTypeDataProvider
      *
      * @param string $fixtureName
      * @param string $contentType
      */
-    public function testCreate($fixtureName, $contentType, $expectedUrls)
+    public function testCreateUnknownType($fixtureName, $contentType)
+    {
+        $fixture = FixtureLoader::load($fixtureName);
+        $httpResponse = HttpResponseFactory::create($fixture, $contentType);
+
+        $this->setExpectedException(\RuntimeException::class);
+
+        $this->factory->create($httpResponse);
+    }
+
+    /**
+     * @return array
+     */
+    public function createUnknownTypeDataProvider()
+    {
+        return [
+            'html document' => [
+                'fixtureName' => FixtureLoader::HTML_CONTENT,
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_HTML,
+            ],
+            'plain text' => [
+                'fixtureName' => FixtureLoader::TEXT_CONTENT,
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_TXT,
+            ],
+            'invalid xml' => [
+                'fixtureName' => FixtureLoader::SITEMAP_XML_INVALID_CONTENT,
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_XML,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider createDataProvider
+     *
+     * @param string $fixtureName
+     * @param string $contentType
+     * @param string $expectedType
+     */
+    public function testCreate($fixtureName, $contentType, $expectedType)
     {
         $fixture = FixtureLoader::load($fixtureName);
         $httpResponse = HttpResponseFactory::create($fixture, $contentType);
@@ -37,7 +76,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $sitemap = $this->factory->create($httpResponse);
 
         $this->assertInstanceOf(Sitemap::class, $sitemap);
-        $this->assertEquals($expectedUrls, $sitemap->getUrls());
+        $this->assertEquals($expectedType, $sitemap->getType());
     }
 
     /**
@@ -47,22 +86,19 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     {
         return [
             'atom' => [
-                'fixtureName' => 'atom.xml',
-                'contentType' => 'application/atom+xml',
-                'expectedUrls' => [
-                    'http://example.com/from-atom',
-                ],
+                'fixtureName' => FixtureLoader::ATOM_CONTENT,
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_ATOM,
+                'expectedType' => TypeInterface::TYPE_ATOM,
             ],
             'rss' => [
-                'fixtureName' => 'rss.xml',
-                'contentType' => 'application/rss+xml',
-                'expectedUrls' => [
-                    'http://example.com/from-rss',
-                ],
+                'fixtureName' => FixtureLoader::RSS_CONTENT,
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_RSS,
+                'expectedType' => TypeInterface::TYPE_RSS,
             ],
             'sitemaps org xml' => [
-                'fixtureName' => 'sitemap.xml',
-                'contentType' => 'text/xml',
+                'fixtureName' => FixtureLoader::SITEMAP_XML_CONTENT,
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_XML,
+                'expectedType' => TypeInterface::TYPE_SITEMAPS_ORG_XML,
                 'expectedUrls' => [
                     'http://example.com/xml/1',
                     'http://example.com/xml/2',
@@ -70,8 +106,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
             'sitemaps org txt' => [
-                'fixtureName' => 'sitemap.txt',
-                'contentType' => 'text/plain',
+                'fixtureName' => FixtureLoader::SITEMAP_TXT_CONTENT,
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_TXT,
+                'expectedType' => TypeInterface::TYPE_SITEMAPS_ORG_TXT,
                 'expectedUrls' => [
                     'http://example.com/txt/1',
                     'http://example.com/txt/2',
@@ -79,8 +116,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
             'sitemaps org xml index' => [
-                'fixtureName' => 'sitemap.index.xml',
-                'contentType' => 'text/xml',
+                'fixtureName' => FixtureLoader::SITEMAP_XML_INDEX_CONTENT,
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_XML,
+                'expectedType' => TypeInterface::TYPE_SITEMAPS_ORG_XML_INDEX,
                 'expectedUrls' => [
                     'http://www.example.com/sitemap1.xml',
                     'http://www.example.com/sitemap2.xml',
