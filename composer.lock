@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d2c453750fa04a43ee736f5b050727fc",
+    "content-hash": "a2903df11b4b40995c00e5e2238d0e20",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -269,16 +269,16 @@
         },
         {
             "name": "simplepie/simplepie",
-            "version": "dev-master",
+            "version": "1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplepie/simplepie.git",
-                "reference": "d5c7b4dffa8811fd21471108126100b6389184ca"
+                "reference": "5de5551953f95feef12cf355a7a26a70f94aa3ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplepie/simplepie/zipball/d5c7b4dffa8811fd21471108126100b6389184ca",
-                "reference": "d5c7b4dffa8811fd21471108126100b6389184ca",
+                "url": "https://api.github.com/repos/simplepie/simplepie/zipball/5de5551953f95feef12cf355a7a26a70f94aa3ab",
+                "reference": "5de5551953f95feef12cf355a7a26a70f94aa3ab",
                 "shasum": ""
             },
             "require": {
@@ -325,7 +325,7 @@
                 "feeds",
                 "rss"
             ],
-            "time": "2017-09-09T06:56:54+00:00"
+            "time": "2017-04-17T07:29:31+00:00"
         },
         {
             "name": "symfony/event-dispatcher",

@@ -33,7 +33,7 @@
         "php": ">=5.4.0",
         "webignition/web-resource-model":"1.1.9",
         "webignition/url":">=0.1,<2.0",
-        "simplepie/simplepie":"*",
+        "simplepie/simplepie":"1.5",
         "hobnob/xml-stream-reader":"1.0.8"
     },
     "require-dev": {
