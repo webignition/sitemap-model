@@ -34,7 +34,7 @@
         "webignition/web-resource-model":"1.1.9",
         "webignition/url":">=0.1,<2.0",
         "simplepie/simplepie":"*",
-        "hobnob/xml-stream-reader":"1.0.3"
+        "hobnob/xml-stream-reader":"1.0.8"
     },
     "require-dev": {
         "phpunit/phpunit": "~4",

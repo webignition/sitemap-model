@@ -15,7 +15,7 @@ class SitemapsOrgXmlUrlExtractor implements UrlExtractorInterface
 
         $xmlParser = new Parser();
         $xmlParser->registerCallback(
-            '/urlset/url',
+            '/urlset/url/loc',
             function (Parser $parser, \SimpleXMLElement $node) use (&$urls) {
                 $urls[] = (string)$node;
             }
