@@ -2,7 +2,7 @@
 
 namespace webignition\Tests\WebResource\Sitemap\Factory;
 
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Message\MessageFactory;
 
 class HttpResponseFactory
 {
@@ -14,12 +14,14 @@ class HttpResponseFactory
 
     public static function create($content, $contentType)
     {
-        $message = "HTTP/1.1 200 OK\nContent-Type:" . $contentType . "\n\n";
+        $messageFactory = new MessageFactory();
 
-        if (!empty($content)) {
-            $message .= $content;
-        }
-
-        return Response::fromMessage($message);
+        return $messageFactory->createResponse(
+            200,
+            [
+                'content-type' => $contentType,
+            ],
+            $content
+        );
     }
 }
