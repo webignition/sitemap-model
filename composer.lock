@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "dcbd4bc9393c21916089ebeef7d4b515",
+    "content-hash": "35a56924b5560530d0e35e0fac8e34a3",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -663,7 +663,7 @@
         },
         {
             "name": "webignition/web-resource-model",
-            "version": "1.3.1",
+            "version": "1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/web-resource-model.git",
@@ -693,18 +693,7 @@
                     "webignition\\Tests\\WebResource\\": "tests/"
                 }
             },
-            "scripts": {
-                "test": [
-                    "./vendor/bin/phpunit --colors=always"
-                ],
-                "cs": [
-                    "./vendor/bin/phpcs src tests --colors --standard=PSR2"
-                ],
-                "ci": [
-                    "@composer cs",
-                    "@composer test"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -720,10 +709,6 @@
                 "modem",
                 "web"
             ],
-            "support": {
-                "source": "https://github.com/webignition/web-resource-model/tree/1.3.1",
-                "issues": "https://github.com/webignition/web-resource-model/issues"
-            },
             "time": "2018-03-01T16:50:26+00:00"
         },
         {
