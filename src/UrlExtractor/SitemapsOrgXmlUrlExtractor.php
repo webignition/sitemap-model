@@ -2,10 +2,10 @@
 
 namespace webignition\WebResource\Sitemap\UrlExtractor;
 
-use Hobnob\XmlStreamReader\Parser;
-
 class SitemapsOrgXmlUrlExtractor implements UrlExtractorInterface
 {
+    const SITEMAP_XML_NAMESPACE = 'http://www.sitemaps.org/schemas/sitemap/0.9';
+
     /**
      * {@inheritdoc}
      */
@@ -13,14 +13,14 @@ class SitemapsOrgXmlUrlExtractor implements UrlExtractorInterface
     {
         $urls = [];
 
-        $xmlParser = new Parser();
-        $xmlParser->registerCallback(
-            '/urlset/url/loc',
-            function (Parser $parser, \SimpleXMLElement $node) use (&$urls) {
-                $urls[] = (string)$node;
-            }
-        );
-        $xmlParser->parse($content);
+        $xml = new \SimpleXMLElement($content);
+        $xml->registerXPathNamespace('s', self::SITEMAP_XML_NAMESPACE);
+
+        $result = $xml->xpath('/s:urlset/s:url/s:loc/text()');
+
+        foreach ($result as $url) {
+            $urls[] = (string)$url;
+        }
 
         return $urls;
     }
