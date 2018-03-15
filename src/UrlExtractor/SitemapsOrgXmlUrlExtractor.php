@@ -2,26 +2,15 @@
 
 namespace webignition\WebResource\Sitemap\UrlExtractor;
 
-class SitemapsOrgXmlUrlExtractor implements UrlExtractorInterface
+class SitemapsOrgXmlUrlExtractor extends AbstractSitemapsOrgXmlExtractor
 {
-    const SITEMAP_XML_NAMESPACE = 'http://www.sitemaps.org/schemas/sitemap/0.9';
+    const XPATH = '/s:urlset/s:url/s:loc/text()';
 
     /**
      * {@inheritdoc}
      */
-    public function extract($content)
+    protected function getXpath()
     {
-        $urls = [];
-
-        $xml = new \SimpleXMLElement($content);
-        $xml->registerXPathNamespace('s', self::SITEMAP_XML_NAMESPACE);
-
-        $result = $xml->xpath('/s:urlset/s:url/s:loc/text()');
-
-        foreach ($result as $url) {
-            $urls[] = (string)$url;
-        }
-
-        return $urls;
+        return self::XPATH;
     }
 }
