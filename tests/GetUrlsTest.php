@@ -56,6 +56,15 @@ class GetUrlsTest extends \PHPUnit_Framework_TestCase
                     'http://example.com/xml/3',
                 ],
             ],
+            'sitemaps org xml v0.84' => [
+                'fixtureName' => 'sitemap.0.84.xml',
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_XML,
+                'expectedUrls' => [
+                    'http://example.com/xml/1',
+                    'http://example.com/xml/2',
+                    'http://example.com/xml/3',
+                ],
+            ],
             'sitemaps org txt' => [
                 'fixtureName' => FixtureLoader::SITEMAP_TXT_CONTENT,
                 'contentType' => HttpResponseFactory::CONTENT_TYPE_TXT,
