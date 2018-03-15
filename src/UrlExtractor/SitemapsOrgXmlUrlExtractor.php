@@ -2,26 +2,15 @@
 
 namespace webignition\WebResource\Sitemap\UrlExtractor;
 
-use Hobnob\XmlStreamReader\Parser;
-
-class SitemapsOrgXmlUrlExtractor implements UrlExtractorInterface
+class SitemapsOrgXmlUrlExtractor extends AbstractSitemapsOrgXmlExtractor
 {
+    const XPATH = '/s:urlset/s:url/s:loc/text()';
+
     /**
      * {@inheritdoc}
      */
-    public function extract($content)
+    protected function getXpath()
     {
-        $urls = [];
-
-        $xmlParser = new Parser();
-        $xmlParser->registerCallback(
-            '/urlset/url/loc',
-            function (Parser $parser, \SimpleXMLElement $node) use (&$urls) {
-                $urls[] = (string)$node;
-            }
-        );
-        $xmlParser->parse($content);
-
-        return $urls;
+        return self::XPATH;
     }
 }
