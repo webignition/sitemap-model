@@ -83,6 +83,15 @@ class GetUrlsTest extends \PHPUnit_Framework_TestCase
                     'http://www.example.com/sitemap3.xml',
                 ],
             ],
+            'sitemaps org xml index google.com v0.84' => [
+                'fixtureName' => 'sitemap.index.google.com.0.84.xml',
+                'contentType' => HttpResponseFactory::CONTENT_TYPE_XML,
+                'expectedUrls' => [
+                    'http://www.example.com/sitemap1.xml',
+                    'http://www.example.com/sitemap2.xml',
+                    'http://www.example.com/sitemap3.xml',
+                ],
+            ],
             'parent location urls only' => [
                 'fixtureName' => FixtureLoader::SITEMAP_XML_WITH_IMAGES_CONTENT,
                 'contentType' => HttpResponseFactory::CONTENT_TYPE_XML,
