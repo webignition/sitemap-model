@@ -4,7 +4,6 @@ namespace webignition\WebResource\Sitemap\UrlExtractor;
 
 abstract class AbstractSitemapsOrgXmlExtractor implements UrlExtractorInterface
 {
-    const SITEMAP_XML_NAMESPACE_PREFIX = 'http://www.sitemaps.org/schemas/sitemap/';
     const SITEMAP_XML_NAMESPACE_REFERENCE = 's';
 
     /**
@@ -37,7 +36,7 @@ abstract class AbstractSitemapsOrgXmlExtractor implements UrlExtractorInterface
         $namespaces = $xml->getNamespaces();
 
         foreach ($namespaces as $namespace) {
-            if (0 === strpos($namespace, self::SITEMAP_XML_NAMESPACE_PREFIX)) {
+            if (preg_match('/\/schemas\/sitemap\/[0-9\.]+$/', $namespace) > 0) {
                 return $namespace;
             }
         }
