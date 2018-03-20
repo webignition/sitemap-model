@@ -1,4 +1,5 @@
 <?php
+
 namespace webignition\WebResource\Sitemap;
 
 use webignition\WebResource\Sitemap\UrlExtractor\UrlExtractorInterface;
@@ -92,6 +93,7 @@ class Sitemap extends WebResource
         $childIndex = md5((string)$childUrl);
 
         $this->children[$childIndex] = $sitemap;
+
         return true;
     }
 

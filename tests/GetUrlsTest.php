@@ -3,7 +3,7 @@
 namespace webignition\Tests\WebResource\Sitemap;
 
 use webignition\Tests\WebResource\Sitemap\Factory\FixtureLoader;
-use webignition\Tests\WebResource\Sitemap\Factory\HttpResponseFactory;
+use webignition\Tests\WebResource\Sitemap\Factory\ResponseFactory;
 use webignition\WebResource\Sitemap\Factory;
 
 class GetUrlsTest extends \PHPUnit_Framework_TestCase
@@ -20,7 +20,7 @@ class GetUrlsTest extends \PHPUnit_Framework_TestCase
         $factory = new Factory();
 
         $fixture = FixtureLoader::load($fixtureName);
-        $httpResponse = HttpResponseFactory::create($fixture, $contentType);
+        $httpResponse = ResponseFactory::create($fixture, $contentType);
 
         $sitemap = $factory->create($httpResponse);
 
@@ -35,21 +35,21 @@ class GetUrlsTest extends \PHPUnit_Framework_TestCase
         return [
             'atom' => [
                 'fixtureName' => FixtureLoader::ATOM_CONTENT,
-                'contentType' => HttpResponseFactory::CONTENT_TYPE_ATOM,
+                'contentType' => ResponseFactory::CONTENT_TYPE_ATOM,
                 'expectedUrls' => [
                     'http://example.com/from-atom',
                 ],
             ],
             'rss' => [
                 'fixtureName' => FixtureLoader::RSS_CONTENT,
-                'contentType' => HttpResponseFactory::CONTENT_TYPE_RSS,
+                'contentType' => ResponseFactory::CONTENT_TYPE_RSS,
                 'expectedUrls' => [
                     'http://example.com/from-rss',
                 ],
             ],
             'sitemaps org xml' => [
                 'fixtureName' => FixtureLoader::SITEMAP_XML_CONTENT,
-                'contentType' => HttpResponseFactory::CONTENT_TYPE_XML,
+                'contentType' => ResponseFactory::CONTENT_TYPE_XML,
                 'expectedUrls' => [
                     'http://example.com/xml/1',
                     'http://example.com/xml/2',
@@ -58,7 +58,7 @@ class GetUrlsTest extends \PHPUnit_Framework_TestCase
             ],
             'sitemaps org xml v0.84' => [
                 'fixtureName' => 'sitemap.0.84.xml',
-                'contentType' => HttpResponseFactory::CONTENT_TYPE_XML,
+                'contentType' => ResponseFactory::CONTENT_TYPE_XML,
                 'expectedUrls' => [
                     'http://example.com/xml/1',
                     'http://example.com/xml/2',
@@ -67,7 +67,7 @@ class GetUrlsTest extends \PHPUnit_Framework_TestCase
             ],
             'sitemaps org txt' => [
                 'fixtureName' => FixtureLoader::SITEMAP_TXT_CONTENT,
-                'contentType' => HttpResponseFactory::CONTENT_TYPE_TXT,
+                'contentType' => ResponseFactory::CONTENT_TYPE_TXT,
                 'expectedUrls' => [
                     'http://example.com/txt/1',
                     'http://example.com/txt/2',
@@ -76,7 +76,7 @@ class GetUrlsTest extends \PHPUnit_Framework_TestCase
             ],
             'sitemaps org xml index' => [
                 'fixtureName' => FixtureLoader::SITEMAP_XML_INDEX_CONTENT,
-                'contentType' => HttpResponseFactory::CONTENT_TYPE_XML,
+                'contentType' => ResponseFactory::CONTENT_TYPE_XML,
                 'expectedUrls' => [
                     'http://www.example.com/sitemap1.xml',
                     'http://www.example.com/sitemap2.xml',
@@ -85,7 +85,7 @@ class GetUrlsTest extends \PHPUnit_Framework_TestCase
             ],
             'sitemaps org xml index google.com v0.84' => [
                 'fixtureName' => 'sitemap.index.google.com.0.84.xml',
-                'contentType' => HttpResponseFactory::CONTENT_TYPE_XML,
+                'contentType' => ResponseFactory::CONTENT_TYPE_XML,
                 'expectedUrls' => [
                     'http://www.example.com/sitemap1.xml',
                     'http://www.example.com/sitemap2.xml',
@@ -94,7 +94,7 @@ class GetUrlsTest extends \PHPUnit_Framework_TestCase
             ],
             'parent location urls only' => [
                 'fixtureName' => FixtureLoader::SITEMAP_XML_WITH_IMAGES_CONTENT,
-                'contentType' => HttpResponseFactory::CONTENT_TYPE_XML,
+                'contentType' => ResponseFactory::CONTENT_TYPE_XML,
                 'expectedUrls' => [
                     'http://example.com/xml-with-images/1',
                     'http://example.com/xml-with-images/2',

@@ -8,34 +8,37 @@ use webignition\WebResource\Sitemap\Sitemap;
 class SitemapHelper
 {
     /**
+     * @param string|null $url
+     *
      * @return Sitemap
      */
-    public static function createXmlIndexSitemap()
+    public static function createXmlIndexSitemap($url = null)
     {
-        $httpResponse = HttpResponseFactory::create(
+        $response = ResponseFactory::create(
             FixtureLoader::load(FixtureLoader::SITEMAP_XML_INDEX_CONTENT),
-            HttpResponseFactory::CONTENT_TYPE_XML
+            ResponseFactory::CONTENT_TYPE_XML
         );
 
         $factory = new Factory();
 
-        return $factory->create($httpResponse);
+        return $factory->create($response, $url);
     }
 
     /**
      * @param string $fixtureName
+     * @param string|null $url
      *
      * @return Sitemap
      */
-    public static function createXmlSitemap($fixtureName)
+    public static function createXmlSitemap($fixtureName, $url = null)
     {
-        $httpResponse = HttpResponseFactory::create(
+        $response = ResponseFactory::create(
             FixtureLoader::load($fixtureName),
-            HttpResponseFactory::CONTENT_TYPE_XML
+            ResponseFactory::CONTENT_TYPE_XML
         );
 
         $factory = new Factory();
 
-        return $factory->create($httpResponse);
+        return $factory->create($response, $url);
     }
 }
