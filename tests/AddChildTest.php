@@ -25,15 +25,17 @@ class AddChildTest extends \PHPUnit_Framework_TestCase
     public function testAddChildToNonIndexSitemap()
     {
         $sitemap = SitemapHelper::createXmlSitemap(FixtureLoader::SITEMAP_XML_CONTENT);
+        $childSitemap = SitemapHelper::createXmlSitemap(FixtureLoader::SITEMAP_XML_CONTENT);
 
-        $this->assertFalse($sitemap->addChild(new Sitemap()));
+        $this->assertFalse($sitemap->addChild($childSitemap));
     }
 
     public function testAddChildToIndexSitemap()
     {
         $sitemap = SitemapHelper::createXmlIndexSitemap();
+        $childSitemap = SitemapHelper::createXmlSitemap(FixtureLoader::SITEMAP_XML_CONTENT);
 
-        $this->assertTrue($sitemap->addChild(new Sitemap()));
+        $this->assertTrue($sitemap->addChild($childSitemap));
     }
 
     public function testAddingChildIsIdempotent()
@@ -52,13 +54,20 @@ class AddChildTest extends \PHPUnit_Framework_TestCase
     {
         $sitemap = SitemapHelper::createXmlIndexSitemap();
 
-        $childSitemap1 = SitemapHelper::createXmlSitemap(FixtureLoader::SITEMAP_XML_EXAMPLE_1);
-        $childSitemap2 = SitemapHelper::createXmlSitemap(FixtureLoader::SITEMAP_XML_EXAMPLE_2);
-        $childSitemap3 = SitemapHelper::createXmlSitemap(FixtureLoader::SITEMAP_XML_EXAMPLE_3);
+        $childSitemap1 = SitemapHelper::createXmlSitemap(
+            FixtureLoader::SITEMAP_XML_EXAMPLE_1,
+            'http://example.com/sitemap1.xml'
+        );
 
-        $childSitemap1->setUrl('http://example.com/sitemap1.xml');
-        $childSitemap2->setUrl('http://example.com/sitemap2.xml');
-        $childSitemap3->setUrl('http://example.com/sitemap3.xml');
+        $childSitemap2 = SitemapHelper::createXmlSitemap(
+            FixtureLoader::SITEMAP_XML_EXAMPLE_2,
+            'http://example.com/sitemap2.xml'
+        );
+
+        $childSitemap3 = SitemapHelper::createXmlSitemap(
+            FixtureLoader::SITEMAP_XML_EXAMPLE_3,
+            'http://example.com/sitemap3.xml'
+        );
 
         $this->assertTrue($sitemap->addChild($childSitemap1));
         $this->assertTrue($sitemap->addChild($childSitemap2));

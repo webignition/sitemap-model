@@ -1,7 +1,8 @@
 <?php
+
 namespace webignition\WebResource\Sitemap;
 
-use GuzzleHttp\Message\ResponseInterface;
+use Psr\Http\Message\ResponseInterface;
 use webignition\WebResource\Sitemap\Identifier\Identifier;
 use webignition\WebResource\Sitemap\UrlExtractor\NewsFeedUrlExtractor;
 use webignition\WebResource\Sitemap\UrlExtractor\SitemapsOrgTxtUrlExtractor;
@@ -39,14 +40,14 @@ class Factory
     }
 
     /**
-     * @param ResponseInterface $httpResponse
+     * @param ResponseInterface $response
+     * @param string|null $url
      *
      * @return Sitemap
      */
-    public function create(ResponseInterface $httpResponse)
+    public function create(ResponseInterface $response, $url = null)
     {
-        $sitemap = new Sitemap();
-        $sitemap->setHttpResponse($httpResponse);
+        $sitemap = new Sitemap($response, $url);
 
         $content = $sitemap->getContent();
         $type = $this->identifier->getType($content);
