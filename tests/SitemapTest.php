@@ -3,9 +3,11 @@
 namespace webignition\Tests\WebResource\Sitemap;
 
 use Psr\Http\Message\ResponseInterface;
-use webignition\Tests\WebResource\Sitemap\Factory\ResponseFactory;
+use webignition\InternetMediaType\Parser\ParseException as InternetMediaTypeParseException;
 use webignition\WebResource\Sitemap\Sitemap;
-use webignition\WebResource\Sitemap\TypeInterface;
+use webignition\WebResource\TestingTools\FixtureLoader;
+use webignition\WebResource\TestingTools\ResponseFactory;
+use webignition\WebResourceInterfaces\SitemapInterface;
 
 class SitemapTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,6 +19,8 @@ class SitemapTest extends \PHPUnit_Framework_TestCase
      * @param string $expectedType
      * @param bool $expectedIsIndex
      * @param bool $expectedIsSitemap
+     *
+     * @throws InternetMediaTypeParseException
      */
     public function testCreate(ResponseInterface $response, $type, $expectedType, $expectedIsIndex, $expectedIsSitemap)
     {
@@ -34,9 +38,11 @@ class SitemapTest extends \PHPUnit_Framework_TestCase
      */
     public function createDataProvider()
     {
+        FixtureLoader::$fixturePath = __DIR__  . '/Fixtures';
+
         return [
             'not a sitemap' => [
-                'response' => ResponseFactory::create(ResponseFactory::CONTENT_TYPE_TXT, ''),
+                'response' => ResponseFactory::create('text/plain', ''),
                 'type' => null,
                 'expectedType' => null,
                 'expectedIsIndex' => false,
@@ -44,36 +50,36 @@ class SitemapTest extends \PHPUnit_Framework_TestCase
             ],
             'text/plain' => [
                 'response' => ResponseFactory::create(ResponseFactory::CONTENT_TYPE_TXT, ''),
-                'type' => TypeInterface::TYPE_SITEMAPS_ORG_TXT,
-                'expectedType' => TypeInterface::TYPE_SITEMAPS_ORG_TXT,
+                'type' => SitemapInterface::TYPE_SITEMAPS_ORG_TXT,
+                'expectedType' => SitemapInterface::TYPE_SITEMAPS_ORG_TXT,
                 'expectedIsIndex' => false,
                 'expectedIsSitemap' => true,
             ],
             'xml default' => [
                 'response' => ResponseFactory::create(ResponseFactory::CONTENT_TYPE_XML, ''),
-                'type' => TypeInterface::TYPE_SITEMAPS_ORG_XML,
-                'expectedType' => TypeInterface::TYPE_SITEMAPS_ORG_XML,
+                'type' => SitemapInterface::TYPE_SITEMAPS_ORG_XML,
+                'expectedType' => SitemapInterface::TYPE_SITEMAPS_ORG_XML,
                 'expectedIsIndex' => false,
                 'expectedIsSitemap' => true,
             ],
             'xml index' => [
                 'response' => ResponseFactory::create(ResponseFactory::CONTENT_TYPE_XML, ''),
-                'type' => TypeInterface::TYPE_SITEMAPS_ORG_XML_INDEX,
-                'expectedType' => TypeInterface::TYPE_SITEMAPS_ORG_XML_INDEX,
+                'type' => SitemapInterface::TYPE_SITEMAPS_ORG_XML_INDEX,
+                'expectedType' => SitemapInterface::TYPE_SITEMAPS_ORG_XML_INDEX,
                 'expectedIsIndex' => true,
                 'expectedIsSitemap' => true,
             ],
             'atom' => [
                 'response' => ResponseFactory::create(ResponseFactory::CONTENT_TYPE_ATOM, ''),
-                'type' => TypeInterface::TYPE_ATOM,
-                'expectedType' => TypeInterface::TYPE_ATOM,
+                'type' => SitemapInterface::TYPE_ATOM,
+                'expectedType' => SitemapInterface::TYPE_ATOM,
                 'expectedIsIndex' => false,
                 'expectedIsSitemap' => true,
             ],
             'rss' => [
                 'response' => ResponseFactory::create(ResponseFactory::CONTENT_TYPE_RSS, ''),
-                'type' => TypeInterface::TYPE_RSS,
-                'expectedType' => TypeInterface::TYPE_RSS,
+                'type' => SitemapInterface::TYPE_RSS,
+                'expectedType' => SitemapInterface::TYPE_RSS,
                 'expectedIsIndex' => false,
                 'expectedIsSitemap' => true,
             ],

@@ -2,12 +2,9 @@
 
 namespace webignition\Tests\WebResource\Sitemap\UrlExtractor;
 
-use webignition\Tests\WebResource\Sitemap\Factory\FixtureLoader;
-use webignition\Tests\WebResource\Sitemap\Factory\ResponseFactory;
 use webignition\WebResource\Sitemap\Factory;
-use webignition\WebResource\Sitemap\Sitemap;
-use webignition\WebResource\Sitemap\TypeInterface;
 use webignition\WebResource\Sitemap\UrlExtractor\SitemapsOrgXmlUrlExtractor;
+use webignition\WebResource\TestingTools\FixtureLoader;
 
 class SitemapsOrgXmlUrlExtractorTest extends \PHPUnit_Framework_TestCase
 {
@@ -45,6 +42,8 @@ class SitemapsOrgXmlUrlExtractorTest extends \PHPUnit_Framework_TestCase
      */
     public function extractInvalidContentDataProvider()
     {
+        FixtureLoader::$fixturePath = __DIR__  . '/../Fixtures';
+
         return [
             'xml no namespace' => [
                 'fixtureName' => 'sitemap.no-namespace.xml',

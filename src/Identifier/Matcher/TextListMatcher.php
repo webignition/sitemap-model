@@ -1,4 +1,5 @@
 <?php
+
 namespace webignition\WebResource\Sitemap\Identifier\Matcher;
 
 use webignition\NormalisedUrl\NormalisedUrl;

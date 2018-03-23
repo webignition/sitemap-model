@@ -3,8 +3,7 @@
 namespace webignition\WebResource\Sitemap\Identifier;
 
 use webignition\WebResource\Sitemap\Identifier\Matcher\MatcherInterface;
-use webignition\WebResource\Sitemap\Identifier\Matcher;
-use webignition\WebResource\Sitemap\TypeInterface;
+use webignition\WebResourceInterfaces\SitemapInterface;
 
 /**
  * Identify the type of sitemap by the content of the sitemap
@@ -35,26 +34,26 @@ class Identifier
         $sitemapsOrgXmlMatcher = new Matcher\RootNodeAndNamespaceXmlMatcher(
             self::SITEMAPS_ORG_XML_ROOT_NAMESPACE_PATTERN,
             self::SITEMAPS_ORG_XML_ROOT_NODE_NAME,
-            TypeInterface::TYPE_SITEMAPS_ORG_XML
+            SitemapInterface::TYPE_SITEMAPS_ORG_XML
         );
 
-        $sitemapsOrgTxtMatcher = new Matcher\TextListMatcher(TypeInterface::TYPE_SITEMAPS_ORG_TXT);
+        $sitemapsOrgTxtMatcher = new Matcher\TextListMatcher(SitemapInterface::TYPE_SITEMAPS_ORG_TXT);
 
         $rssFeedMatcher = new Matcher\RootNodeXmlMatcher(
             self::RSS_ROOT_NODE_NAME,
-            TypeInterface::TYPE_RSS
+            SitemapInterface::TYPE_RSS
         );
 
         $atomFeedMatcher = new Matcher\RootNodeAndNamespaceXmlMatcher(
             self::ATOM_ROOT_NAMESPACE_PATTERN,
             self::ATOM_ROOT_NODE_NAME,
-            TypeInterface::TYPE_ATOM
+            SitemapInterface::TYPE_ATOM
         );
 
         $sitemapsOrgXmlIndexMatcher = new Matcher\RootNodeAndNamespaceXmlMatcher(
             self::SITEMAPS_ORG_XML_INDEX_ROOT_NAMESPACE_PATTERN,
             self::SITEMAPS_ORG_XML_INDEX_ROOT_NODE_NAME,
-            TypeInterface::TYPE_SITEMAPS_ORG_XML_INDEX
+            SitemapInterface::TYPE_SITEMAPS_ORG_XML_INDEX
         );
 
         $this->matchers[] = $sitemapsOrgXmlMatcher;

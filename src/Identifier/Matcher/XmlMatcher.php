@@ -1,4 +1,5 @@
 <?php
+
 namespace webignition\WebResource\Sitemap\Identifier\Matcher;
 
 abstract class XmlMatcher extends Matcher

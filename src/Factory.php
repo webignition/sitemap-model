@@ -3,11 +3,14 @@
 namespace webignition\WebResource\Sitemap;
 
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
+use webignition\InternetMediaType\Parser\ParseException as InternetMediaTypeParseException;
 use webignition\WebResource\Sitemap\Identifier\Identifier;
 use webignition\WebResource\Sitemap\UrlExtractor\NewsFeedUrlExtractor;
 use webignition\WebResource\Sitemap\UrlExtractor\SitemapsOrgTxtUrlExtractor;
 use webignition\WebResource\Sitemap\UrlExtractor\SitemapsOrgXmlIndexUrlExtractor;
 use webignition\WebResource\Sitemap\UrlExtractor\SitemapsOrgXmlUrlExtractor;
+use webignition\WebResourceInterfaces\SitemapInterface;
 
 class Factory
 {
@@ -29,11 +32,11 @@ class Factory
         $newsFeedExtractor = new NewsFeedUrlExtractor();
 
         $this->typeExtractorMap = [
-            TypeInterface::TYPE_SITEMAPS_ORG_XML => new SitemapsOrgXmlUrlExtractor(),
-            TypeInterface::TYPE_SITEMAPS_ORG_TXT => new SitemapsOrgTxtUrlExtractor(),
-            TypeInterface::TYPE_ATOM => $newsFeedExtractor,
-            TypeInterface::TYPE_RSS => $newsFeedExtractor,
-            TypeInterface::TYPE_SITEMAPS_ORG_XML_INDEX => new SitemapsOrgXmlIndexUrlExtractor(),
+            SitemapInterface::TYPE_SITEMAPS_ORG_XML => new SitemapsOrgXmlUrlExtractor(),
+            SitemapInterface::TYPE_SITEMAPS_ORG_TXT => new SitemapsOrgTxtUrlExtractor(),
+            SitemapInterface::TYPE_ATOM => $newsFeedExtractor,
+            SitemapInterface::TYPE_RSS => $newsFeedExtractor,
+            SitemapInterface::TYPE_SITEMAPS_ORG_XML_INDEX => new SitemapsOrgXmlIndexUrlExtractor(),
         ];
 
         $this->identifier = new Identifier();
@@ -41,13 +44,14 @@ class Factory
 
     /**
      * @param ResponseInterface $response
-     * @param string|null $url
+     * @param UriInterface $uri
      *
-     * @return Sitemap
+     * @return SitemapInterface
+     * @throws InternetMediaTypeParseException
      */
-    public function create(ResponseInterface $response, $url = null)
+    public function create(ResponseInterface $response, UriInterface $uri = null)
     {
-        $sitemap = new Sitemap($response, $url);
+        $sitemap = new Sitemap($response, $uri);
 
         $content = $sitemap->getContent();
         $type = $this->identifier->getType($content);
