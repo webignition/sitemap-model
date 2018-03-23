@@ -2,28 +2,35 @@
 
 namespace webignition\Tests\WebResource\Sitemap;
 
-use webignition\Tests\WebResource\Sitemap\Factory\FixtureLoader;
+use webignition\InternetMediaType\Parser\ParseException as InternetMediaTypeParseException;
 use webignition\Tests\WebResource\Sitemap\Factory\SitemapHelper;
+use webignition\Tests\WebResource\Sitemap\Factory\UriFactory;
+use webignition\WebResource\TestingTools\FixtureLoader;
 
 class GetUrlsFromChildrenTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @throws InternetMediaTypeParseException
+     */
     public function testGettingUrlsFromChildren()
     {
-        $sitemap = SitemapHelper::createXmlIndexSitemap('http://webignition.net/sitemap_index.xml');
+        FixtureLoader::$fixturePath = __DIR__  . '/Fixtures';
+
+        $sitemap = SitemapHelper::createXmlIndexSitemap(UriFactory::create('http://example.com/sitemap_index.xml'));
 
         $childSitemap1 = SitemapHelper::createXmlSitemap(
-            FixtureLoader::SITEMAP_XML_EXAMPLE_1,
-            'http://example.com/sitemap1.xml'
+            'example.com.sitemap.01.xml',
+            UriFactory::create('http://example.com/sitemap1.xml')
         );
 
         $childSitemap2 = SitemapHelper::createXmlSitemap(
-            FixtureLoader::SITEMAP_XML_EXAMPLE_2,
-            'http://example.com/sitemap2.xml'
+            'example.com.sitemap.02.xml',
+            UriFactory::create('http://example.com/sitemap2.xml')
         );
 
         $childSitemap3 = SitemapHelper::createXmlSitemap(
-            FixtureLoader::SITEMAP_XML_EXAMPLE_3,
-            'http://example.com/sitemap3.xml'
+            'example.com.sitemap.03.xml',
+            UriFactory::create('http://example.com/sitemap3.xml')
         );
 
         $sitemap->addChild($childSitemap1);

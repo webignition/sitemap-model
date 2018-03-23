@@ -26,9 +26,4 @@ abstract class Matcher implements MatcherInterface
     {
         return $this->type;
     }
-
-//    /**
-//     * {@inheritdoc}
-//     */
-//    abstract public function matches($content = null);
 }

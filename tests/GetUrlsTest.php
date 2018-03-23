@@ -2,9 +2,10 @@
 
 namespace webignition\Tests\WebResource\Sitemap;
 
-use webignition\Tests\WebResource\Sitemap\Factory\FixtureLoader;
-use webignition\Tests\WebResource\Sitemap\Factory\ResponseFactory;
+use webignition\InternetMediaType\Parser\ParseException as InternetMediaTypeParseException;
 use webignition\WebResource\Sitemap\Factory;
+use webignition\WebResource\TestingTools\FixtureLoader;
+use webignition\WebResource\TestingTools\ResponseFactory;
 
 class GetUrlsTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,15 +15,16 @@ class GetUrlsTest extends \PHPUnit_Framework_TestCase
      * @param string $fixtureName
      * @param string $contentType
      * @param string[] $expectedUrls
+     *
+     * @throws InternetMediaTypeParseException
      */
     public function testGetUrls($fixtureName, $contentType, $expectedUrls)
     {
         $factory = new Factory();
 
-        $fixture = FixtureLoader::load($fixtureName);
-        $httpResponse = ResponseFactory::create($fixture, $contentType);
+        $response = ResponseFactory::createFromFixture($fixtureName, $contentType);
 
-        $sitemap = $factory->create($httpResponse);
+        $sitemap = $factory->create($response);
 
         $this->assertEquals($expectedUrls, $sitemap->getUrls());
     }
@@ -32,23 +34,25 @@ class GetUrlsTest extends \PHPUnit_Framework_TestCase
      */
     public function getUrlsDataProvider()
     {
+        FixtureLoader::$fixturePath = __DIR__  . '/Fixtures';
+
         return [
             'atom' => [
-                'fixtureName' => FixtureLoader::ATOM_CONTENT,
+                'fixtureName' => 'atom.xml',
                 'contentType' => ResponseFactory::CONTENT_TYPE_ATOM,
                 'expectedUrls' => [
                     'http://example.com/from-atom',
                 ],
             ],
             'rss' => [
-                'fixtureName' => FixtureLoader::RSS_CONTENT,
+                'fixtureName' => 'rss.xml',
                 'contentType' => ResponseFactory::CONTENT_TYPE_RSS,
                 'expectedUrls' => [
                     'http://example.com/from-rss',
                 ],
             ],
             'sitemaps org xml' => [
-                'fixtureName' => FixtureLoader::SITEMAP_XML_CONTENT,
+                'fixtureName' => 'sitemap.xml',
                 'contentType' => ResponseFactory::CONTENT_TYPE_XML,
                 'expectedUrls' => [
                     'http://example.com/xml/1',
@@ -66,7 +70,7 @@ class GetUrlsTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
             'sitemaps org txt' => [
-                'fixtureName' => FixtureLoader::SITEMAP_TXT_CONTENT,
+                'fixtureName' => 'sitemap.txt',
                 'contentType' => ResponseFactory::CONTENT_TYPE_TXT,
                 'expectedUrls' => [
                     'http://example.com/txt/1',
@@ -75,7 +79,7 @@ class GetUrlsTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
             'sitemaps org xml index' => [
-                'fixtureName' => FixtureLoader::SITEMAP_XML_INDEX_CONTENT,
+                'fixtureName' => 'sitemap.index.xml',
                 'contentType' => ResponseFactory::CONTENT_TYPE_XML,
                 'expectedUrls' => [
                     'http://www.example.com/sitemap1.xml',
@@ -93,7 +97,7 @@ class GetUrlsTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
             'parent location urls only' => [
-                'fixtureName' => FixtureLoader::SITEMAP_XML_WITH_IMAGES_CONTENT,
+                'fixtureName' => 'sitemap.with-images.xml',
                 'contentType' => ResponseFactory::CONTENT_TYPE_XML,
                 'expectedUrls' => [
                     'http://example.com/xml-with-images/1',

@@ -2,14 +2,13 @@
 
 namespace webignition\WebResource\Sitemap;
 
+use webignition\NormalisedUrl\NormalisedUrl;
 use webignition\WebResource\Sitemap\UrlExtractor\UrlExtractorInterface;
 use webignition\WebResource\WebResource;
-use webignition\NormalisedUrl\NormalisedUrl;
+use webignition\WebResourceInterfaces\SitemapInterface;
 
-class Sitemap extends WebResource
+class Sitemap extends WebResource implements SitemapInterface
 {
-    const SITEMAP_INDEX_TYPE = 'sitemaps.org.xml.index';
-
     /**
      * @var string
      */
@@ -34,7 +33,7 @@ class Sitemap extends WebResource
     private $urls = null;
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getType()
     {
@@ -42,15 +41,15 @@ class Sitemap extends WebResource
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     public function isIndex()
     {
-        return $this->getType() == self::SITEMAP_INDEX_TYPE;
+        return $this->getType() == SitemapInterface::TYPE_SITEMAPS_ORG_XML_INDEX;
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     public function isSitemap()
     {
@@ -58,7 +57,7 @@ class Sitemap extends WebResource
     }
 
     /**
-     * @return string[]
+     * {@inheritdoc}
      */
     public function getUrls()
     {
@@ -79,17 +78,15 @@ class Sitemap extends WebResource
     }
 
     /**
-     * @param Sitemap $sitemap
-     *
-     * @return bool
+     * {@inheritdoc}
      */
-    public function addChild(Sitemap $sitemap)
+    public function addChild(SitemapInterface $sitemap)
     {
         if (!$this->isIndex()) {
             return false;
         }
 
-        $childUrl = new NormalisedUrl($sitemap->getUrl());
+        $childUrl = new NormalisedUrl($sitemap->getUri());
         $childIndex = md5((string)$childUrl);
 
         $this->children[$childIndex] = $sitemap;
@@ -98,11 +95,19 @@ class Sitemap extends WebResource
     }
 
     /**
-     * @return Sitemap[]
+     * {@inheritdoc}
      */
     public function getChildren()
     {
         return $this->children;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
     }
 
     /**
@@ -111,13 +116,5 @@ class Sitemap extends WebResource
     public function setUrlExtractor(UrlExtractorInterface $urlExtractor)
     {
         $this->urlExtractor = $urlExtractor;
-    }
-
-    /**
-     * @param string $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
     }
 }
