@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4d8087aa3cca7914fa7b87b879bb04ef",
+    "content-hash": "a7f231aeefc422b2f06cc4d301761bb8",
     "packages": [
         {
             "name": "etechnika/idna-convert",
@@ -402,16 +402,16 @@
         },
         {
             "name": "webignition/url",
-            "version": "1.9.20",
+            "version": "2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/url.git",
-                "reference": "a4e6044bc6786a59b37d2508e87b540b5074b09a"
+                "reference": "7c0bf4da8c419b615c07737546507f6f5acfaeda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/url/zipball/a4e6044bc6786a59b37d2508e87b540b5074b09a",
-                "reference": "a4e6044bc6786a59b37d2508e87b540b5074b09a",
+                "url": "https://api.github.com/repos/webignition/url/zipball/7c0bf4da8c419b615c07737546507f6f5acfaeda",
+                "reference": "7c0bf4da8c419b615c07737546507f6f5acfaeda",
                 "shasum": ""
             },
             "require": {
@@ -447,7 +447,7 @@
             "keywords": [
                 "url"
             ],
-            "time": "2018-03-14T17:25:14+00:00"
+            "time": "2018-05-10T10:28:18+00:00"
         },
         {
             "name": "webignition/web-resource-interfaces",
@@ -497,16 +497,16 @@
         },
         {
             "name": "webignition/web-resource-model",
-            "version": "3.1",
+            "version": "3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/web-resource-model.git",
-                "reference": "e401d2856f0ce71943f58f266cbec72d0e74407f"
+                "reference": "65dac45ca92761d24988afd7d7fb00179112cdcc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/web-resource-model/zipball/e401d2856f0ce71943f58f266cbec72d0e74407f",
-                "reference": "e401d2856f0ce71943f58f266cbec72d0e74407f",
+                "url": "https://api.github.com/repos/webignition/web-resource-model/zipball/65dac45ca92761d24988afd7d7fb00179112cdcc",
+                "reference": "65dac45ca92761d24988afd7d7fb00179112cdcc",
                 "shasum": ""
             },
             "require": {
@@ -514,7 +514,7 @@
                 "psr/http-message": "^1",
                 "webignition/internet-media-type": "^1.2",
                 "webignition/internet-media-type-interface": "^0.1",
-                "webignition/web-resource-interfaces": "^0.9"
+                "webignition/web-resource-interfaces": ">=0.1,<1"
             },
             "require-dev": {
                 "mockery/mockery": "^1",
@@ -545,7 +545,7 @@
                 "psr-7",
                 "web"
             ],
-            "time": "2018-03-23T14:42:31+00:00"
+            "time": "2018-03-28T11:23:47+00:00"
         },
         {
             "name": "xrstf/ip-utils",
@@ -701,16 +701,16 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "1.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mockery/mockery.git",
-                "reference": "1bac8c362b12f522fdd1f1fa3556284c91affa38"
+                "reference": "99e29d3596b16dabe4982548527d5ddf90232e99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mockery/mockery/zipball/1bac8c362b12f522fdd1f1fa3556284c91affa38",
-                "reference": "1bac8c362b12f522fdd1f1fa3556284c91affa38",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/99e29d3596b16dabe4982548527d5ddf90232e99",
+                "reference": "99e29d3596b16dabe4982548527d5ddf90232e99",
                 "shasum": ""
             },
             "require": {
@@ -719,7 +719,8 @@
                 "php": ">=5.6.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~5.7|~6.1"
+                "phpdocumentor/phpdocumentor": "^2.9",
+                "phpunit/phpunit": "~5.7.10|~6.5"
             },
             "type": "library",
             "extra": {
@@ -748,8 +749,8 @@
                     "homepage": "http://davedevelopment.co.uk"
                 }
             ],
-            "description": "Mockery is a simple yet flexible PHP mock object framework for use in unit testing with PHPUnit, PHPSpec or any other testing framework. Its core goal is to offer a test double framework with a succinct API capable of clearly defining all possible object operations and interactions using a human readable Domain Specific Language (DSL). Designed as a drop in alternative to PHPUnit's phpunit-mock-objects library, Mockery is easy to integrate with PHPUnit and can operate alongside phpunit-mock-objects without the World ending.",
-            "homepage": "http://github.com/mockery/mockery",
+            "description": "Mockery is a simple yet flexible PHP mock object framework",
+            "homepage": "https://github.com/mockery/mockery",
             "keywords": [
                 "BDD",
                 "TDD",
@@ -762,7 +763,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2017-10-06T16:20:43+00:00"
+            "time": "2018-05-08T08:54:48+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -957,23 +958,23 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.7.5",
+            "version": "1.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "dfd6be44111a7c41c2e884a336cc4f461b3b2401"
+                "reference": "33a7e3c4fda54e912ff6338c48823bd5c0f0b712"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/dfd6be44111a7c41c2e884a336cc4f461b3b2401",
-                "reference": "dfd6be44111a7c41c2e884a336cc4f461b3b2401",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/33a7e3c4fda54e912ff6338c48823bd5c0f0b712",
+                "reference": "33a7e3c4fda54e912ff6338c48823bd5c0f0b712",
                 "shasum": ""
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
                 "php": "^5.3|^7.0",
                 "phpdocumentor/reflection-docblock": "^2.0|^3.0.2|^4.0",
-                "sebastian/comparator": "^1.1|^2.0",
+                "sebastian/comparator": "^1.1|^2.0|^3.0",
                 "sebastian/recursion-context": "^1.0|^2.0|^3.0"
             },
             "require-dev": {
@@ -1016,7 +1017,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2018-02-19T10:16:54+00:00"
+            "time": "2018-04-18T13:57:24+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -1974,16 +1975,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.4.6",
+            "version": "v3.4.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "6af42631dcf89e9c616242c900d6c52bd53bd1bb"
+                "reference": "033cfa61ef06ee0847e056e530201842b6e926c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/6af42631dcf89e9c616242c900d6c52bd53bd1bb",
-                "reference": "6af42631dcf89e9c616242c900d6c52bd53bd1bb",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/033cfa61ef06ee0847e056e530201842b6e926c3",
+                "reference": "033cfa61ef06ee0847e056e530201842b6e926c3",
                 "shasum": ""
             },
             "require": {
@@ -2028,7 +2029,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2018-02-16T09:50:28+00:00"
+            "time": "2018-04-08T08:21:29+00:00"
         },
         {
             "name": "webignition/web-resource-testing-tools",
