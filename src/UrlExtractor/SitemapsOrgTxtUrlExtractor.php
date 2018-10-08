@@ -4,10 +4,7 @@ namespace webignition\WebResource\Sitemap\UrlExtractor;
 
 class SitemapsOrgTxtUrlExtractor implements UrlExtractorInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function extract($content)
+    public function extract(string $content): array
     {
         $rawUrls = explode("\n", trim($content));
         $urls = [];

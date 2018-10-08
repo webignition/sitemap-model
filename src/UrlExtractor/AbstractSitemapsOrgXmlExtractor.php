@@ -6,16 +6,9 @@ abstract class AbstractSitemapsOrgXmlExtractor implements UrlExtractorInterface
 {
     const SITEMAP_XML_NAMESPACE_REFERENCE = 's';
 
-    /**
-     * @return string
-     */
-    abstract protected function getXpath();
+    abstract protected function getXpath(): string;
 
-
-    /**
-     * {@inheritdoc}
-     */
-    public function extract($content)
+    public function extract(string $content): array
     {
         $urls = [];
 

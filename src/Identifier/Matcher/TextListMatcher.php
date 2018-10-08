@@ -6,10 +6,7 @@ use webignition\NormalisedUrl\NormalisedUrl;
 
 class TextListMatcher extends Matcher
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function matches($content = null)
+    public function matches(?string $content = null): bool
     {
         $content = trim($content);
 

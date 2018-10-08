@@ -10,7 +10,7 @@ use webignition\WebResource\TestingTools\FixtureLoader;
 use webignition\WebResource\TestingTools\ResponseFactory;
 use webignition\WebResourceInterfaces\SitemapInterface;
 
-class FactoryTest extends \PHPUnit_Framework_TestCase
+class FactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Factory
@@ -37,13 +37,13 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      *
      * @throws InternetMediaTypeParseException
      */
-    public function testCreateUnknownType($fixtureName, $contentType)
+    public function testCreateUnknownType(?string $fixtureName, string $contentType)
     {
         $response = ResponseFactory::createFromFixture($fixtureName, $contentType);
 
         $this->expectException(\RuntimeException::class);
 
-        $this->factory->create($response, UriFactory::create('http://example.com'));
+        $this->factory->create($response, UriFactory::create());
     }
 
     /**
@@ -84,11 +84,11 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      *
      * @throws InternetMediaTypeParseException
      */
-    public function testCreate($fixtureName, $contentType, $expectedType)
+    public function testCreate(string $fixtureName, string $contentType, string $expectedType)
     {
         $response = ResponseFactory::createFromFixture($fixtureName, $contentType);
 
-        $sitemap = $this->factory->create($response, UriFactory::create('http://example.com'));
+        $sitemap = $this->factory->create($response, UriFactory::create());
 
         $this->assertInstanceOf(Sitemap::class, $sitemap);
         $this->assertEquals($expectedType, $sitemap->getType());

@@ -23,7 +23,6 @@ class Identifier
     const SITEMAPS_ORG_XML_INDEX_ROOT_NAMESPACE_PATTERN =
         '/http:\/\/www\.(sitemaps\.org)|(google\.com)\/schemas\/sitemap\/((\d+)|(\d+\.\d+))$/';
 
-
     /**
      * @var MatcherInterface[]
      */
@@ -63,12 +62,7 @@ class Identifier
         $this->matchers[] = $sitemapsOrgXmlIndexMatcher;
     }
 
-    /**
-     * @param string $content
-     *
-     * @return string
-     */
-    public function getType($content)
+    public function getType(string $content): ?string
     {
         foreach ($this->matchers as $matcher) {
             if ($matcher->matches($content)) {

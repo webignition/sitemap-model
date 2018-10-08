@@ -9,21 +9,13 @@ class RootNodeAndNamespaceXmlMatcher extends RootNodeXmlMatcher
      */
     private $rootNamespacePattern;
 
-    /**
-     * @param string $rootNamespacePattern
-     * @param string $rootNodeName
-     * @param string $type
-     */
-    public function __construct($rootNamespacePattern, $rootNodeName, $type)
+    public function __construct(string $rootNamespacePattern, string $rootNodeName, string $type)
     {
         parent::__construct($rootNodeName, $type);
         $this->rootNamespacePattern = $rootNamespacePattern;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function matches($content = null)
+    public function matches(?string $content = null): bool
     {
         if (!parent::matches($content)) {
             return false;

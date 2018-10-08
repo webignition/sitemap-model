@@ -2,19 +2,17 @@
 
 namespace webignition\Tests\WebResource\Sitemap\Factory;
 
-use Mockery\Mock;
+use Mockery\MockInterface;
 use Psr\Http\Message\UriInterface;
 
 class UriFactory
 {
     /**
-     * @param string $uriString
-     *
-     * @return UriInterface|Mock
+     * @return UriInterface|MockInterface
      */
-    public static function create($uriString = null)
+    public static function create()
     {
-        /* @var UriInterface|Mock $uri */
+        /* @var UriInterface|MockInterface $uri */
         $uri = \Mockery::mock(UriInterface::class);
 
         return $uri;

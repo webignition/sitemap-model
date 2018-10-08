@@ -18,7 +18,7 @@ class SitemapHelper
      *
      * @throws InternetMediaTypeParseException
      */
-    public static function createXmlIndexSitemap(UriInterface $uri = null)
+    public static function createXmlIndexSitemap(UriInterface $uri = null): SitemapInterface
     {
         $response = ResponseFactory::createFromFixture('sitemap.index.xml', ContentTypes::CONTENT_TYPE_XML);
 
@@ -35,7 +35,7 @@ class SitemapHelper
      *
      * @throws InternetMediaTypeParseException
      */
-    public static function createXmlSitemap($fixtureName, UriInterface $uri = null)
+    public static function createXmlSitemap($fixtureName, UriInterface $uri = null): SitemapInterface
     {
         $response = ResponseFactory::createFromFixture($fixtureName, ContentTypes::CONTENT_TYPE_XML);
 

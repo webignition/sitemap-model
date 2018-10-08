@@ -32,34 +32,25 @@ class Sitemap extends WebResource implements SitemapInterface
      */
     private $urls = null;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->type;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function isIndex()
+    public function isIndex(): bool
     {
         return $this->getType() == SitemapInterface::TYPE_SITEMAPS_ORG_XML_INDEX;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function isSitemap()
+    public function isSitemap(): bool
     {
         return !is_null($this->getType());
     }
 
     /**
-     * {@inheritdoc}
+     * @return string[]
      */
-    public function getUrls()
+    public function getUrls(): array
     {
         if (is_null($this->urls)) {
             $this->urls = [];
@@ -77,10 +68,7 @@ class Sitemap extends WebResource implements SitemapInterface
         return array_keys($this->urls);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function addChild(SitemapInterface $sitemap)
+    public function addChild(SitemapInterface $sitemap): bool
     {
         if (!$this->isIndex()) {
             return false;
@@ -95,16 +83,13 @@ class Sitemap extends WebResource implements SitemapInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return SitemapInterface[]
      */
     public function getChildren()
     {
         return $this->children;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setType($type)
     {
         $this->type = $type;

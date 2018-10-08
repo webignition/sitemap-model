@@ -9,7 +9,7 @@ use webignition\WebResource\TestingTools\FixtureLoader;
 use webignition\WebResource\TestingTools\ResponseFactory;
 use webignition\WebResourceInterfaces\SitemapInterface;
 
-class SitemapTest extends \PHPUnit_Framework_TestCase
+class SitemapTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider createDataProvider
@@ -22,8 +22,13 @@ class SitemapTest extends \PHPUnit_Framework_TestCase
      *
      * @throws InternetMediaTypeParseException
      */
-    public function testCreate(ResponseInterface $response, $type, $expectedType, $expectedIsIndex, $expectedIsSitemap)
-    {
+    public function testCreate(
+        ResponseInterface $response,
+        ?string $type,
+        ?string $expectedType,
+        bool $expectedIsIndex,
+        bool $expectedIsSitemap
+    ) {
         $sitemap = new Sitemap($response);
 
         $sitemap->setType($type);
