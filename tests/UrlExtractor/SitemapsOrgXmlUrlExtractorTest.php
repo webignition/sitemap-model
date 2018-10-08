@@ -6,7 +6,7 @@ use webignition\WebResource\Sitemap\Factory;
 use webignition\WebResource\Sitemap\UrlExtractor\SitemapsOrgXmlUrlExtractor;
 use webignition\WebResource\TestingTools\FixtureLoader;
 
-class SitemapsOrgXmlUrlExtractorTest extends \PHPUnit_Framework_TestCase
+class SitemapsOrgXmlUrlExtractorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Factory

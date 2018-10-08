@@ -7,7 +7,7 @@ use webignition\Tests\WebResource\Sitemap\Factory\SitemapHelper;
 use webignition\Tests\WebResource\Sitemap\Factory\UriFactory;
 use webignition\WebResource\TestingTools\FixtureLoader;
 
-class GetUrlsFromChildrenTest extends \PHPUnit_Framework_TestCase
+class GetUrlsFromChildrenTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @throws InternetMediaTypeParseException

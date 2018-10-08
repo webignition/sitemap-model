@@ -7,7 +7,7 @@ use webignition\WebResource\Sitemap\Factory;
 use webignition\WebResource\TestingTools\FixtureLoader;
 use webignition\WebResource\TestingTools\ResponseFactory;
 
-class GetUrlsTest extends \PHPUnit_Framework_TestCase
+class GetUrlsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider getUrlsDataProvider

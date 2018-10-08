@@ -9,7 +9,7 @@ use webignition\WebResource\TestingTools\FixtureLoader;
 use webignition\WebResource\TestingTools\ResponseFactory;
 use webignition\WebResourceInterfaces\SitemapInterface;
 
-class SitemapTest extends \PHPUnit_Framework_TestCase
+class SitemapTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider createDataProvider

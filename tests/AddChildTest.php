@@ -8,7 +8,7 @@ use webignition\Tests\WebResource\Sitemap\Factory\UriFactory;
 use webignition\WebResource\Sitemap\Factory;
 use webignition\WebResource\TestingTools\FixtureLoader;
 
-class AddChildTest extends \PHPUnit_Framework_TestCase
+class AddChildTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Factory
