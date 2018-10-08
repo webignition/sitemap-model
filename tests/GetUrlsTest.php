@@ -28,10 +28,7 @@ class GetUrlsTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expectedUrls, $sitemap->getUrls());
     }
 
-    /**
-     * @return array
-     */
-    public function getUrlsDataProvider()
+    public function getUrlsDataProvider(): array
     {
         FixtureLoader::$fixturePath = __DIR__  . '/Fixtures';
 

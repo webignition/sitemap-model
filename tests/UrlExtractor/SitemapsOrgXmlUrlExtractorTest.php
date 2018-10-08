@@ -37,10 +37,7 @@ class SitemapsOrgXmlUrlExtractorTest extends \PHPUnit\Framework\TestCase
         $this->assertEmpty($urls);
     }
 
-    /**
-     * @return array
-     */
-    public function extractInvalidContentDataProvider()
+    public function extractInvalidContentDataProvider(): array
     {
         FixtureLoader::$fixturePath = __DIR__  . '/../Fixtures';
 

@@ -45,10 +45,7 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
         $this->factory->createFromResponse($response, \Mockery::mock(UriInterface::class));
     }
 
-    /**
-     * @return array
-     */
-    public function createFromResponseUnknownTypeDataProvider()
+    public function createFromResponseUnknownTypeDataProvider(): array
     {
         FixtureLoader::$fixturePath = __DIR__  . '/Fixtures';
 
@@ -93,10 +90,7 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expectedType, $sitemap->getType());
     }
 
-    /**
-     * @return array
-     */
-    public function createFromResponseDataProvider()
+    public function createFromResponseDataProvider(): array
     {
         FixtureLoader::$fixturePath = __DIR__  . '/Fixtures';
 
