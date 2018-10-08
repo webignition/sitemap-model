@@ -58,19 +58,19 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
                 'responseContentType' => ResponseFactory::CONTENT_TYPE_HTML,
             ],
             'plain text' => [
-                'responseContent' => 'plain.txt',
+                'responseContent' => FixtureLoader::load('plain.txt'),
                 'responseContentType' => ResponseFactory::CONTENT_TYPE_TXT,
             ],
             'invalid xml' => [
-                'responseContent' => 'sitemap.invalid.xml',
+                'responseContent' => FixtureLoader::load('sitemap.invalid.xml'),
                 'responseContentType' => ResponseFactory::CONTENT_TYPE_XML,
             ],
             'empty xml' => [
-                'responseContent' => '',
+                'responseContent' => FixtureLoader::load(''),
                 'responseContentType' => ResponseFactory::CONTENT_TYPE_XML,
             ],
             'xml no namespace' => [
-                'responseContent' => 'sitemap.no-namespace.xml',
+                'responseContent' => FixtureLoader::load('sitemap.no-namespace.xml'),
                 'responseContentType' => ResponseFactory::CONTENT_TYPE_XML,
             ],
         ];
