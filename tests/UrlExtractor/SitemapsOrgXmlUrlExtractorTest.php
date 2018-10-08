@@ -1,6 +1,6 @@
 <?php
 
-namespace webignition\Tests\WebResource\Sitemap\UrlExtractor;
+namespace webignition\WebResource\Sitemap\Tests\UrlExtractor;
 
 use webignition\WebResource\Sitemap\Factory;
 use webignition\WebResource\Sitemap\UrlExtractor\SitemapsOrgXmlUrlExtractor;

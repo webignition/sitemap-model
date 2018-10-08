@@ -1,11 +1,11 @@
 <?php
 
-namespace webignition\Tests\WebResource\Sitemap;
+namespace webignition\WebResource\Sitemap\Tests;
 
 use Mockery\MockInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
-use webignition\Tests\WebResource\Sitemap\Factory\UriFactory;
+use Psr\Http\Message\UriInterface;
 use webignition\WebResource\Sitemap\Factory;
 use webignition\WebResource\Sitemap\Sitemap;
 use webignition\WebResource\TestingTools\FixtureLoader;
@@ -42,7 +42,7 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Unknown sitemap type');
 
-        $this->factory->createFromResponse($response, UriFactory::create());
+        $this->factory->createFromResponse($response, \Mockery::mock(UriInterface::class));
     }
 
     /**
@@ -87,7 +87,7 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
     {
         $response = $this->createResponse($responseContent, $responseContentType);
 
-        $sitemap = $this->factory->createFromResponse($response, UriFactory::create());
+        $sitemap = $this->factory->createFromResponse($response, \Mockery::mock(UriInterface::class));
 
         $this->assertInstanceOf(Sitemap::class, $sitemap);
         $this->assertEquals($expectedType, $sitemap->getType());

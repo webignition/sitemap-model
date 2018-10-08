@@ -1,9 +1,8 @@
 <?php
 
-namespace webignition\Tests\WebResource\Sitemap\Factory;
+namespace webignition\WebResource\Sitemap\Tests\Factory;
 
 use Psr\Http\Message\UriInterface;
-use webignition\InternetMediaType\Parser\ParseException as InternetMediaTypeParseException;
 use webignition\WebResource\Sitemap\Factory;
 use webignition\WebResource\TestingTools\ContentTypes;
 use webignition\WebResource\TestingTools\ResponseFactory;
@@ -15,8 +14,6 @@ class SitemapHelper
      * @param UriInterface $uri
      *
      * @return SitemapInterface
-     *
-     * @throws InternetMediaTypeParseException
      */
     public static function createXmlIndexSitemap(UriInterface $uri = null): SitemapInterface
     {
@@ -24,7 +21,7 @@ class SitemapHelper
 
         $factory = new Factory();
 
-        return $factory->create($response, $uri);
+        return $factory->createFromResponse($response, $uri);
     }
 
     /**
@@ -32,15 +29,13 @@ class SitemapHelper
      * @param UriInterface $uri
      *
      * @return SitemapInterface
-     *
-     * @throws InternetMediaTypeParseException
      */
-    public static function createXmlSitemap($fixtureName, UriInterface $uri = null): SitemapInterface
+    public static function createXmlSitemap(string $fixtureName, ?UriInterface $uri = null): SitemapInterface
     {
         $response = ResponseFactory::createFromFixture($fixtureName, ContentTypes::CONTENT_TYPE_XML);
 
         $factory = new Factory();
 
-        return $factory->create($response, $uri);
+        return $factory->createFromResponse($response, $uri);
     }
 }

@@ -32,7 +32,7 @@ class Sitemap extends WebResource implements SitemapInterface
      */
     private $urls = null;
 
-    public function getType(): ?string
+    public function getType(): string
     {
         return $this->type;
     }
@@ -85,12 +85,12 @@ class Sitemap extends WebResource implements SitemapInterface
     /**
      * @return SitemapInterface[]
      */
-    public function getChildren()
+    public function getChildren(): array
     {
         return $this->children;
     }
 
-    public function setType($type)
+    public function setType(string $type)
     {
         $this->type = $type;
     }
