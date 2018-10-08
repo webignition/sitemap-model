@@ -6,10 +6,7 @@ use webignition\NormalisedUrl\NormalisedUrl;
 
 class NewsFeedUrlExtractor implements UrlExtractorInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function extract($content)
+    public function extract(string $content): array
     {
         $urls = [];
 

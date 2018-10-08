@@ -6,10 +6,7 @@ class SitemapsOrgXmlIndexUrlExtractor extends AbstractSitemapsOrgXmlExtractor
 {
     const XPATH = '/%s:sitemapindex/%s:sitemap/%s:loc/text()';
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function getXpath()
+    protected function getXpath(): string
     {
         return sprintf(
             self::XPATH,

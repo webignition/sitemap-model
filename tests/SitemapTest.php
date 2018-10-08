@@ -22,8 +22,13 @@ class SitemapTest extends \PHPUnit\Framework\TestCase
      *
      * @throws InternetMediaTypeParseException
      */
-    public function testCreate(ResponseInterface $response, $type, $expectedType, $expectedIsIndex, $expectedIsSitemap)
-    {
+    public function testCreate(
+        ResponseInterface $response,
+        ?string $type,
+        ?string $expectedType,
+        bool $expectedIsIndex,
+        bool $expectedIsSitemap
+    ) {
         $sitemap = new Sitemap($response);
 
         $sitemap->setType($type);

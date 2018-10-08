@@ -27,7 +27,7 @@ class SitemapsOrgXmlUrlExtractorTest extends \PHPUnit\Framework\TestCase
      *
      * @param string $fixtureName
      */
-    public function testExtractInvalidContent($fixtureName)
+    public function testExtractInvalidContent(string $fixtureName)
     {
         $fixture = FixtureLoader::load($fixtureName);
 

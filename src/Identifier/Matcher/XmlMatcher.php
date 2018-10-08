@@ -14,10 +14,7 @@ abstract class XmlMatcher extends Matcher
      */
     private $isParseableXml = null;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function matches($content = null)
+    public function matches(?string $content = null): bool
     {
         if (trim($content) == '') {
             return false;
@@ -33,18 +30,12 @@ abstract class XmlMatcher extends Matcher
         return $this->isParseableXml();
     }
 
-    /**
-     * @return bool
-     */
-    public function isParseableXml()
+    public function isParseableXml(): bool
     {
         return $this->isParseableXml;
     }
 
-    /**
-     * @return \DOMDocument
-     */
-    protected function getDomDocument()
+    protected function getDomDocument(): \DOMDocument
     {
         return $this->domDocument;
     }

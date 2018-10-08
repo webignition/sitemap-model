@@ -16,21 +16,21 @@ class GetUrlsFromChildrenTest extends \PHPUnit\Framework\TestCase
     {
         FixtureLoader::$fixturePath = __DIR__  . '/Fixtures';
 
-        $sitemap = SitemapHelper::createXmlIndexSitemap(UriFactory::create('http://example.com/sitemap_index.xml'));
+        $sitemap = SitemapHelper::createXmlIndexSitemap(UriFactory::create());
 
         $childSitemap1 = SitemapHelper::createXmlSitemap(
             'example.com.sitemap.01.xml',
-            UriFactory::create('http://example.com/sitemap1.xml')
+            UriFactory::create()
         );
 
         $childSitemap2 = SitemapHelper::createXmlSitemap(
             'example.com.sitemap.02.xml',
-            UriFactory::create('http://example.com/sitemap2.xml')
+            UriFactory::create()
         );
 
         $childSitemap3 = SitemapHelper::createXmlSitemap(
             'example.com.sitemap.03.xml',
-            UriFactory::create('http://example.com/sitemap3.xml')
+            UriFactory::create()
         );
 
         $sitemap->addChild($childSitemap1);

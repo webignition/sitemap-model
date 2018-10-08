@@ -18,7 +18,7 @@ class GetUrlsTest extends \PHPUnit\Framework\TestCase
      *
      * @throws InternetMediaTypeParseException
      */
-    public function testGetUrls($fixtureName, $contentType, $expectedUrls)
+    public function testGetUrls(string $fixtureName, string $contentType, array $expectedUrls)
     {
         $factory = new Factory();
 

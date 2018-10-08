@@ -11,18 +11,12 @@ abstract class Matcher implements MatcherInterface
      */
     private $type = null;
 
-    /**
-     * @param string $type
-     */
-    public function __construct($type)
+    public function __construct(string $type)
     {
         $this->type = $type;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }

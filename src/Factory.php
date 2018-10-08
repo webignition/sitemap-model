@@ -49,7 +49,7 @@ class Factory
      * @return SitemapInterface
      * @throws InternetMediaTypeParseException
      */
-    public function create(ResponseInterface $response, UriInterface $uri = null)
+    public function create(ResponseInterface $response, UriInterface $uri = null): SitemapInterface
     {
         $sitemap = new Sitemap($response, $uri);
 

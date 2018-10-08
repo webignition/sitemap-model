@@ -9,20 +9,13 @@ class RootNodeXmlMatcher extends XmlMatcher
      */
     private $rootNodeName;
 
-    /**
-     * @param string $rootNodeName
-     * @param string $type
-     */
-    public function __construct($rootNodeName, $type)
+    public function __construct(string $rootNodeName, string $type)
     {
         parent::__construct($type);
         $this->rootNodeName = $rootNodeName;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function matches($content = null)
+    public function matches(?string $content = null): bool
     {
         if (!parent::matches($content)) {
             return false;

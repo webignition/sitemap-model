@@ -4,15 +4,7 @@ namespace webignition\WebResource\Sitemap\Identifier\Matcher;
 
 interface MatcherInterface
 {
-    /**
-     * @return string
-     */
-    public function getType();
+    public function getType(): string;
 
-    /**
-     * @param string $content
-     *
-     * @return bool
-     */
-    public function matches($content = null);
+    public function matches(?string $content = null): bool;
 }
