@@ -3,6 +3,7 @@
 namespace webignition\WebResource\Sitemap\Tests;
 
 use Psr\Http\Message\UriInterface;
+use webignition\WebResource\Sitemap\ContentTypes;
 use webignition\WebResource\Sitemap\Factory;
 use webignition\WebResource\Sitemap\Tests\Services\ResponseFactory;
 use webignition\WebResource\TestingTools\FixtureLoader;

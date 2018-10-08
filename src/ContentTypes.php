@@ -1,6 +1,6 @@
 <?php
 
-namespace webignition\WebResource\Sitemap\Tests;
+namespace webignition\WebResource\Sitemap;
 
 class ContentTypes
 {

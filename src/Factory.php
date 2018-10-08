@@ -4,6 +4,7 @@ namespace webignition\WebResource\Sitemap;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
+use webignition\WebResource\Exception\InvalidContentTypeException;
 use webignition\WebResource\Sitemap\Identifier\Identifier;
 use webignition\WebResource\Sitemap\UrlExtractor\NewsFeedUrlExtractor;
 use webignition\WebResource\Sitemap\UrlExtractor\SitemapsOrgTxtUrlExtractor;
@@ -50,7 +51,16 @@ class Factory
     public function createFromResponse(ResponseInterface $response, UriInterface $uri = null): SitemapInterface
     {
         /* @var Sitemap $sitemap */
-        $sitemap = Sitemap::createFromResponse($uri, $response);
+        $sitemap = null;
+
+        try {
+            $sitemap = Sitemap::createFromResponse($uri, $response);
+        } catch (InvalidContentTypeException $invalidContentTypeException) {
+            throw new \RuntimeException(
+                self::EXCEPTION_UNKNOWN_TYPE_MESSAGE,
+                self::EXCEPTION_UNKNOWN_TYPE_CODE
+            );
+        }
 
         $content = $sitemap->getContent();
         $type = $this->identifier->getType($content);

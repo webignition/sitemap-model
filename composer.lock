@@ -500,16 +500,16 @@
         },
         {
             "name": "webignition/web-resource-model",
-            "version": "4.0",
+            "version": "4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/web-resource-model.git",
-                "reference": "e87e254010d316f4526e95498a0984c3533743ce"
+                "reference": "02f7f9ae4590aba41fadb5dd1097dc33c5ec459e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/web-resource-model/zipball/e87e254010d316f4526e95498a0984c3533743ce",
-                "reference": "e87e254010d316f4526e95498a0984c3533743ce",
+                "url": "https://api.github.com/repos/webignition/web-resource-model/zipball/02f7f9ae4590aba41fadb5dd1097dc33c5ec459e",
+                "reference": "02f7f9ae4590aba41fadb5dd1097dc33c5ec459e",
                 "shasum": ""
             },
             "require": {
@@ -548,7 +548,7 @@
                 "psr-7",
                 "web"
             ],
-            "time": "2018-10-04T12:16:05+00:00"
+            "time": "2018-10-08T15:06:39+00:00"
         },
         {
             "name": "xrstf/ip-utils",
