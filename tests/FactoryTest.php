@@ -2,7 +2,9 @@
 
 namespace webignition\Tests\WebResource\Sitemap;
 
-use webignition\InternetMediaType\Parser\ParseException as InternetMediaTypeParseException;
+use Mockery\MockInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 use webignition\Tests\WebResource\Sitemap\Factory\UriFactory;
 use webignition\WebResource\Sitemap\Factory;
 use webignition\WebResource\Sitemap\Sitemap;
@@ -25,70 +27,67 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
         parent::setUp();
 
         $this->factory = new Factory();
-
-        FixtureLoader::$fixturePath = __DIR__  . '/Fixtures';
     }
 
     /**
-     * @dataProvider createUnknownTypeDataProvider
+     * @dataProvider createFromResponseUnknownTypeDataProvider
      *
-     * @param string $fixtureName
-     * @param string $contentType
-     *
-     * @throws InternetMediaTypeParseException
+     * @param string $responseContent
+     * @param string $responseContentType
      */
-    public function testCreateUnknownType(?string $fixtureName, string $contentType)
+    public function testCreateFromResponseUnknownType(string $responseContent, string $responseContentType)
     {
-        $response = ResponseFactory::createFromFixture($fixtureName, $contentType);
+        $response = $this->createResponse($responseContent, $responseContentType);
 
         $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Unknown sitemap type');
 
-        $this->factory->create($response, UriFactory::create());
+        $this->factory->createFromResponse($response, UriFactory::create());
     }
 
     /**
      * @return array
      */
-    public function createUnknownTypeDataProvider()
+    public function createFromResponseUnknownTypeDataProvider()
     {
+        FixtureLoader::$fixturePath = __DIR__  . '/Fixtures';
+
         return [
             'html document' => [
-                'fixtureName' => 'empty-document.html',
-                'contentType' => ResponseFactory::CONTENT_TYPE_HTML,
+                'responseContent' => FixtureLoader::load('empty-document.html'),
+                'responseContentType' => ResponseFactory::CONTENT_TYPE_HTML,
             ],
             'plain text' => [
-                'fixtureName' => 'plain.txt',
-                'contentType' => ResponseFactory::CONTENT_TYPE_TXT,
+                'responseContent' => 'plain.txt',
+                'responseContentType' => ResponseFactory::CONTENT_TYPE_TXT,
             ],
             'invalid xml' => [
-                'fixtureName' => 'sitemap.invalid.xml',
-                'contentType' => ResponseFactory::CONTENT_TYPE_XML,
+                'responseContent' => 'sitemap.invalid.xml',
+                'responseContentType' => ResponseFactory::CONTENT_TYPE_XML,
             ],
             'empty xml' => [
-                'fixtureName' => null,
-                'contentType' => ResponseFactory::CONTENT_TYPE_XML,
+                'responseContent' => '',
+                'responseContentType' => ResponseFactory::CONTENT_TYPE_XML,
             ],
             'xml no namespace' => [
-                'fixtureName' => 'sitemap.no-namespace.xml',
-                'contentType' => ResponseFactory::CONTENT_TYPE_XML,
+                'responseContent' => 'sitemap.no-namespace.xml',
+                'responseContentType' => ResponseFactory::CONTENT_TYPE_XML,
             ],
         ];
     }
 
     /**
-     * @dataProvider createDataProvider
+     * @dataProvider createFromResponseDataProvider
      *
-     * @param string $fixtureName
-     * @param string $contentType
+     * @param string $responseContent
+     * @param string $responseContentType
      * @param string $expectedType
-     *
-     * @throws InternetMediaTypeParseException
      */
-    public function testCreate(string $fixtureName, string $contentType, string $expectedType)
+    public function testCreateFromResponse(string $responseContent, string $responseContentType, string $expectedType)
     {
-        $response = ResponseFactory::createFromFixture($fixtureName, $contentType);
+        $response = $this->createResponse($responseContent, $responseContentType);
 
-        $sitemap = $this->factory->create($response, UriFactory::create());
+        $sitemap = $this->factory->createFromResponse($response, UriFactory::create());
 
         $this->assertInstanceOf(Sitemap::class, $sitemap);
         $this->assertEquals($expectedType, $sitemap->getType());
@@ -97,22 +96,24 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * @return array
      */
-    public function createDataProvider()
+    public function createFromResponseDataProvider()
     {
+        FixtureLoader::$fixturePath = __DIR__  . '/Fixtures';
+
         return [
             'atom' => [
-                'fixtureName' => 'atom.xml',
-                'contentType' => ResponseFactory::CONTENT_TYPE_ATOM,
+                'responseContent' => FixtureLoader::load('atom.xml'),
+                'responseContentType' => ResponseFactory::CONTENT_TYPE_ATOM,
                 'expectedType' => SitemapInterface::TYPE_ATOM,
             ],
             'rss' => [
-                'fixtureName' => 'rss.xml',
-                'contentType' => ResponseFactory::CONTENT_TYPE_RSS,
+                'responseContent' => FixtureLoader::load('rss.xml'),
+                'responseContentType' => ResponseFactory::CONTENT_TYPE_RSS,
                 'expectedType' => SitemapInterface::TYPE_RSS,
             ],
             'sitemaps org xml' => [
-                'fixtureName' => 'sitemap.xml',
-                'contentType' => ResponseFactory::CONTENT_TYPE_XML,
+                'responseContent' => FixtureLoader::load('sitemap.xml'),
+                'responseContentType' => ResponseFactory::CONTENT_TYPE_XML,
                 'expectedType' => SitemapInterface::TYPE_SITEMAPS_ORG_XML,
                 'expectedUrls' => [
                     'http://example.com/xml/1',
@@ -121,8 +122,8 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
                 ],
             ],
             'sitemaps org txt' => [
-                'fixtureName' => 'sitemap.txt',
-                'contentType' => ResponseFactory::CONTENT_TYPE_TXT,
+                'responseContent' => FixtureLoader::load('sitemap.txt'),
+                'responseContentType' => ResponseFactory::CONTENT_TYPE_TXT,
                 'expectedType' => SitemapInterface::TYPE_SITEMAPS_ORG_TXT,
                 'expectedUrls' => [
                     'http://example.com/txt/1',
@@ -131,8 +132,8 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
                 ],
             ],
             'sitemaps org xml index' => [
-                'fixtureName' => 'sitemap.index.xml',
-                'contentType' => ResponseFactory::CONTENT_TYPE_XML,
+                'responseContent' => FixtureLoader::load('sitemap.index.xml'),
+                'responseContentType' => ResponseFactory::CONTENT_TYPE_XML,
                 'expectedType' => SitemapInterface::TYPE_SITEMAPS_ORG_XML_INDEX,
                 'expectedUrls' => [
                     'http://www.example.com/sitemap1.xml',
@@ -141,5 +142,31 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
                 ],
             ],
         ];
+    }
+
+    /**
+     * @param string $content
+     * @param string $contentType
+     *
+     * @return MockInterface|ResponseInterface
+     */
+    private function createResponse(string $content, string $contentType)
+    {
+        $responseBody = \Mockery::mock(StreamInterface::class);
+        $responseBody
+            ->shouldReceive('__toString')
+            ->andReturn($content);
+
+        $response = \Mockery::mock(ResponseInterface::class);
+        $response
+            ->shouldReceive('getHeaderLine')
+            ->with(Sitemap::HEADER_CONTENT_TYPE)
+            ->andReturn($contentType);
+
+        $response
+            ->shouldReceive('getBody')
+            ->andReturn($responseBody);
+
+        return $response;
     }
 }

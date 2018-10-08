@@ -4,7 +4,6 @@ namespace webignition\WebResource\Sitemap;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
-use webignition\InternetMediaType\Parser\ParseException as InternetMediaTypeParseException;
 use webignition\WebResource\Sitemap\Identifier\Identifier;
 use webignition\WebResource\Sitemap\UrlExtractor\NewsFeedUrlExtractor;
 use webignition\WebResource\Sitemap\UrlExtractor\SitemapsOrgTxtUrlExtractor;
@@ -47,11 +46,11 @@ class Factory
      * @param UriInterface $uri
      *
      * @return SitemapInterface
-     * @throws InternetMediaTypeParseException
      */
-    public function create(ResponseInterface $response, UriInterface $uri = null): SitemapInterface
+    public function createFromResponse(ResponseInterface $response, UriInterface $uri = null): SitemapInterface
     {
-        $sitemap = new Sitemap($response, $uri);
+        /* @var Sitemap $sitemap */
+        $sitemap = Sitemap::createFromResponse($uri, $response);
 
         $content = $sitemap->getContent();
         $type = $this->identifier->getType($content);
