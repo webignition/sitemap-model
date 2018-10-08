@@ -11,8 +11,6 @@ use webignition\InternetMediaTypeInterface\InternetMediaTypeInterface;
 use webignition\WebResource\Exception\InvalidContentTypeException;
 use webignition\WebResource\Sitemap\ContentTypes;
 use webignition\WebResource\Sitemap\Sitemap;
-use webignition\WebResource\Sitemap\Tests\Services\ResponseFactory;
-use webignition\WebResource\TestingTools\FixtureLoader;
 
 class SitemapTest extends \PHPUnit\Framework\TestCase
 {
@@ -164,42 +162,6 @@ class SitemapTest extends \PHPUnit\Framework\TestCase
     /**
      * @throws InvalidContentTypeException
      */
-    public function testSetUri()
-    {
-        $currentUri = \Mockery::mock(UriInterface::class);
-        $newUri = \Mockery::mock(UriInterface::class);
-
-        $sitemap = Sitemap::createFromContent($currentUri, '');
-
-        $this->assertEquals($currentUri, $sitemap->getUri());
-
-        $updatedWebPage = $sitemap->setUri($newUri);
-
-        $this->assertInstanceOf(Sitemap::class, $updatedWebPage);
-        $this->assertEquals($newUri, $updatedWebPage->getUri());
-        $this->assertNotEquals(spl_object_hash($sitemap), spl_object_hash($updatedWebPage));
-    }
-
-    /**
-     * @throws InvalidContentTypeException
-     */
-    public function testSetContentTypeValidContentType()
-    {
-        $uri = \Mockery::mock(UriInterface::class);
-
-        $sitemap = Sitemap::createFromContent($uri, 'sitemap content');
-
-        $this->assertEquals(ContentTypes::CONTENT_TYPE_XML, (string)$sitemap->getContentType());
-
-        $contentType = $this->createContentType('text', 'xml');
-        $updatedWebPage = $sitemap->setContentType($contentType);
-
-        $this->assertEquals(ContentTypes::CONTENT_TYPE_XML, (string)$updatedWebPage->getContentType());
-    }
-
-    /**
-     * @throws InvalidContentTypeException
-     */
     public function testSetContentTypeInvalidContentType()
     {
         $uri = \Mockery::mock(UriInterface::class);
@@ -214,27 +176,6 @@ class SitemapTest extends \PHPUnit\Framework\TestCase
         $this->expectExceptionMessage('Invalid content type "application/octetstream"');
 
         $sitemap->setContentType($contentType);
-    }
-
-    /**
-     * @throws InvalidContentTypeException
-     */
-    public function testSetContent()
-    {
-        $uri = \Mockery::mock(UriInterface::class);
-
-        $currentContent = 'current content';
-        $newContent = 'new content';
-
-        $sitemap = Sitemap::createFromContent($uri, $currentContent);
-
-        $this->assertEquals($currentContent, $sitemap->getContent());
-
-        $updatedWebPage = $sitemap->setContent($newContent);
-
-        $this->assertInstanceOf(Sitemap::class, $updatedWebPage);
-        $this->assertEquals($newContent, $updatedWebPage->getContent());
-        $this->assertNotEquals(spl_object_hash($sitemap), spl_object_hash($updatedWebPage));
     }
 
     /**
