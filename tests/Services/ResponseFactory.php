@@ -22,6 +22,10 @@ class ResponseFactory extends \PHPUnit\Framework\TestCase
             ->shouldReceive('__toString')
             ->andReturn($content);
 
+        $responseBody
+            ->shouldReceive('getContents')
+            ->andReturn($content);
+
         $response = \Mockery::mock(ResponseInterface::class);
         $response
             ->shouldReceive('getHeaderLine')

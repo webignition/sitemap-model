@@ -47,23 +47,15 @@ class Factory
      * @param UriInterface $uri
      *
      * @return SitemapInterface
+     * @throws InvalidContentTypeException
      */
     public function createFromResponse(ResponseInterface $response, UriInterface $uri = null): SitemapInterface
     {
         /* @var Sitemap $sitemap */
         $sitemap = null;
+        $responseContent = $response->getBody()->getContents();
 
-        try {
-            $sitemap = Sitemap::createFromResponse($uri, $response);
-        } catch (InvalidContentTypeException $invalidContentTypeException) {
-            throw new \RuntimeException(
-                self::EXCEPTION_UNKNOWN_TYPE_MESSAGE,
-                self::EXCEPTION_UNKNOWN_TYPE_CODE
-            );
-        }
-
-        $content = $sitemap->getContent();
-        $type = $this->identifier->getType($content);
+        $type = $this->identifier->getType($responseContent);
 
         if (empty($type)) {
             throw new \RuntimeException(
@@ -71,6 +63,8 @@ class Factory
                 self::EXCEPTION_UNKNOWN_TYPE_CODE
             );
         }
+
+        $sitemap = Sitemap::createFromResponse($uri, $response);
 
         $urlExtractor = $this->typeExtractorMap[$type];
 
