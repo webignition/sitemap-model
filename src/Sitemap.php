@@ -18,6 +18,8 @@ class Sitemap extends WebResource implements SitemapInterface
 {
     const EXCEPTION_UNKNOWN_TYPE_CODE = 1;
     const EXCEPTION_UNKNOWN_TYPE_MESSAGE = 'Unknown sitemap type';
+    const EXCEPTION_MISSING_TYPE_CODE = 2;
+    const EXCEPTION_MISSING_TYPE_MESSAGE = 'Type missing';
 
     const DEFAULT_CONTENT_TYPE_TYPE = 'text';
     const DEFAULT_CONTENT_TYPE_SUBTYPE = 'xml';
@@ -54,6 +56,45 @@ class Sitemap extends WebResource implements SitemapInterface
         if ($properties instanceof SitemapProperties) {
             $this->type = $properties->getType();
         }
+
+        if (empty($this->type)) {
+            throw new \RuntimeException(
+                self::EXCEPTION_MISSING_TYPE_MESSAGE,
+                self::EXCEPTION_MISSING_TYPE_CODE
+            );
+        }
+
+        if (!in_array($this->type, Types::$types)) {
+            throw new \RuntimeException(
+                self::EXCEPTION_UNKNOWN_TYPE_MESSAGE,
+                self::EXCEPTION_UNKNOWN_TYPE_CODE
+            );
+        }
+    }
+
+    protected function mergeProperties(?WebResourcePropertiesInterface $properties): WebResourcePropertiesInterface
+    {
+        $type = $this->type;
+
+        if ($properties instanceof SitemapProperties) {
+            $type = $properties->hasType() ? $properties->getType() : $type;
+        }
+
+        $parentProperties = parent::mergeProperties($properties);
+
+        return new SitemapProperties(
+            $parentProperties->getUri(),
+            $parentProperties->getContentType(),
+            $parentProperties->getContent(),
+            $parentProperties->getResponse(),
+            $type
+        );
+    }
+
+
+    protected function getPropertiesClassName(): string
+    {
+        return SitemapProperties::class;
     }
 
     /**
