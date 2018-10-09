@@ -2,13 +2,30 @@
 
 namespace webignition\WebResource\Sitemap;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
+use webignition\InternetMediaType\InternetMediaType;
+use webignition\InternetMediaTypeInterface\InternetMediaTypeInterface;
 use webignition\NormalisedUrl\NormalisedUrl;
+use webignition\WebResource\Exception\InvalidContentTypeException;
 use webignition\WebResource\Sitemap\UrlExtractor\UrlExtractorInterface;
 use webignition\WebResource\WebResource;
+use webignition\WebResource\WebResourcePropertiesInterface;
 use webignition\WebResourceInterfaces\SitemapInterface;
+use webignition\WebResourceInterfaces\WebResourceInterface;
 
 class Sitemap extends WebResource implements SitemapInterface
 {
+    const EXCEPTION_UNKNOWN_TYPE_CODE = 1;
+    const EXCEPTION_UNKNOWN_TYPE_MESSAGE = 'Unknown sitemap type';
+    const EXCEPTION_MISSING_TYPE_CODE = 2;
+    const EXCEPTION_MISSING_TYPE_MESSAGE = 'Type missing';
+
+    const DEFAULT_CONTENT_TYPE_TYPE = 'text';
+    const DEFAULT_CONTENT_TYPE_SUBTYPE = 'xml';
+
+    const ARG_TYPE = 'type';
+
     /**
      * @var string
      */
@@ -32,7 +49,101 @@ class Sitemap extends WebResource implements SitemapInterface
      */
     private $urls = null;
 
-    public function getType(): ?string
+    public function __construct(?WebResourcePropertiesInterface $properties = null)
+    {
+        parent::__construct($properties);
+
+        if ($properties instanceof SitemapProperties) {
+            $this->type = $properties->getType();
+        }
+
+        if (empty($this->type)) {
+            throw new \RuntimeException(
+                self::EXCEPTION_MISSING_TYPE_MESSAGE,
+                self::EXCEPTION_MISSING_TYPE_CODE
+            );
+        }
+
+        if (!in_array($this->type, Types::$types)) {
+            throw new \RuntimeException(
+                self::EXCEPTION_UNKNOWN_TYPE_MESSAGE,
+                self::EXCEPTION_UNKNOWN_TYPE_CODE
+            );
+        }
+    }
+
+    protected function mergeProperties(?WebResourcePropertiesInterface $properties): WebResourcePropertiesInterface
+    {
+        $type = $this->type;
+
+        if ($properties instanceof SitemapProperties) {
+            $type = $properties->hasType() ? $properties->getType() : $type;
+        }
+
+        $parentProperties = parent::mergeProperties($properties);
+
+        return new SitemapProperties(
+            $parentProperties->getUri(),
+            $parentProperties->getContentType(),
+            $parentProperties->getContent(),
+            $parentProperties->getResponse(),
+            $type
+        );
+    }
+
+
+    protected function getPropertiesClassName(): string
+    {
+        return SitemapProperties::class;
+    }
+
+    /**
+     * @param string $content
+     * @param InternetMediaTypeInterface $contentType
+     * @param string|null $type
+     *
+     * @return Sitemap
+     *
+     * @throws InvalidContentTypeException
+     */
+    public static function createFromContent(
+        string $content,
+        ?InternetMediaTypeInterface $contentType = null,
+        ?string $type = null
+    ): WebResourceInterface {
+        $className = get_called_class();
+
+        return new $className(SitemapProperties::create([
+            SitemapProperties::ARG_CONTENT => $content,
+            SitemapProperties::ARG_CONTENT_TYPE => $contentType,
+            SitemapProperties::ARG_TYPE => $type,
+        ]));
+    }
+
+    /**
+     * @param UriInterface $uri
+     * @param ResponseInterface $response
+     * @param null|string $type
+     *
+     * @return Sitemap
+     *
+     * @throws InvalidContentTypeException
+     */
+    public static function createFromResponse(
+        UriInterface $uri,
+        ResponseInterface $response,
+        ?string $type = null
+    ): WebResourceInterface {
+        $className = get_called_class();
+
+        return new $className(SitemapProperties::create([
+            SitemapProperties::ARG_URI => $uri,
+            SitemapProperties::ARG_RESPONSE => $response,
+            SitemapProperties::ARG_TYPE => $type,
+        ]));
+    }
+
+    public function getType(): string
     {
         return $this->type;
     }
@@ -85,14 +196,9 @@ class Sitemap extends WebResource implements SitemapInterface
     /**
      * @return SitemapInterface[]
      */
-    public function getChildren()
+    public function getChildren(): array
     {
         return $this->children;
-    }
-
-    public function setType($type)
-    {
-        $this->type = $type;
     }
 
     /**
@@ -101,5 +207,29 @@ class Sitemap extends WebResource implements SitemapInterface
     public function setUrlExtractor(UrlExtractorInterface $urlExtractor)
     {
         $this->urlExtractor = $urlExtractor;
+    }
+
+    public static function getDefaultContentType(): InternetMediaTypeInterface
+    {
+        $contentType = new InternetMediaType();
+        $contentType->setType(self::DEFAULT_CONTENT_TYPE_TYPE);
+        $contentType->setSubtype(self::DEFAULT_CONTENT_TYPE_SUBTYPE);
+
+        return $contentType;
+    }
+
+    public static function models(InternetMediaTypeInterface $internetMediaType): bool
+    {
+        return in_array($internetMediaType->getTypeSubtypeString(), self::getModelledContentTypeStrings());
+    }
+
+    public static function getModelledContentTypeStrings(): array
+    {
+        return [
+            ContentTypes::CONTENT_TYPE_ATOM,
+            ContentTypes::CONTENT_TYPE_RSS,
+            ContentTypes::CONTENT_TYPE_XML,
+            ContentTypes::CONTENT_TYPE_TXT,
+        ];
     }
 }

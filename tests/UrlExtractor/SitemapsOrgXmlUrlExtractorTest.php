@@ -1,6 +1,6 @@
 <?php
 
-namespace webignition\Tests\WebResource\Sitemap\UrlExtractor;
+namespace webignition\WebResource\Sitemap\Tests\UrlExtractor;
 
 use webignition\WebResource\Sitemap\Factory;
 use webignition\WebResource\Sitemap\UrlExtractor\SitemapsOrgXmlUrlExtractor;
@@ -37,10 +37,7 @@ class SitemapsOrgXmlUrlExtractorTest extends \PHPUnit\Framework\TestCase
         $this->assertEmpty($urls);
     }
 
-    /**
-     * @return array
-     */
-    public function extractInvalidContentDataProvider()
+    public function extractInvalidContentDataProvider(): array
     {
         FixtureLoader::$fixturePath = __DIR__  . '/../Fixtures';
 

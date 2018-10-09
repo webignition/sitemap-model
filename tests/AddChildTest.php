@@ -1,11 +1,10 @@
 <?php
 
-namespace webignition\Tests\WebResource\Sitemap;
+namespace webignition\WebResource\Sitemap\Tests;
 
-use webignition\InternetMediaType\Parser\ParseException as InternetMediaTypeParseException;
-use webignition\Tests\WebResource\Sitemap\Factory\SitemapHelper;
-use webignition\Tests\WebResource\Sitemap\Factory\UriFactory;
+use webignition\WebResource\Exception\InvalidContentTypeException;
 use webignition\WebResource\Sitemap\Factory;
+use webignition\WebResource\Sitemap\Tests\Services\SitemapFactory;
 use webignition\WebResource\TestingTools\FixtureLoader;
 
 class AddChildTest extends \PHPUnit\Framework\TestCase
@@ -26,34 +25,34 @@ class AddChildTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws InternetMediaTypeParseException
+     * @throws InvalidContentTypeException
      */
     public function testAddChildToNonIndexSitemap()
     {
-        $sitemap = SitemapHelper::createXmlSitemap('sitemap.xml');
-        $childSitemap = SitemapHelper::createXmlSitemap('sitemap.xml');
+        $sitemap = SitemapFactory::createXmlSitemap(FixtureLoader::load('sitemap.xml'));
+        $childSitemap = SitemapFactory::createXmlSitemap(FixtureLoader::load('sitemap.xml'));
 
         $this->assertFalse($sitemap->addChild($childSitemap));
     }
 
     /**
-     * @throws InternetMediaTypeParseException
+     * @throws InvalidContentTypeException
      */
     public function testAddChildToIndexSitemap()
     {
-        $sitemap = SitemapHelper::createXmlIndexSitemap();
-        $childSitemap = SitemapHelper::createXmlSitemap('sitemap.xml');
+        $sitemap = SitemapFactory::createXmlIndexSitemap();
+        $childSitemap = SitemapFactory::createXmlSitemap(FixtureLoader::load('sitemap.xml'));
 
         $this->assertTrue($sitemap->addChild($childSitemap));
     }
 
     /**
-     * @throws InternetMediaTypeParseException
+     * @throws InvalidContentTypeException
      */
     public function testAddingChildIsIdempotent()
     {
-        $sitemap = SitemapHelper::createXmlIndexSitemap();
-        $childSitemap = SitemapHelper::createXmlSitemap('sitemap.index.xml');
+        $sitemap = SitemapFactory::createXmlIndexSitemap();
+        $childSitemap = SitemapFactory::createXmlSitemap(FixtureLoader::load('sitemap.index.xml'));
 
         $this->assertTrue($sitemap->addChild($childSitemap));
         $this->assertCount(1, $sitemap->getChildren());
@@ -63,26 +62,15 @@ class AddChildTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws InternetMediaTypeParseException
+     * @throws InvalidContentTypeException
      */
     public function testAddingMultipleChildren()
     {
-        $sitemap = SitemapHelper::createXmlIndexSitemap();
+        $sitemap = SitemapFactory::createXmlIndexSitemap();
 
-        $childSitemap1 = SitemapHelper::createXmlSitemap(
-            'example.com.sitemap.01.xml',
-            UriFactory::create()
-        );
-
-        $childSitemap2 = SitemapHelper::createXmlSitemap(
-            'example.com.sitemap.02.xml',
-            UriFactory::create()
-        );
-
-        $childSitemap3 = SitemapHelper::createXmlSitemap(
-            'example.com.sitemap.03.xml',
-            UriFactory::create()
-        );
+        $childSitemap1 = SitemapFactory::createXmlSitemap(FixtureLoader::load('example.com.sitemap.01.xml'));
+        $childSitemap2 = SitemapFactory::createXmlSitemap(FixtureLoader::load('example.com.sitemap.02.xml'));
+        $childSitemap3 = SitemapFactory::createXmlSitemap(FixtureLoader::load('example.com.sitemap.03.xml'));
 
         $this->assertTrue($sitemap->addChild($childSitemap1));
         $this->assertTrue($sitemap->addChild($childSitemap2));
