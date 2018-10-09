@@ -16,6 +16,8 @@ class GetUrlsTest extends \PHPUnit\Framework\TestCase
      * @param string $responseContent
      * @param string $responseContentType
      * @param string[] $expectedUrls
+     *
+     * @throws \webignition\WebResource\Exception\InvalidContentTypeException
      */
     public function testGetUrls(string $responseContent, string $responseContentType, array $expectedUrls)
     {

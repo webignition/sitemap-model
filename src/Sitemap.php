@@ -2,17 +2,27 @@
 
 namespace webignition\WebResource\Sitemap;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 use webignition\InternetMediaType\InternetMediaType;
 use webignition\InternetMediaTypeInterface\InternetMediaTypeInterface;
 use webignition\NormalisedUrl\NormalisedUrl;
+use webignition\WebResource\Exception\InvalidContentTypeException;
 use webignition\WebResource\Sitemap\UrlExtractor\UrlExtractorInterface;
 use webignition\WebResource\WebResource;
+use webignition\WebResource\WebResourcePropertiesInterface;
 use webignition\WebResourceInterfaces\SitemapInterface;
+use webignition\WebResourceInterfaces\WebResourceInterface;
 
 class Sitemap extends WebResource implements SitemapInterface
 {
+    const EXCEPTION_UNKNOWN_TYPE_CODE = 1;
+    const EXCEPTION_UNKNOWN_TYPE_MESSAGE = 'Unknown sitemap type';
+
     const DEFAULT_CONTENT_TYPE_TYPE = 'text';
     const DEFAULT_CONTENT_TYPE_SUBTYPE = 'xml';
+
+    const ARG_TYPE = 'type';
 
     /**
      * @var string
@@ -36,6 +46,145 @@ class Sitemap extends WebResource implements SitemapInterface
      * @var array Collection of URLs found in this sitemap
      */
     private $urls = null;
+
+    public function __construct(?WebResourcePropertiesInterface $properties = null)
+    {
+        parent::__construct($properties);
+
+        if ($properties instanceof SitemapProperties) {
+            $this->type = $properties->getType();
+        }
+    }
+
+    /**
+     * @param string $content
+     * @param InternetMediaTypeInterface $contentType
+     * @param string|null $type
+     *
+     * @return Sitemap
+     *
+     * @throws InvalidContentTypeException
+     */
+    public static function createFromContent(
+        string $content,
+        ?InternetMediaTypeInterface $contentType = null,
+        ?string $type = null
+    ): WebResourceInterface {
+        $className = get_called_class();
+
+        return new $className(SitemapProperties::create([
+            SitemapProperties::ARG_CONTENT => $content,
+            SitemapProperties::ARG_CONTENT_TYPE => $contentType,
+            SitemapProperties::ARG_TYPE => $type,
+        ]));
+    }
+
+    /**
+     * @param UriInterface $uri
+     * @param ResponseInterface $response
+     * @param null|string $type
+     *
+     * @return Sitemap
+     *
+     * @throws InvalidContentTypeException
+     */
+    public static function createFromResponse(
+        UriInterface $uri,
+        ResponseInterface $response,
+        ?string $type = null
+    ): WebResourceInterface {
+        $className = get_called_class();
+
+        return new $className(SitemapProperties::create([
+            SitemapProperties::ARG_URI => $uri,
+            SitemapProperties::ARG_RESPONSE => $response,
+            SitemapProperties::ARG_TYPE => $type,
+        ]));
+    }
+
+//    protected function __construct(array $args)
+//    {
+//        parent::__construct($args);
+//
+//        if (!isset($args[self::ARG_TYPE]) || empty($args[self::ARG_TYPE])) {
+//            throw new \RuntimeException(
+//                self::EXCEPTION_UNKNOWN_TYPE_MESSAGE,
+//                self::EXCEPTION_UNKNOWN_TYPE_CODE
+//            );
+//        }
+//
+//        $type = $args[self::ARG_TYPE];
+//        if (!in_array($type, Types::$types)) {
+//            throw new \RuntimeException(
+//                self::EXCEPTION_UNKNOWN_TYPE_MESSAGE,
+//                self::EXCEPTION_UNKNOWN_TYPE_CODE
+//            );
+//        }
+//
+//        $this->type = $type;
+//    }
+//
+//    /**
+//     * @param UriInterface $uri
+//     * @param string $content
+//     * @param string $type
+//     * @param null|InternetMediaTypeInterface $contentType
+//     *
+//     * @return WebResourceInterface
+//     *
+//     * @throws InvalidContentTypeException
+//     */
+//    public static function createFromContent(
+//        UriInterface $uri,
+//        string $content,
+//        ?InternetMediaTypeInterface $contentType = null,
+//        ?string $type = null
+//    ): WebResourceInterface {
+//        if (empty($contentType)) {
+//            $contentType = static::getDefaultContentType();
+//        }
+//
+//        return new Sitemap([
+//            self::ARG_URI => $uri,
+//            self::ARG_CONTENT_TYPE => $contentType,
+//            self::ARG_CONTENT => $content,
+//            self::ARG_TYPE => $type,
+//        ]);
+//    }
+//
+//    protected function createNewInstance(
+//        UriInterface $uri,
+//        ?InternetMediaTypeInterface $contentType,
+//        ?string $content,
+//        ?ResponseInterface $response,
+//        ?array $args = []
+//    ): WebResourceInterface {
+//        $args[self::ARG_TYPE] = $this->type;
+//
+//        return parent::createNewInstance($uri, $contentType, $content, $response, $args);
+//    }
+//
+//    /**
+//     * @param UriInterface $uri
+//     * @param ResponseInterface $response
+//     * @param null|string $type
+//     *
+//     * @return WebResourceInterface
+//     *
+//     * @throws InvalidContentTypeException
+//     */
+//    public static function createFromResponse(
+//        UriInterface $uri,
+//        ResponseInterface $response,
+//        ?string $type = null
+//    ): WebResourceInterface {
+//        return new Sitemap([
+//            self::ARG_URI => $uri,
+//            self::ARG_RESPONSE => $response,
+//            self::ARG_TYPE => $type,
+//        ]);
+//    }
+
 
     public function getType(): string
     {
@@ -95,11 +244,6 @@ class Sitemap extends WebResource implements SitemapInterface
         return $this->children;
     }
 
-    public function setType(string $type)
-    {
-        $this->type = $type;
-    }
-
     /**
      * @param UrlExtractorInterface $urlExtractor
      */
@@ -108,7 +252,7 @@ class Sitemap extends WebResource implements SitemapInterface
         $this->urlExtractor = $urlExtractor;
     }
 
-    public static function getDefaultContentType(): InternetMediaType
+    public static function getDefaultContentType(): InternetMediaTypeInterface
     {
         $contentType = new InternetMediaType();
         $contentType->setType(self::DEFAULT_CONTENT_TYPE_TYPE);

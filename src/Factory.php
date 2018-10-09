@@ -64,11 +64,10 @@ class Factory
             );
         }
 
-        $sitemap = Sitemap::createFromResponse($uri, $response);
+        $sitemap = Sitemap::createFromResponse($uri, $response, $type);
 
         $urlExtractor = $this->typeExtractorMap[$type];
 
-        $sitemap->setType($type);
         $sitemap->setUrlExtractor($urlExtractor);
 
         return $sitemap;

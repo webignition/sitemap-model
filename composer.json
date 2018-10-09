@@ -31,8 +31,8 @@
     },
     "require": {
         "php": ">=7.2.0",
-        "webignition/web-resource-interfaces":">=3.2,<4",
-        "webignition/web-resource-model":">=4,<5",
+        "webignition/web-resource-interfaces":">=3.3,<4",
+        "webignition/web-resource-model":">=5.2,<6",
         "webignition/url":">=2,<3",
         "simplepie/simplepie":"1.5"
     },

@@ -2,6 +2,7 @@
 
 namespace webignition\WebResource\Sitemap\Tests;
 
+use webignition\WebResource\Exception\InvalidContentTypeException;
 use webignition\WebResource\Sitemap\Factory;
 use webignition\WebResource\Sitemap\Tests\Services\SitemapFactory;
 use webignition\WebResource\TestingTools\FixtureLoader;
@@ -23,6 +24,9 @@ class AddChildTest extends \PHPUnit\Framework\TestCase
         FixtureLoader::$fixturePath = __DIR__  . '/Fixtures';
     }
 
+    /**
+     * @throws InvalidContentTypeException
+     */
     public function testAddChildToNonIndexSitemap()
     {
         $sitemap = SitemapFactory::createXmlSitemap(FixtureLoader::load('sitemap.xml'));
@@ -31,6 +35,9 @@ class AddChildTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($sitemap->addChild($childSitemap));
     }
 
+    /**
+     * @throws InvalidContentTypeException
+     */
     public function testAddChildToIndexSitemap()
     {
         $sitemap = SitemapFactory::createXmlIndexSitemap();
@@ -39,6 +46,9 @@ class AddChildTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($sitemap->addChild($childSitemap));
     }
 
+    /**
+     * @throws InvalidContentTypeException
+     */
     public function testAddingChildIsIdempotent()
     {
         $sitemap = SitemapFactory::createXmlIndexSitemap();
@@ -51,6 +61,9 @@ class AddChildTest extends \PHPUnit\Framework\TestCase
         $this->assertCount(1, $sitemap->getChildren());
     }
 
+    /**
+     * @throws InvalidContentTypeException
+     */
     public function testAddingMultipleChildren()
     {
         $sitemap = SitemapFactory::createXmlIndexSitemap();

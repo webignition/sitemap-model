@@ -13,6 +13,8 @@ use webignition\WebResource\Exception\ReadOnlyResponseException;
 use webignition\WebResource\Exception\UnseekableResponseException;
 use webignition\WebResource\Sitemap\ContentTypes;
 use webignition\WebResource\Sitemap\Sitemap;
+use webignition\WebResource\Sitemap\SitemapProperties;
+use webignition\WebResourceInterfaces\SitemapInterface;
 
 class SitemapMutationTest extends \PHPUnit\Framework\TestCase
 {
@@ -43,7 +45,11 @@ class SitemapMutationTest extends \PHPUnit\Framework\TestCase
         $currentUri = \Mockery::mock(UriInterface::class);
         $newUri = \Mockery::mock(UriInterface::class);
 
-        $this->sitemap = Sitemap::createFromContent($currentUri, '');
+        $this->sitemap = new Sitemap(SitemapProperties::create([
+            SitemapProperties::ARG_URI => $currentUri,
+            SitemapProperties::ARG_TYPE => SitemapInterface::TYPE_SITEMAPS_ORG_XML,
+        ]));
+
         $this->assertEquals($currentUri, $this->sitemap->getUri());
 
         $this->updatedSitemap = $this->sitemap->setUri($newUri);
@@ -53,9 +59,9 @@ class SitemapMutationTest extends \PHPUnit\Framework\TestCase
     /**
      * @throws InvalidContentTypeException
      */
-    public function testSetContentTypeValidContentType()
+    public function testSetContentType()
     {
-        $this->sitemap = Sitemap::createFromContent(\Mockery::mock(UriInterface::class), 'sitemap content');
+        $this->sitemap = Sitemap::createFromContent('', null, SitemapInterface::TYPE_SITEMAPS_ORG_XML);
         $this->assertEquals(ContentTypes::CONTENT_TYPE_XML, (string)$this->sitemap->getContentType());
 
         $contentType = $this->createContentType('text', 'xml');
@@ -74,7 +80,7 @@ class SitemapMutationTest extends \PHPUnit\Framework\TestCase
         $currentContent = 'current content';
         $newContent = 'new content';
 
-        $this->sitemap = Sitemap::createFromContent(\Mockery::mock(UriInterface::class), $currentContent);
+        $this->sitemap = Sitemap::createFromContent($currentContent, null, SitemapInterface::TYPE_SITEMAPS_ORG_XML);
         $this->assertEquals($currentContent, $this->sitemap->getContent());
 
         $this->updatedSitemap = $this->sitemap->setContent($newContent);
@@ -109,7 +115,11 @@ class SitemapMutationTest extends \PHPUnit\Framework\TestCase
             ->with(Sitemap::HEADER_CONTENT_TYPE)
             ->andReturn(ContentTypes::CONTENT_TYPE_XML);
 
-        $this->sitemap = Sitemap::createFromResponse(\Mockery::mock(UriInterface::class), $currentResponse);
+        $this->sitemap = Sitemap::createFromResponse(
+            \Mockery::mock(UriInterface::class),
+            $currentResponse,
+            SitemapInterface::TYPE_SITEMAPS_ORG_XML
+        );
         $this->updatedSitemap = $this->sitemap->setResponse($newResponse);
 
         $this->assertEquals($newResponse, $this->updatedSitemap->getResponse());

@@ -2,11 +2,15 @@
 
 namespace webignition\WebResource\Sitemap\Tests;
 
+use webignition\WebResource\Exception\InvalidContentTypeException;
 use webignition\WebResource\Sitemap\Tests\Services\SitemapFactory;
 use webignition\WebResource\TestingTools\FixtureLoader;
 
 class GetUrlsFromChildrenTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws InvalidContentTypeException
+     */
     public function testGettingUrlsFromChildren()
     {
         FixtureLoader::$fixturePath = __DIR__  . '/Fixtures';
