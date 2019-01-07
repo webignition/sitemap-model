@@ -61,15 +61,15 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
             ],
             'invalid xml' => [
                 'responseContent' => FixtureLoader::load('sitemap.invalid.xml'),
-                'responseContentType' => ContentTypes::CONTENT_TYPE_XML,
+                'responseContentType' => ContentTypes::CONTENT_TYPE_TEXT_XML,
             ],
             'empty xml' => [
                 'responseContent' => FixtureLoader::load(''),
-                'responseContentType' => ContentTypes::CONTENT_TYPE_XML,
+                'responseContentType' => ContentTypes::CONTENT_TYPE_TEXT_XML,
             ],
             'xml no namespace' => [
                 'responseContent' => FixtureLoader::load('sitemap.no-namespace.xml'),
-                'responseContentType' => ContentTypes::CONTENT_TYPE_XML,
+                'responseContentType' => ContentTypes::CONTENT_TYPE_TEXT_XML,
             ],
         ];
     }
@@ -108,9 +108,19 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
                 'responseContentType' => ContentTypes::CONTENT_TYPE_RSS,
                 'expectedType' => SitemapInterface::TYPE_RSS,
             ],
-            'sitemaps org xml' => [
+            'sitemaps org xml, content-type=text/xml' => [
                 'responseContent' => FixtureLoader::load('sitemap.xml'),
-                'responseContentType' => ContentTypes::CONTENT_TYPE_XML,
+                'responseContentType' => ContentTypes::CONTENT_TYPE_TEXT_XML,
+                'expectedType' => SitemapInterface::TYPE_SITEMAPS_ORG_XML,
+                'expectedUrls' => [
+                    'http://example.com/xml/1',
+                    'http://example.com/xml/2',
+                    'http://example.com/xml/3',
+                ],
+            ],
+            'sitemaps org xml, content-type=application/xml' => [
+                'responseContent' => FixtureLoader::load('sitemap.xml'),
+                'responseContentType' => ContentTypes::CONTENT_TYPE_APPLICATION_XML,
                 'expectedType' => SitemapInterface::TYPE_SITEMAPS_ORG_XML,
                 'expectedUrls' => [
                     'http://example.com/xml/1',
@@ -128,9 +138,19 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
                     'http://example.com/txt/3',
                 ],
             ],
-            'sitemaps org xml index' => [
+            'sitemaps org xml index, content-type=text/xml' => [
                 'responseContent' => FixtureLoader::load('sitemap.index.xml'),
-                'responseContentType' => ContentTypes::CONTENT_TYPE_XML,
+                'responseContentType' => ContentTypes::CONTENT_TYPE_TEXT_XML,
+                'expectedType' => SitemapInterface::TYPE_SITEMAPS_ORG_XML_INDEX,
+                'expectedUrls' => [
+                    'http://www.example.com/sitemap1.xml',
+                    'http://www.example.com/sitemap2.xml',
+                    'http://www.example.com/sitemap3.xml',
+                ],
+            ],
+            'sitemaps org xml index, content-type=application/xml' => [
+                'responseContent' => FixtureLoader::load('sitemap.index.xml'),
+                'responseContentType' => ContentTypes::CONTENT_TYPE_APPLICATION_XML,
                 'expectedType' => SitemapInterface::TYPE_SITEMAPS_ORG_XML_INDEX,
                 'expectedUrls' => [
                     'http://www.example.com/sitemap1.xml',

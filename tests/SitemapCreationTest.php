@@ -89,7 +89,7 @@ class SitemapCreationTest extends \PHPUnit\Framework\TestCase
         return [
             'no content type' => [
                 'contentType' => null,
-                'expectedContentTypeString' => ContentTypes::CONTENT_TYPE_XML,
+                'expectedContentTypeString' => ContentTypes::CONTENT_TYPE_TEXT_XML,
                 'type' => SitemapInterface::TYPE_SITEMAPS_ORG_XML,
             ],
             'atom content type' => [
@@ -104,12 +104,12 @@ class SitemapCreationTest extends \PHPUnit\Framework\TestCase
             ],
             'text/xml content type, sitemap.xml type' => [
                 'contentType' => new InternetMediaType('text', 'xml'),
-                'expectedContentTypeString' => ContentTypes::CONTENT_TYPE_XML,
+                'expectedContentTypeString' => ContentTypes::CONTENT_TYPE_TEXT_XML,
                 'type' => SitemapInterface::TYPE_SITEMAPS_ORG_XML,
             ],
             'text/xml content type, sitemap.index.xml type' => [
                 'contentType' => new InternetMediaType('text', 'xml'),
-                'expectedContentTypeString' => ContentTypes::CONTENT_TYPE_XML,
+                'expectedContentTypeString' => ContentTypes::CONTENT_TYPE_TEXT_XML,
                 'type' => SitemapInterface::TYPE_SITEMAPS_ORG_XML_INDEX,
             ],
             'text/plain content type' => [
@@ -192,13 +192,13 @@ class SitemapCreationTest extends \PHPUnit\Framework\TestCase
                 'type' => SitemapInterface::TYPE_RSS,
             ],
             'text/xml content type, sitemap.xml type' => [
-                'responseContentTypeHeader' => ContentTypes::CONTENT_TYPE_XML,
-                'expectedContentTypeString' => ContentTypes::CONTENT_TYPE_XML,
+                'responseContentTypeHeader' => ContentTypes::CONTENT_TYPE_TEXT_XML,
+                'expectedContentTypeString' => ContentTypes::CONTENT_TYPE_TEXT_XML,
                 'type' => SitemapInterface::TYPE_SITEMAPS_ORG_XML,
             ],
             'text/xml content type, sitemap.index.xml type' => [
-                'responseContentTypeHeader' => ContentTypes::CONTENT_TYPE_XML,
-                'expectedContentTypeString' => ContentTypes::CONTENT_TYPE_XML,
+                'responseContentTypeHeader' => ContentTypes::CONTENT_TYPE_TEXT_XML,
+                'expectedContentTypeString' => ContentTypes::CONTENT_TYPE_TEXT_XML,
                 'type' => SitemapInterface::TYPE_SITEMAPS_ORG_XML_INDEX,
             ],
             'text/plain content type' => [
