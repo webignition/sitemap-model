@@ -228,7 +228,8 @@ class Sitemap extends WebResource implements SitemapInterface
         return [
             ContentTypes::CONTENT_TYPE_ATOM,
             ContentTypes::CONTENT_TYPE_RSS,
-            ContentTypes::CONTENT_TYPE_XML,
+            ContentTypes::CONTENT_TYPE_APPLICATION_XML,
+            ContentTypes::CONTENT_TYPE_TEXT_XML,
             ContentTypes::CONTENT_TYPE_TXT,
         ];
     }

@@ -53,7 +53,7 @@ class SitemapTest extends \PHPUnit\Framework\TestCase
     {
         $sitemap = Sitemap::createFromContent('sitemap content', null, SitemapInterface::TYPE_SITEMAPS_ORG_XML);
 
-        $this->assertEquals(ContentTypes::CONTENT_TYPE_XML, (string)$sitemap->getContentType());
+        $this->assertEquals(ContentTypes::CONTENT_TYPE_TEXT_XML, (string)$sitemap->getContentType());
 
         $contentType = new InternetMediaType('application', 'octetstream');
 
@@ -79,7 +79,7 @@ class SitemapTest extends \PHPUnit\Framework\TestCase
         $currentResponse
             ->shouldReceive('getHeaderLine')
             ->with(Sitemap::HEADER_CONTENT_TYPE)
-            ->andReturn(ContentTypes::CONTENT_TYPE_XML);
+            ->andReturn(ContentTypes::CONTENT_TYPE_TEXT_XML);
 
         $currentResponse
             ->shouldReceive('getBody')
@@ -97,5 +97,19 @@ class SitemapTest extends \PHPUnit\Framework\TestCase
         $this->expectExceptionMessage('Invalid content type "image/jpg"');
 
         $sitemap->setResponse($newResponse);
+    }
+
+    public function testGetModelledContentTypeStrings()
+    {
+        $this->assertEquals(
+            [
+                ContentTypes::CONTENT_TYPE_ATOM,
+                ContentTypes::CONTENT_TYPE_RSS,
+                ContentTypes::CONTENT_TYPE_APPLICATION_XML,
+                ContentTypes::CONTENT_TYPE_TEXT_XML,
+                ContentTypes::CONTENT_TYPE_TXT,
+            ],
+            Sitemap::getModelledContentTypeStrings()
+        );
     }
 }

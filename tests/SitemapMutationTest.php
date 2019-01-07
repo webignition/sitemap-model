@@ -62,12 +62,12 @@ class SitemapMutationTest extends \PHPUnit\Framework\TestCase
     public function testSetContentType()
     {
         $this->sitemap = Sitemap::createFromContent('', null, SitemapInterface::TYPE_SITEMAPS_ORG_XML);
-        $this->assertEquals(ContentTypes::CONTENT_TYPE_XML, (string)$this->sitemap->getContentType());
+        $this->assertEquals(ContentTypes::CONTENT_TYPE_TEXT_XML, (string)$this->sitemap->getContentType());
 
         $contentType = $this->createContentType('text', 'xml');
         $this->updatedSitemap = $this->sitemap->setContentType($contentType);
 
-        $this->assertEquals(ContentTypes::CONTENT_TYPE_XML, (string)$this->updatedSitemap->getContentType());
+        $this->assertEquals(ContentTypes::CONTENT_TYPE_TEXT_XML, (string)$this->updatedSitemap->getContentType());
     }
 
     /**
@@ -102,7 +102,7 @@ class SitemapMutationTest extends \PHPUnit\Framework\TestCase
         $currentResponse
             ->shouldReceive('getHeaderLine')
             ->with(Sitemap::HEADER_CONTENT_TYPE)
-            ->andReturn(ContentTypes::CONTENT_TYPE_XML);
+            ->andReturn(ContentTypes::CONTENT_TYPE_TEXT_XML);
 
         $currentResponse
             ->shouldReceive('getBody')
@@ -113,7 +113,7 @@ class SitemapMutationTest extends \PHPUnit\Framework\TestCase
         $newResponse
             ->shouldReceive('getHeaderLine')
             ->with(Sitemap::HEADER_CONTENT_TYPE)
-            ->andReturn(ContentTypes::CONTENT_TYPE_XML);
+            ->andReturn(ContentTypes::CONTENT_TYPE_TEXT_XML);
 
         $this->sitemap = Sitemap::createFromResponse(
             \Mockery::mock(UriInterface::class),

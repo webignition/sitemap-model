@@ -51,7 +51,7 @@ class GetUrlsTest extends \PHPUnit\Framework\TestCase
             ],
             'sitemaps org xml' => [
                 'responseContent' => FixtureLoader::load('sitemap.xml'),
-                'responseContentType' => ContentTypes::CONTENT_TYPE_XML,
+                'responseContentType' => ContentTypes::CONTENT_TYPE_TEXT_XML,
                 'expectedUrls' => [
                     'http://example.com/xml/1',
                     'http://example.com/xml/2',
@@ -60,7 +60,7 @@ class GetUrlsTest extends \PHPUnit\Framework\TestCase
             ],
             'sitemaps org xml v0.84' => [
                 'responseContent' => FixtureLoader::load('sitemap.0.84.xml'),
-                'responseContentType' => ContentTypes::CONTENT_TYPE_XML,
+                'responseContentType' => ContentTypes::CONTENT_TYPE_TEXT_XML,
                 'expectedUrls' => [
                     'http://example.com/xml/1',
                     'http://example.com/xml/2',
@@ -78,7 +78,7 @@ class GetUrlsTest extends \PHPUnit\Framework\TestCase
             ],
             'sitemaps org xml index' => [
                 'responseContent' => FixtureLoader::load('sitemap.index.xml'),
-                'responseContentType' => ContentTypes::CONTENT_TYPE_XML,
+                'responseContentType' => ContentTypes::CONTENT_TYPE_TEXT_XML,
                 'expectedUrls' => [
                     'http://www.example.com/sitemap1.xml',
                     'http://www.example.com/sitemap2.xml',
@@ -87,7 +87,7 @@ class GetUrlsTest extends \PHPUnit\Framework\TestCase
             ],
             'sitemaps org xml index google.com v0.84' => [
                 'responseContent' => FixtureLoader::load('sitemap.index.google.com.0.84.xml'),
-                'responseContentType' => ContentTypes::CONTENT_TYPE_XML,
+                'responseContentType' => ContentTypes::CONTENT_TYPE_TEXT_XML,
                 'expectedUrls' => [
                     'http://www.example.com/sitemap1.xml',
                     'http://www.example.com/sitemap2.xml',
@@ -96,7 +96,7 @@ class GetUrlsTest extends \PHPUnit\Framework\TestCase
             ],
             'parent location urls only' => [
                 'responseContent' => FixtureLoader::load('sitemap.with-images.xml'),
-                'responseContentType' => ContentTypes::CONTENT_TYPE_XML,
+                'responseContentType' => ContentTypes::CONTENT_TYPE_TEXT_XML,
                 'expectedUrls' => [
                     'http://example.com/xml-with-images/1',
                     'http://example.com/xml-with-images/2',
